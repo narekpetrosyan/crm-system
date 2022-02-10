@@ -1,0 +1,30 @@
+@import "@styles/variables";
+
+.Sidebar{
+    box-shadow: 0 0 28px 0 rgb(82 63 105 / 8%);
+    grid-area: sidebar;
+    z-index: 3;
+    transition: 400ms;
+    width: var(--sidebar-size);
+    overflow: hidden;
+
+    .SidebarInner {
+        width: 100%;
+        height: 100%;
+        background-color: #222d32;
+
+        .SidebarHeader{
+            height: 50px;
+            background-color: $mid-blue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .SidebarHeaderLogoLink{
+                color: #fff;
+                font-size: 20px;
+                font-weight: 300;
+            }
+        }
+    }
+}

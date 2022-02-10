@@ -1,0 +1,19 @@
+.MainLayout {
+    overflow: hidden;
+    min-height: 100vh;
+    max-height: 100vh;
+    display: grid;
+    grid-template-areas: "sidebar header" "sidebar content" "sidebar content";
+    grid-template-columns: auto 1fr;
+    grid-template-rows: 50px 1fr;
+
+    .Content {
+        grid-area: content;
+        background: #ecf0f5;
+        position: relative;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+    }
+
+}

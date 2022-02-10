@@ -1,0 +1,44 @@
+@import "@styles/variables";
+
+.Button {
+    color: #fff;
+    max-width: var(--btn-size);
+    font-weight: 400;
+    width: 100%;
+    font-size: 14px;
+    border: 1px solid #204d74;
+    cursor: pointer;
+    transition: 300ms;
+    padding: 6px 12px;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &_primary {
+      background: rgba($primary, 0.8);
+      color:#fff;
+
+      * {
+        fill:#fff;
+      }
+    }
+
+    &_secondary {
+      background-color: $secondary;
+      border-color: $secondary;
+
+      * {
+        fill:#fff;
+      }
+    }
+  }

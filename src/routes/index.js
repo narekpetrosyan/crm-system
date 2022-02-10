@@ -1,0 +1,44 @@
+export const routes = [
+  {
+    path: '/users',
+    name: 'Users',
+    iconName: 'man-white',
+    title: 'Пользователи',
+  },
+  {
+    path: '/cities',
+    name: 'Cities',
+    iconName: 'factory-white',
+    title: 'Города',
+  },
+  {
+    path: '/contragents',
+    name: 'Contragents',
+    iconName: 'man-white',
+    title: 'Контрагенты',
+  },
+  {
+    path: '/calls',
+    name: 'Calls',
+    iconName: 'phone-white',
+    title: 'Звонки',
+  },
+  {
+    path: '/workers',
+    name: 'Workers',
+    iconName: 'man-white',
+    title: 'Работники',
+  },
+  {
+    path: '/orders',
+    name: 'Orders',
+    iconName: 'man-white',
+    title: 'Заказы',
+  },
+  {
+    path: '/analitics',
+    name: 'Analitics',
+    iconName: 'man-white',
+    title: 'Аналитика',
+  },
+];

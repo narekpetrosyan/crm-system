@@ -1,0 +1,29 @@
+.Icon {
+    display: inline-block;
+    min-width: calc(var(--icon-size) * 24px);
+    max-width: calc(var(--icon-size) * 24px);
+    height: calc(var(--icon-size) * 24px);
+    background: 50% 50% no-repeat;
+    vertical-align: middle;
+    background-size: contain;
+
+    span {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .IconColoreddark {
+        path {
+            fill: #3F4A56 !important;
+        }
+        }
+    }
+
+    * {
+        width: 100%;
+        fill: context-fill;
+        color: inherit;
+    }
+}

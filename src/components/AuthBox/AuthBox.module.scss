@@ -1,0 +1,26 @@
+@import "@styles/variables";
+
+.BoxWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    height: 100vh;
+    background-color: $background;
+    align-items: center;
+    justify-content: center;
+
+    .BoxWrapperLogo {
+        .BoxWrapperLogoLink{
+            color: #444;
+            font-size: 35px;
+            text-decoration: none;
+            font-weight: 300;
+        }
+    }
+
+    .BoxWrapperBlock{
+        background-color: $white;
+        padding: 20px;
+        width: 360px;
+    }
+}
