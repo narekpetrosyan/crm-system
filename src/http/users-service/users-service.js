@@ -5,8 +5,16 @@ export default class UsersService {
     return await $authHost.get('/users');
   }
 
+  async fetchPermissonsAndCities() {
+    return await $authHost.get('/permission-list');
+  }
+
   async getUserById(id) {
     return await $authHost.get(`/users/${id}`);
+  }
+
+  async createUser(data) {
+    return await $authHost.post(`/users/`, data);
   }
 
   async removeUser(id) {

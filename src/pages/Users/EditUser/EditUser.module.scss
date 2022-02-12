@@ -1,0 +1,40 @@
+@import "@styles/variables";
+
+.UsersInnerHeader{
+    padding: 10px 10px 20px 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f4f4f4;
+
+    h3{
+        font-size: 18px;
+        color: #444;
+        font-family: 'Source Sans Pro',sans-serif;
+    }
+}
+
+.UsersInnerBody{
+    height: 100%;
+    padding: 10px;
+
+    .FormInputs{
+        display: flex;
+        gap: 20px;
+    }
+
+    .FormPermissions{
+        display: flex;
+        flex-wrap: wrap;
+
+        .CheckboxItem{
+            font-size: 25px;
+        }
+    }
+}
+
+.UsersInnerSave{
+    background-color: $white;
+    margin-bottom: 10px;
+}
