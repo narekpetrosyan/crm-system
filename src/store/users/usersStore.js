@@ -58,10 +58,24 @@ export default class UsersStore {
 
   async createUser({ name, email, password, is_admin, permissions, city_id }) {
     try {
-      console.log(name, email, password, permissions, is_admin);
       const { data } = await this.authService.createUser({
         data: { name, email, password, permissions, is_admin, city_id },
       });
+      toast.success(data.message);
+      history.push('/users');
+    } catch (error) {
+      toast.error('Что то пошло не так.');
+    }
+  }
+
+  async saveUser({ name, email, password, permissions, is_admin, city_id }, userId) {
+    try {
+      const { data } = await this.authService.saveUser(
+        {
+          data: { name, email, password, permissions, is_admin, city_id },
+        },
+        userId,
+      );
       toast.success(data.message);
       history.push('/users');
     } catch (error) {

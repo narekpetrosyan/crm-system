@@ -1,5 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { createUserValidationSchema } from '@utils/validation/usersValidationSchema';
@@ -20,23 +20,30 @@ export const EditUser = observer(() => {
   useEffect(() => {
     usersStore.getUserById(id);
     usersStore.fetchPermissonsAndCities();
-  }, [id, usersStore]);
+  }, [id]);
 
   const form = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(createUserValidationSchema),
-    defaultValues: {
-      name: usersStore.user?.name,
-      email: usersStore.user?.email,
-      password: '',
-      permissions: [],
-      is_admin: false,
-      city_id: usersStore.user?.city_id,
-    },
+    defaultValues: useMemo(
+      () => ({
+        name: usersStore.user?.name,
+        email: usersStore.user?.email,
+        password: '',
+        permissions: [],
+        is_admin: false,
+        city_id: usersStore.user?.city_id,
+      }),
+      [usersStore.user],
+    ),
   });
 
+  useEffect(() => {
+    form.reset(usersStore.user);
+  }, [usersStore.user]);
+
   const submitForm = (data) => {
-    usersStore.createUser(data);
+    usersStore.saveUser(data, id);
     form.reset({}, { keepValues: false });
   };
 

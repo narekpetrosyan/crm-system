@@ -17,6 +17,10 @@ export default class UsersService {
     return await $authHost.post(`/users/`, data);
   }
 
+  async saveUser(data, userId) {
+    return await $authHost.put(`/users/${userId}`, data);
+  }
+
   async removeUser(id) {
     return await $authHost.delete(`/users/${id}`);
   }
