@@ -1,0 +1,15 @@
+@import "@styles/variables";
+
+.CitiesInnerBody{
+    padding: 10px;
+
+    .FormInputs{
+        display: flex;
+        gap: 20px;
+    }
+}
+
+.CitiesInnerSave{
+    background-color: $white;
+    margin-bottom: 10px;
+}

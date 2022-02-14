@@ -1,57 +1,48 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { AgGridReact, AgGridColumn } from 'ag-grid-react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
-import { Typography, Button } from '@mui/material';
-import { ScaleLoader } from 'react-spinners';
-import { useStore } from '../../../hooks/useStore';
-import { Icon } from '../../../components/Icon/Icon';
+import { useStore } from '@hooks/useStore';
+import { history } from '@utils/history/history';
+import PageHeading from '@components/PageHeading/PageHeading';
+import AgActionButtons from '@components/AgActionButtons/AgActionButtons';
+import Loader from '@components/Loader/Loader';
+import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 
 import styles from './MainUser.module.scss';
 
-// eslint-disable-next-line no-unused-vars
-const ButtonRend = ({ data }) => {
-  const navigate = useNavigate();
-  const { usersStore } = useStore();
-
-  return (
-    <>
-      <Button onClick={() => navigate(`/users/edit/${data.id}`)}>
-        <Icon name="edit" size={0.6} />
-      </Button>
-      <Button onClick={() => usersStore.removeUser(data.id)}>
-        <Icon name="trash" size={0.6} />
-      </Button>
-    </>
-  );
-};
-
 export const MainUser = observer(() => {
   const { usersStore } = useStore();
-  const navigate = useNavigate();
 
   useEffect(() => {
     usersStore.fetchUsers();
   }, []);
 
-  const usersData = usersStore.users?.map((item) => ({
-    id: item.id,
-    name: item.name,
-    email: item.email,
-    city: item.city,
-    is_admin: item.is_admin ? 'Да' : 'Нет',
-  }));
+  const usersData = useMemo(
+    () =>
+      usersStore.users?.map((item) => ({
+        id: item.id,
+        name: item.name,
+        email: item.email,
+        city: item.city,
+        is_admin: item.is_admin ? 'Да' : 'Нет',
+      })),
+    [usersStore.users],
+  );
+
+  const headingButtonAction = useCallback(() => history.push('/users/create'), []);
+  const pushHistory = useCallback((id) => history.push(`/users/edit/${id}`), []);
+  const removeUser = useCallback((id) => usersStore.removeUser(id), []);
 
   return (
-    <>
-      <div className={styles.UsersInnerHeader}>
-        <Typography variant="h3">Пользователи</Typography>
-        <Button onClick={() => navigate('/users/create')}>
-          <Icon name="edit" size={0.6} />
-          <span className={styles.ButtonSpan}>Добавить</span>
-        </Button>
-      </div>
+    <InnerLayout>
+      <PageHeading
+        title="Пользователи"
+        withButton
+        buttonTitle="Добавить"
+        iconName="edit"
+        buttonAction={headingButtonAction}
+      />
 
       <div className={clsx(styles.UsersInnerBody, 'ag-theme-alpine')}>
         {!usersStore.isLoading ? (
@@ -69,14 +60,18 @@ export const MainUser = observer(() => {
             <AgGridColumn field="email" headerName="Email" />
             <AgGridColumn field="city" headerName="Город" />
             <AgGridColumn field="is_admin" headerName="Администратор" />
-            <AgGridColumn field="actions" headerName="" cellRenderer={ButtonRend} />
+            <AgGridColumn
+              field="actions"
+              headerName=""
+              cellRenderer={({ data }) => (
+                <AgActionButtons data={data} editAction={pushHistory} removeAction={removeUser} />
+              )}
+            />
           </AgGridReact>
         ) : (
-          <div className={styles.Loader}>
-            <ScaleLoader size={150} color="#1976d2" />
-          </div>
+          <Loader />
         )}
       </div>
-    </>
+    </InnerLayout>
   );
 });

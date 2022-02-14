@@ -6,7 +6,10 @@ import { Icon } from '../../Icon/Icon';
 import styles from './TextInput.module.scss';
 
 export const TextInput = ({ type, name, label, id, withIcon = false, iconName }) => {
-  const { register, formState } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div className={styles.InputWrapper}>
@@ -22,8 +25,8 @@ export const TextInput = ({ type, name, label, id, withIcon = false, iconName })
         fullWidth
         id={id}
         label={label}
-        error={!!formState.errors[name]?.message}
-        helperText={formState.errors[name]?.message}
+        error={!!errors[name]?.message}
+        helperText={errors[name]?.message}
       />
       {withIcon && <Icon className={styles.InputIcon} name={iconName} size={0.8} />}
     </div>

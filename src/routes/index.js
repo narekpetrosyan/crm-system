@@ -12,7 +12,7 @@ export const routes = [
     title: 'Города',
   },
   {
-    path: '/contragents',
+    path: '/contr-agents',
     name: 'Contragents',
     iconName: 'man-white',
     title: 'Контрагенты',
