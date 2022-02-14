@@ -1,15 +1,17 @@
-import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useEffect, useMemo } from 'react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { createUserValidationSchema } from '@utils/validation/usersValidationSchema';
-import { Button, Typography } from '@mui/material';
-import { transformForSelect } from '@utils/helpers/transformForSelect';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '../../../hooks/useStore';
-import { TextInput } from '../../../components/Form/TextInput/TextInput';
-import { SelectInput } from '../../../components/Form/SelectInput/SelectInput';
-import { CheckboxLabel } from '../../../components/Form/CheckboxLabel/CheckboxLabel';
+import { Button } from '@mui/material';
+import InnerLayout from '@layouts/InnerLayout/InnerLayout';
+import { createUserValidationSchema } from '@utils/validation/usersValidationSchema';
+import { transformForSelect } from '@utils/helpers/transformForSelect';
+import { TextInput } from '@components/Form/TextInput/TextInput';
+import { SelectInput } from '@components/Form/SelectInput/SelectInput';
+import { CheckboxLabel } from '@components/Form/CheckboxLabel/CheckboxLabel';
+import PageHeading from '@components/PageHeading/PageHeading';
+import { useStore } from '@hooks/useStore';
 
 import styles from './EditUser.module.scss';
 
@@ -48,10 +50,8 @@ export const EditUser = observer(() => {
   };
 
   return (
-    <div>
-      <div className={styles.UsersInnerHeader}>
-        <Typography variant="h3">Редактирование пользователя!</Typography>
-      </div>
+    <InnerLayout>
+      <PageHeading title="Редактирование пользователя!" />
 
       <div className={styles.UsersInnerBody}>
         {!usersStore.isLoading && (
@@ -88,6 +88,6 @@ export const EditUser = observer(() => {
       <div className={styles.UsersInnerSave}>
         <Button onClick={form.handleSubmit(submitForm)}>Сохранить</Button>
       </div>
-    </div>
+    </InnerLayout>
   );
 });

@@ -50,6 +50,9 @@
         "no-return-await": "off",
         "no-useless-catch": "off",
         "no-param-reassign": "off",
-        "camelcase": "off"
+        "camelcase": "off",
+        "no-shadow": "off",
+        "import/order": "off",
+        "react/no-unstable-nested-components": "off"
     }
 }

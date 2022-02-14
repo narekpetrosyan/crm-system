@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { observer } from 'mobx-react-lite';
 import { transformForSelect } from '@utils/helpers/transformForSelect';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createUserValidationSchema } from '@utils/validation/usersValidationSchema';
-import { useStore } from '../../../hooks/useStore';
-import { TextInput } from '../../../components/Form/TextInput/TextInput';
-import { SelectInput } from '../../../components/Form/SelectInput/SelectInput';
-import { CheckboxLabel } from '../../../components/Form/CheckboxLabel/CheckboxLabel';
+import { useStore } from '@hooks/useStore';
+import { TextInput } from '@components/Form/TextInput/TextInput';
+import { SelectInput } from '@components/Form/SelectInput/SelectInput';
+import { CheckboxLabel } from '@components/Form/CheckboxLabel/CheckboxLabel';
+import PageHeading from '@components/PageHeading/PageHeading';
+import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 
 import styles from './CreateUser.module.scss';
 
@@ -37,10 +39,8 @@ export const CreateUser = observer(() => {
   };
 
   return (
-    <div>
-      <div className={styles.UsersInnerHeader}>
-        <Typography variant="h3">Редактирование пользователя!</Typography>
-      </div>
+    <InnerLayout>
+      <PageHeading title="Редактирование пользователя!" />
 
       <div className={styles.UsersInnerBody}>
         {!usersStore.isLoading && (
@@ -77,6 +77,6 @@ export const CreateUser = observer(() => {
       <div className={styles.UsersInnerSave}>
         <Button onClick={form.handleSubmit(submitForm)}>Сохранить</Button>
       </div>
-    </div>
+    </InnerLayout>
   );
 });

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useStore } from '../../hooks/useStore';
 import { Icon } from '../Icon/Icon';
 
@@ -13,14 +13,18 @@ export const LinkItem = observer(({ title, iconName, path }) => {
   return (
     <div className={styles.LinkItem}>
       {!expanded ? (
-        <Link to={path} className={styles.WhenExpanded}>
+        <NavLink to={path} className={styles.WhenExpanded} activeClassName={styles.LinkItemActive}>
           <Icon name={iconName} size={0.8} />
-        </Link>
+        </NavLink>
       ) : (
-        <Link to={path} className={styles.WhenNotExpanded}>
+        <NavLink
+          to={path}
+          className={styles.WhenNotExpanded}
+          activeClassName={styles.LinkItemActive}
+        >
           <Icon name={iconName} size={0.8} />
           <p>{title}</p>
-        </Link>
+        </NavLink>
       )}
     </div>
   );

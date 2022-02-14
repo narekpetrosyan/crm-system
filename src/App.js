@@ -1,90 +1,34 @@
-import { Routes, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { Login } from './pages/Auth/Login';
-import { Register } from './pages/Auth/Register';
-import { Forget } from './pages/Auth/Forget';
-import { NotFound } from './pages/NotFound/NotFound';
-import { Main } from './pages/Main/Main';
+import { useStore } from '@hooks/useStore';
 import { AuthRoute } from './components/AuthRoute/AuthRoute';
-import { MainLayout } from './layouts/MainLayout/MainLayout';
-import { Users } from './pages/Users/Users';
-import { CreateUser } from './pages/Users/CreateUser/CreateUser';
-import { EditUser } from './pages/Users/EditUser/EditUser';
-import { MainUser } from './pages/Users/MainUser/MainUser';
+import MainLayout from './layouts/MainLayout/MainLayout';
+import Authentication from './pages/Auth/Authentication';
+import NotFound from './pages/NotFound/NotFound';
 
-export const App = observer(() => {
+const App = observer(() => {
+  const { authStore } = useStore();
+
   return (
-    <Routes>
-      <Route
-        path="/login"
-        element={
-          <AuthRoute type="unauthorized">
-            <Login />
-          </AuthRoute>
-        }
+    <Switch>
+      <Route exact path="/" render={() => <Redirect to="/users" />} />
+
+      <AuthRoute
+        isAuth={authStore.isAuth}
+        type="unauthorized"
+        path={['/login', '/register', '/forget']}
+        routeComponent={Authentication}
       />
-      <Route
-        path="/register"
-        element={
-          <AuthRoute type="unauthorized">
-            <Register />
-          </AuthRoute>
-        }
-      />
-      <Route
-        path="/forget"
-        element={
-          <AuthRoute type="unauthorized">
-            <Forget />
-          </AuthRoute>
-        }
+      <AuthRoute
+        isAuth={authStore.isAuth}
+        type="authorized"
+        path={['/users', '/cities', '/contr-agents', '/calls']}
+        routeComponent={MainLayout}
       />
 
-      <Route element={<MainLayout />}>
-        <Route
-          path="/"
-          element={
-            <AuthRoute type="authorized">
-              <Main />
-            </AuthRoute>
-          }
-        />
-        <Route path="/users" element={<Users />}>
-          <Route
-            index
-            element={
-              <AuthRoute type="authorized">
-                <MainUser />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="create"
-            element={
-              <AuthRoute type="authorized">
-                <CreateUser />
-              </AuthRoute>
-            }
-          />
-          <Route
-            path="edit/:id"
-            element={
-              <AuthRoute type="authorized">
-                <EditUser />
-              </AuthRoute>
-            }
-          />
-        </Route>
-      </Route>
-
-      <Route
-        path="*"
-        element={
-          <AuthRoute type="unauthorized">
-            <NotFound />
-          </AuthRoute>
-        }
-      />
-    </Routes>
+      <Route exact path="*" component={NotFound} />
+    </Switch>
   );
 });
+
+export default App;

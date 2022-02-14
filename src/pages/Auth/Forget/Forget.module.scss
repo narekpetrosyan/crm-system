@@ -1,0 +1,48 @@
+@import '@styles/variables';
+
+.ForgetWrapper {
+    display: flex;
+    flex-direction: column;
+
+    .Heading {
+        text-align: center;
+        color: $text-heading;
+        font-weight: 400;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .FormWrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .ButtonCheckbox{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1;
+        gap: 60px;
+        margin-top: 10px;
+
+        .SubmitButton{
+            flex: 1;
+        }
+    }
+
+    .BottomLinks{
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+
+        a{
+            text-decoration: none;
+            color: $mid-blue2;
+            font-weight: 400;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+    }
+}

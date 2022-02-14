@@ -18,11 +18,10 @@ export default class AuthStore {
     this.isLoading = true;
     try {
       const { data } = await this.authService.login(email, password);
-
-      this.isAuth = true;
       localStorage.setItem('isAuth', JSON.stringify(true));
       localStorage.setItem('token', data.token);
-      history.push('/dashboard');
+      this.isAuth = true;
+      history.push('/');
     } catch (error) {
       if (error.response.data.errors && Object.keys(error.response.data.errors).length) {
         Object.values(error.response.data.errors).forEach((item) => {
@@ -49,7 +48,7 @@ export default class AuthStore {
       this.isAuth = true;
       localStorage.setItem('isAuth', JSON.stringify(true));
       localStorage.setItem('token', data.token);
-      history.push('/dashboard');
+      history.push('/');
     } catch (error) {
       if (error.response.data.errors && Object.keys(error.response.data.errors).length) {
         Object.values(error.response.data.errors).forEach((item) => {

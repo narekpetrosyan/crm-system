@@ -1,17 +1,19 @@
-import { observer } from 'mobx-react-lite';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 
-export const AuthRoute = observer(({ children, type }) => {
-  const isAuth = JSON.parse(localStorage.getItem('isAuth'));
-  const location = useLocation();
-
+export const AuthRoute = ({ isAuth, type, path, routeComponent, ...props }) => {
   if (type === 'authorized') {
-    return isAuth ? children : <Navigate to="/login" state={{ from: location }} />;
+    if (!isAuth) {
+      return <Route {...props} render={() => <Redirect to="/login" />} />;
+    }
+    return <Route component={routeComponent} {...props} />;
   }
 
   if (type === 'unauthorized') {
-    return !isAuth ? children : <Navigate to="/" />;
+    if (isAuth) {
+      return <Route {...props} render={() => <Redirect to="/" />} />;
+    }
+    return <Route component={routeComponent} {...props} />;
   }
 
   return null;
-});
+};
