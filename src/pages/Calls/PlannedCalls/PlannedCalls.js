@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import clsx from 'clsx';
-import InnerLayout from '@ayouts/InnerLayout/InnerLayout';
+import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import PageHeading from '@components/PageHeading/PageHeading';
 import AgActionButtons from '@components/AgActionButtons/AgActionButtons';
 import { history } from '@utils/history/history';

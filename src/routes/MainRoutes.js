@@ -35,6 +35,14 @@ const PlannedCalls = React.lazy(() => import('../pages/Calls/PlannedCalls/Planne
 const CreateCall = React.lazy(() => import('../pages/Calls/CreateCall/CreateCall'));
 const EditCall = React.lazy(() => import('../pages/Calls/EditCall/EditCall'));
 
+const MainWorkers = React.lazy(() => import('../pages/Workers/MainWorkers/MainWorkers'));
+const CreateWorker = React.lazy(() => import('../pages/Workers/CreateWorker/CreateWorker'));
+const EditWorker = React.lazy(() => import('../pages/Workers/EditWorker/EditWorker'));
+
+const MainOrders = React.lazy(() => import('../pages/Orders/MainOrders/MainOrders'));
+const CreateOrder = React.lazy(() => import('../pages/Orders/CreateOrder/CreateOrder'));
+const EditOrder = React.lazy(() => import('../pages/Orders/EditOrder/EditOrder'));
+
 const mainRoutes = {
   users: {
     exact: true,
@@ -51,6 +59,7 @@ const mainRoutes = {
     pathName: '/users/edit/:id',
     element: EditUser,
   },
+
   cities: {
     exact: true,
     pathName: '/cities',
@@ -66,6 +75,7 @@ const mainRoutes = {
     pathName: '/cities/edit/:id',
     element: EditCity,
   },
+
   contrAgents: {
     exact: true,
     pathName: '/contr-agents',
@@ -81,6 +91,7 @@ const mainRoutes = {
     pathName: '/contr-agents/edit/:id',
     element: EditContrAgent,
   },
+
   calls: {
     exact: true,
     pathName: '/calls',
@@ -100,6 +111,38 @@ const mainRoutes = {
     exact: false,
     pathName: '/call/edit/:id',
     element: EditCall,
+  },
+
+  workers: {
+    exact: true,
+    pathName: '/workers',
+    element: MainWorkers,
+  },
+  createWorker: {
+    exact: false,
+    pathName: '/workers/create',
+    element: CreateWorker,
+  },
+  editWorker: {
+    exact: false,
+    pathName: '/workers/edit/:id',
+    element: EditWorker,
+  },
+
+  orders: {
+    exact: true,
+    pathName: '/orders',
+    element: MainOrders,
+  },
+  createOrder: {
+    exact: false,
+    pathName: '/orders/create',
+    element: CreateOrder,
+  },
+  editOrder: {
+    exact: false,
+    pathName: '/orders/edit/:id',
+    element: EditOrder,
   },
 };
 

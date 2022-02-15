@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useCallback } from 'react';
 import { AgGridReact, AgGridColumn } from 'ag-grid-react';
 import clsx from 'clsx';
 import { observer } from 'mobx-react-lite';
@@ -18,9 +18,9 @@ const MainCities = observer(() => {
     citiesStore.fetchCities();
   }, []);
 
-  const headingButtonAction = () => history.push('/cities/create');
-  const pushHistory = (id) => history.push(`/cities/edit/${id}`);
-  const removeCity = (id) => citiesStore.removeCity(id);
+  const headingButtonAction = useCallback(() => history.push('/cities/create'), []);
+  const pushHistory = useCallback((id) => history.push(`/cities/edit/${id}`), []);
+  const removeCity = useCallback((id) => citiesStore.removeCity(id), []);
 
   return (
     <InnerLayout>
