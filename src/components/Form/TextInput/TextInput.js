@@ -1,6 +1,6 @@
 import React from 'react';
-import { TextField } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
+import { TextField } from '@mui/material';
 import { Icon } from '../../Icon/Icon';
 
 import styles from './TextInput.module.scss';

@@ -1,37 +1,35 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
-import clsx from 'clsx';
+import React, { useCallback, useEffect, useMemo, memo } from 'react';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import PageHeading from '@components/PageHeading/PageHeading';
-import AgActionButtons from '@components/AgActionButtons/AgActionButtons';
 import { history } from '@utils/history/history';
 import { useStore } from '@hooks/useStore';
-import Loader from '@components/Loader/Loader';
-
-import styles from './PlannedCalls.module.scss';
+import Table from '@components/Table/Table';
+import { getTableColumns } from '../MainCalls/helpers/getTableColumns';
+import { convertTableData } from '../MainCalls/helpers/convertTableData';
 
 const PlannedCalls = () => {
   const { callsStore } = useStore();
 
   useEffect(() => {
-    callsStore.fetchPlannedCalls();
+    if (!callsStore.plannedCalls.length) {
+      callsStore.fetchPlannedCalls();
+    }
   }, []);
 
-  const callsData = useMemo(
-    () =>
-      callsStore.plannedCalls?.map((item) => ({
-        id: item.id,
-        contragent: item.contragent?.name,
-        contact: item.contact?.name,
-        time: item.time,
-        is_finished: item.is_finished === 1 ? '+' : '-',
-      })),
-    [callsStore.plannedCalls],
+  const headingButtonAction = useCallback(() => history.push('/calls'), []);
+
+  const cellRendererProps = useMemo(
+    () => ({
+      pushAction: (id) => console.log(id),
+      removeAction: (id) => console.log(id),
+    }),
+    [],
   );
 
-  const headingButtonAction = useCallback(() => history.push('/calls'), []);
-  const pushHistory = useCallback((id) => console.log(id), []);
-  const removePlannedCall = useCallback((id) => console.log(id), []);
+  const callsData = useMemo(
+    () => convertTableData(callsStore.plannedCalls),
+    [callsStore.plannedCalls],
+  );
 
   return (
     <InnerLayout>
@@ -42,41 +40,15 @@ const PlannedCalls = () => {
         iconName="refresh"
         buttonAction={headingButtonAction}
       />
-      <div className={clsx(styles.PlannedCallsInnerBody, 'ag-theme-alpine')}>
-        {!callsStore.isLoading ? (
-          <AgGridReact
-            rowSelection="single"
-            defaultColDef={{
-              flex: 1,
-              sortable: true,
-              suppressMovable: true,
-              cellStyle: { fontSize: '12px', fontWeight: '600' },
-            }}
-            rowData={callsData}
-          >
-            <AgGridColumn field="id" headerName="ID" hide />
-            <AgGridColumn field="contragent" headerName="Контрагент" />
-            <AgGridColumn field="contact" headerName="Контакт" />
-            <AgGridColumn field="time" headerName="Время" maxWidth={140} />
-            <AgGridColumn field="is_finished" headerName="Выполнен" maxWidth={100} />
-            <AgGridColumn
-              field="actions"
-              headerName=""
-              cellRenderer={({ data }) => (
-                <AgActionButtons
-                  data={data}
-                  editAction={pushHistory}
-                  removeAction={removePlannedCall}
-                />
-              )}
-            />
-          </AgGridReact>
-        ) : (
-          <Loader />
-        )}
-      </div>
+
+      <Table
+        isLoading={callsStore.isLoading}
+        rowData={callsData}
+        columns={getTableColumns}
+        cellRendererProps={cellRendererProps}
+      />
     </InnerLayout>
   );
 };
 
-export default PlannedCalls;
+export default memo(PlannedCalls);

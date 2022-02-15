@@ -36,8 +36,8 @@ export const routes = [
     title: 'Заказы',
   },
   {
-    path: '/analitics',
-    name: 'Analitics',
+    path: '/analytics',
+    name: 'Analytics',
     iconName: 'man-white',
     title: 'Аналитика',
   },

@@ -109,7 +109,7 @@ const mainRoutes = {
   },
   editCall: {
     exact: false,
-    pathName: '/call/edit/:id',
+    pathName: '/calls/edit/:id',
     element: EditCall,
   },
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 
 const EditCall = () => {
@@ -9,4 +9,4 @@ const EditCall = () => {
   );
 };
 
-export default EditCall;
+export default memo(EditCall);

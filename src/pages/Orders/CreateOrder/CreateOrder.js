@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 
 const CreateOrder = () => {
@@ -9,4 +9,4 @@ const CreateOrder = () => {
   );
 };
 
-export default CreateOrder;
+export default memo(CreateOrder);

@@ -34,6 +34,7 @@ export default class CitiesStore {
       });
       toast.success(data.message);
       history.push('/cities');
+      await this.fetchCities();
     } catch (error) {
       toast.error('Что то пошло не так.');
     }

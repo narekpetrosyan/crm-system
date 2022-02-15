@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Button, Typography } from '@mui/material';
 import { Icon } from '../Icon/Icon';
 
@@ -36,4 +36,4 @@ const PageHeading = ({
   );
 };
 
-export default PageHeading;
+export default memo(PageHeading);
