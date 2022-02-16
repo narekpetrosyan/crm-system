@@ -1,11 +1,12 @@
 import React, { useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import clsx from 'clsx';
 import Select from 'react-select';
 import { FormHelperText } from '@mui/material';
+import { useFormContext } from 'react-hook-form';
 
 import styles from './SelectInput.module.scss';
 
-export const SelectInput = ({ name, options }) => {
+export const SelectInput = ({ name, options, label, className }) => {
   const { register, setValue, formState, getValues } = useFormContext();
 
   const defaultSelected = useMemo(
@@ -14,7 +15,7 @@ export const SelectInput = ({ name, options }) => {
   );
 
   return (
-    <div className={styles.SelectInputWrapper}>
+    <div className={clsx(styles.SelectInputWrapper, className)}>
       <Select
         styles={{
           control: (base) => ({
@@ -29,7 +30,7 @@ export const SelectInput = ({ name, options }) => {
         options={options}
         {...register(name)}
         onChange={(val) => setValue(name, val.value)}
-        placeholder="Город"
+        placeholder={label}
         defaultValue={defaultSelected}
       />
       {formState.errors[name]?.message && (

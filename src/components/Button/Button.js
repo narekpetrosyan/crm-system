@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { memo } from 'react';
 import clsx from 'clsx';
 
 import styles from './Button.module.scss';
 
-export const Button = ({ children, disabled = false, clickHandler, color, className }) => {
-  return (
-    <button
-      className={clsx(styles.Button, styles[`Button_${color}`], className)}
-      type="submit"
-      onClick={clickHandler}
-      disabled={disabled}
-    >
-      {children}
-    </button>
-  );
-};
+export const Button = memo(
+  ({ children, disabled = false, clickHandler, color = 'common', className, size }) => {
+    return (
+      <button
+        className={clsx(styles.Button, styles[`Button_${color}`], className)}
+        style={{ '--btn-size': size ? `${size}px` : '100%' }}
+        type="submit"
+        onClick={clickHandler}
+        disabled={disabled}
+      >
+        {children}
+      </button>
+    );
+  },
+);

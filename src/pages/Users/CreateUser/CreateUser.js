@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Button } from '@mui/material';
+import React, { useEffect, memo } from 'react';
+import { Button } from '@components/Button/Button';
 import { FormProvider, useForm } from 'react-hook-form';
 import { observer } from 'mobx-react-lite';
 import { transformForSelect } from '@utils/helpers/transformForSelect';
@@ -14,7 +14,7 @@ import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 
 import styles from './CreateUser.module.scss';
 
-export const CreateUser = observer(() => {
+const CreateUser = observer(() => {
   const { usersStore } = useStore();
   const form = useForm({
     mode: 'onSubmit',
@@ -75,8 +75,12 @@ export const CreateUser = observer(() => {
       </div>
 
       <div className={styles.UsersInnerSave}>
-        <Button onClick={form.handleSubmit(submitForm)}>Сохранить</Button>
+        <Button clickHandler={form.handleSubmit(submitForm)} size={150}>
+          Сохранить
+        </Button>
       </div>
     </InnerLayout>
   );
 });
+
+export default memo(CreateUser);

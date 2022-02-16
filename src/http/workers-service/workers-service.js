@@ -15,4 +15,13 @@ export default class WorkersService {
       },
     );
   }
+
+  async searchFilter(data) {
+    return await $authHost.get(`/workers`, {
+      params: {
+        search_query: data.name,
+        status: data.status,
+      },
+    });
+  }
 }

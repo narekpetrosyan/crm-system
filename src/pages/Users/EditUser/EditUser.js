@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, memo } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { Button } from '@mui/material';
+import { Button } from '@components/Button/Button';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import { createUserValidationSchema } from '@utils/validation/usersValidationSchema';
 import { transformForSelect } from '@utils/helpers/transformForSelect';
@@ -15,7 +15,7 @@ import { useStore } from '@hooks/useStore';
 
 import styles from './EditUser.module.scss';
 
-export const EditUser = observer(() => {
+const EditUser = observer(() => {
   const { id } = useParams();
   const { usersStore } = useStore();
 
@@ -86,8 +86,12 @@ export const EditUser = observer(() => {
       </div>
 
       <div className={styles.UsersInnerSave}>
-        <Button onClick={form.handleSubmit(submitForm)}>Сохранить</Button>
+        <Button clickHandler={form.handleSubmit(submitForm)} size={150}>
+          Сохранить
+        </Button>
       </div>
     </InnerLayout>
   );
 });
+
+export default memo(EditUser);

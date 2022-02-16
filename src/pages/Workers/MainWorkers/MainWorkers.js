@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
-import Table from '@components/Table/Table';
 import { useStore } from '@hooks/useStore';
-import InnerLayout from '@layouts/InnerLayout/InnerLayout';
+import Table from '@components/Table/Table';
 import PageHeading from '@components/PageHeading/PageHeading';
+import FilterBlock from '@components/FilterBlock/FilterBlock';
+import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import { history } from '@utils/history/history';
 import { getTableColumns } from './helpers/getTableColumns';
 import { convertTableData } from './helpers/convertTableData';
@@ -12,12 +13,12 @@ const MainWorkers = observer(() => {
   const { workersStore } = useStore();
 
   useEffect(() => {
-    if (!workersStore.workers.length) {
-      workersStore.fetchWorkers();
-    }
+    workersStore.fetchWorkers();
   }, []);
 
   const headingButtonAction = useCallback(() => history.push('/workers/create'), []);
+  const searchFilter = useCallback((data) => workersStore.searchFilter(data), []);
+  const resetFilter = useCallback(() => workersStore.fetchWorkers(), []);
 
   const cellRendererProps = useMemo(
     () => ({
@@ -40,6 +41,14 @@ const MainWorkers = observer(() => {
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
+      />
+
+      <FilterBlock
+        selectOptions={workersStore.statuses}
+        submitAction={searchFilter}
+        resetAction={resetFilter}
+        searchLabel="Поиск по ФИО или номеру телефона"
+        selectLabel="Статус"
       />
 
       <Table

@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { Button } from '@mui/material';
+import { Button } from '@components/Button/Button';
 import { Icon } from '../Icon/Icon';
 
 import styles from './AgActionButtons.module.scss';
@@ -13,37 +13,19 @@ const AgActionButtons = ({
   thirdIconName = 'delete',
 }) => {
   return (
-    <>
+    <div className={styles.AgActionButtonsWrapper}>
       {withThirdButton && (
-        <Button
-          onClick={() => thirdAction(data.id)}
-          size="small"
-          classes={{
-            root: styles.Button,
-          }}
-        >
+        <Button clickHandler={() => thirdAction(data.id)} size={25}>
           <Icon name={thirdIconName} size={0.6} />
         </Button>
       )}
-      <Button
-        onClick={() => editAction(data.id)}
-        size="small"
-        classes={{
-          root: styles.Button,
-        }}
-      >
+      <Button clickHandler={() => editAction(data.id)} size={25}>
         <Icon name="edit" size={0.6} />
       </Button>
-      <Button
-        onClick={() => removeAction(data.id)}
-        size="small"
-        classes={{
-          root: styles.Button,
-        }}
-      >
+      <Button clickHandler={() => removeAction(data.id)} size={25}>
         <Icon name="trash" size={0.6} />
       </Button>
-    </>
+    </div>
   );
 };
 

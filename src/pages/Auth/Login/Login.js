@@ -1,14 +1,14 @@
 import React from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
+import { FormProvider, useForm } from 'react-hook-form';
 import { loginValidationSchema } from '@utils/validation/authValidationSchema';
 import { observer } from 'mobx-react-lite';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 import { Button } from '@components/Button/Button';
 import { CheckboxLabel } from '@components/Form/CheckboxLabel/CheckboxLabel';
 import { useStore } from '@hooks/useStore';
-import { FormProvider, useForm } from 'react-hook-form';
+import Heading from '@components/Heading/Heading';
 
 import styles from './Login.module.scss';
 
@@ -32,9 +32,7 @@ const Login = observer(() => {
 
   return (
     <div className={styles.LoginWrapper}>
-      <Typography className={styles.Heading} variant="inherit">
-        Sign in to start your session
-      </Typography>
+      <Heading className={styles.Heading}>Sign in to start your session</Heading>
 
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(submitForm)}>

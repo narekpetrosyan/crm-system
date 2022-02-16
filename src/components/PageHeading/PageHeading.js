@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@components/Button/Button';
+import Heading from '../Heading/Heading';
 import { Icon } from '../Icon/Icon';
 
 import styles from './PageHeading.module.scss';
@@ -17,16 +18,16 @@ const PageHeading = ({
 }) => {
   return (
     <div className={styles.HeaderWrapper}>
-      <Typography variant="h3">{title}</Typography>
+      <Heading variant="h3">{title}</Heading>
       {withButton && (
-        <div>
+        <div className={styles.ButtonContainer}>
           {insertButton && (
-            <Button onClick={insertButtonAction}>
+            <Button clickHandler={insertButtonAction}>
               <Icon name={insertButtonIconName} size={0.6} />
               <span className={styles.ButtonSpan}>{insertButtonTitle}</span>
             </Button>
           )}
-          <Button onClick={buttonAction}>
+          <Button clickHandler={buttonAction}>
             <Icon name={iconName} size={0.6} />
             <span className={styles.ButtonSpan}>{buttonTitle}</span>
           </Button>

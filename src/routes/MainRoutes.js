@@ -1,20 +1,8 @@
 import React from 'react';
 
-const MainUser = React.lazy(() =>
-  import('../pages/Users/MainUser/MainUser').then(({ MainUser }) => ({
-    default: MainUser,
-  })),
-);
-const CreateUser = React.lazy(() =>
-  import('../pages/Users/CreateUser/CreateUser').then(({ CreateUser }) => ({
-    default: CreateUser,
-  })),
-);
-const EditUser = React.lazy(() =>
-  import('../pages/Users/EditUser/EditUser').then(({ EditUser }) => ({
-    default: EditUser,
-  })),
-);
+const MainUser = React.lazy(() => import('../pages/Users/MainUser/MainUser'));
+const CreateUser = React.lazy(() => import('../pages/Users/CreateUser/CreateUser'));
+const EditUser = React.lazy(() => import('../pages/Users/EditUser/EditUser'));
 
 const MainCities = React.lazy(() => import('../pages/Cities/MainCities/MainCities'));
 const CreateCity = React.lazy(() => import('../pages/Cities/CreateCity/CreateCity'));

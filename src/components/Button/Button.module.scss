@@ -1,23 +1,32 @@
 @import "@styles/variables";
+@import "@styles/mixins";
 
 .Button {
-    color: #fff;
-    max-width: var(--btn-size);
-    font-weight: 400;
-    width: 100%;
-    font-size: 14px;
-    border: 1px solid #204d74;
+    //max-width: var(--btn-size);
+    width: var(--btn-size);
     cursor: pointer;
     transition: 300ms;
-    padding: 6px 12px;
-
-    &:hover {
-      opacity: 0.8;
+    padding: 8px 12px;
+    @include font-style(14px,400,#1976d2);
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    
+    &_common {
+      &:hover {
+        background-color: rgba(25, 118, 210, 0.04);
+      }
+  
+      &:focus {
+        outline: 0;
+        background-color: rgba(25, 118, 210, 0.04);
+      }
     }
 
-    &:focus {
-      outline: 0;
-    }
+    
 
     &:disabled {
       opacity: 0.5;
@@ -25,11 +34,16 @@
     }
 
     &_primary {
-      background: rgba($primary, 0.8);
-      color:#fff;
+      background: $primary;
+      opacity: 0.8;
+      color: $white;
 
       * {
-        fill:#fff;
+        fill: $white;
+      }
+      
+      &:hover {
+        opacity: 1;
       }
     }
 
@@ -39,6 +53,24 @@
 
       * {
         fill:#fff;
+      }
+      
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+    
+    &_warning {
+      background: $warn;
+      color: $white;
+      opacity: 0.8;
+
+      * {
+        fill: $white;
+      }
+      
+      &:hover {
+        opacity: 1;
       }
     }
   }

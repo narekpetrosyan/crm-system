@@ -1,10 +1,10 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
+import Heading from '@components/Heading/Heading';
 import { Button } from '@components/Button/Button';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 
-import { Link } from 'react-router-dom';
 import styles from './Forget.module.scss';
 
 const Forget = () => {
@@ -24,9 +24,7 @@ const Forget = () => {
   };
   return (
     <div className={styles.ForgetWrapper}>
-      <Typography className={styles.Heading} variant="inherit">
-        Reset Password
-      </Typography>
+      <Heading className={styles.Heading}>Reset Password</Heading>
 
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(submitForm)}>

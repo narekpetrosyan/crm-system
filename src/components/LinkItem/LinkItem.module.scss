@@ -1,3 +1,5 @@
+@import "@styles/mixins";
+
 .LinkItem{
 
     .WhenExpanded{
@@ -21,10 +23,8 @@
         padding: 12px 5px 12px 15px;
         gap: 5px;
         text-decoration: none;
-        color: #b8c7ce;
         transition: 300ms;
-        font-size: 14px;
-        font-weight: 400;
+        @include font-style(14px,400,#b8c7ce);
 
         &:hover {
             color: #fff;

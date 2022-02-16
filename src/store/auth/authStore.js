@@ -66,9 +66,10 @@ export default class AuthStore {
     this.isLoading = true;
     try {
       await this.authService.logout();
-      localStorage.setItem('isAuth', JSON.stringify(false));
+      this.isAuth = false;
+      localStorage.removeItem('isAuth');
       localStorage.removeItem('token');
-      history.push('/');
+      history.push('/login');
     } catch (error) {
       console.log(error);
     } finally {

@@ -1,4 +1,5 @@
 @import '@styles/variables';
+@import '@styles/mixins';
 
 .LoginWrapper {
     display: flex;
@@ -6,9 +7,7 @@
 
     .Heading {
         text-align: center;
-        color: $text-heading;
-        font-weight: 400;
-        font-size: 14px;
+        @include font-style(14px,400,$text-heading);
         margin-bottom: 20px;
     }
 
@@ -39,10 +38,8 @@
 
         a{
             text-decoration: none;
-            color: $mid-blue2;
-            font-weight: 400;
-            font-size: 14px;
             margin-bottom: 10px;
+            @include font-style(14px,400,$mid-blue2);
         }
     }
 }

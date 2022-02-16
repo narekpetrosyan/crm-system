@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from '@components/Icon/Icon';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@components/Button/Button';
 
 import styles from './Header.module.scss';
 
@@ -8,17 +8,12 @@ export const Header = ({ logoutHandler, showMenu }) => {
   return (
     <div className={styles.Header}>
       <div className={styles.InnerHeader}>
-        <IconButton onClick={showMenu}>
+        <Button clickHandler={showMenu} size={60}>
           <Icon name="menu" size={0.8} />
-        </IconButton>
+        </Button>
 
-        <Button
-          variant="outlined"
-          color="inherit"
-          className={styles.LogoutButton}
-          startIcon={<Icon name="turn-off" size={0.6} />}
-          onClick={logoutHandler}
-        >
+        <Button className={styles.LogoutButton} clickHandler={logoutHandler} size={120}>
+          <Icon name="turn-off" size={0.7} />
           Log out
         </Button>
       </div>
