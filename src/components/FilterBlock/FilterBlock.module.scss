@@ -1,0 +1,40 @@
+.FilterBlockWrapper{
+  display: flex;
+  flex-direction: row;
+  padding: 25px 10px;
+  
+  form {
+    width: 100%;
+  }
+  
+  .FormWrapper{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    
+    .FormInputs{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      flex: 0.7;
+      gap: 10px;
+      
+      .SearchInput{
+        flex: 1;
+      }
+      
+      .SearchSelect {
+        flex: 0.5;
+      }
+    }
+    
+    .FormButtons{
+      display: flex;
+      flex-direction: row;
+      gap: 10px;
+    }
+  }
+}

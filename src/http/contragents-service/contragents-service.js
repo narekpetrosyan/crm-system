@@ -19,4 +19,13 @@ export default class ContrAgentsService {
   async removeContrAgent(id) {
     return await $authHost.delete(`/contr-agents/${id}`);
   }
+
+  async searchFilter(data) {
+    return await $authHost.get(`/contr-agents`, {
+      params: {
+        search_query: data.name,
+        status: data.status,
+      },
+    });
+  }
 }

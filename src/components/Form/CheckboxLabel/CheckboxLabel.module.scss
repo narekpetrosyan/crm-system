@@ -1,5 +1,5 @@
+@import "@styles/mixins";
+
 .CheckboxLabel{
-    color: #666;
-    font-size: var(--f-size) !important;
-    font-weight: 400;
+    @include font-style(var(--f-size),400,#666);
 }

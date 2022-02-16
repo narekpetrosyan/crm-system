@@ -1,5 +1,4 @@
 import React from 'react';
-import { Typography } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,6 +7,7 @@ import { observer } from 'mobx-react-lite';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 import { Button } from '@components/Button/Button';
 import { useStore } from '@hooks/useStore';
+import Heading from '@components/Heading/Heading';
 
 import styles from './Register.module.scss';
 
@@ -34,9 +34,7 @@ const Register = observer(() => {
 
   return (
     <div className={styles.RegisterWrapper}>
-      <Typography className={styles.Heading} variant="inherit">
-        Register a new membership
-      </Typography>
+      <Heading className={styles.Heading}>Register a new membership</Heading>
 
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(submitForm)}>

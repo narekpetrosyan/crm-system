@@ -1,4 +1,5 @@
 @import "@styles/variables";
+@import "@styles/mixins";
 
 .Header {
     grid-area: header;
@@ -19,10 +20,9 @@
         width: 100%;
 
         .LogoutButton{
-            font-size: 14px;
-            color: $white;
             border: none;
-            font-weight: 400;
+            @include font-style(14px,400,$white);
+            gap: 10px;
         }
     }
 }

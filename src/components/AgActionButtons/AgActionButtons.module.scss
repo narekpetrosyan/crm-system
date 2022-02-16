@@ -1,4 +1,5 @@
-.Button{
-  max-width: 25px;
-  min-width: 25px;
+.AgActionButtonsWrapper{
+  display: flex; 
+  flex-direction: row; 
+  gap: 5px;
 }

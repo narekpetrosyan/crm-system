@@ -4,15 +4,16 @@ import { TextField } from '@mui/material';
 import { Icon } from '../../Icon/Icon';
 
 import styles from './TextInput.module.scss';
+import clsx from 'clsx';
 
-export const TextInput = ({ type, name, label, id, withIcon = false, iconName }) => {
+export const TextInput = ({ type, name, label, className, id, withIcon = false, iconName }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
   return (
-    <div className={styles.InputWrapper}>
+    <div className={clsx(styles.InputWrapper, className)}>
       <TextField
         {...register(name)}
         type={type}

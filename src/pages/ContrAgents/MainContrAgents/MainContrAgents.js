@@ -1,10 +1,11 @@
 import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
-import InnerLayout from '@layouts/InnerLayout/InnerLayout';
-import PageHeading from '@components/PageHeading/PageHeading';
-import { history } from '@utils/history/history';
-import { useStore } from '@hooks/useStore';
 import Table from '@components/Table/Table';
+import InnerLayout from '@layouts/InnerLayout/InnerLayout';
+import FilterBlock from '@components/FilterBlock/FilterBlock';
+import PageHeading from '@components/PageHeading/PageHeading';
+import { useStore } from '@hooks/useStore';
+import { history } from '@utils/history/history';
 import { getTableColumns } from './helpers/getTableColumns';
 import { convertTableData } from './helpers/convertTableData';
 
@@ -12,12 +13,12 @@ const MainContrAgents = observer(() => {
   const { contrAgentsStore } = useStore();
 
   useEffect(() => {
-    if (!contrAgentsStore.contrAgents.length) {
-      contrAgentsStore.fetchContrAgents();
-    }
+    contrAgentsStore.fetchContrAgents();
   }, []);
 
   const headingButtonAction = useCallback(() => history.push('/contr-agents/create'), []);
+  const searchFilter = useCallback((data) => contrAgentsStore.searchFilter(data), []);
+  const resetFilter = useCallback(() => contrAgentsStore.fetchContrAgents(), []);
 
   const cellRendererProps = useMemo(
     () => ({
@@ -43,6 +44,14 @@ const MainContrAgents = observer(() => {
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
+      />
+
+      <FilterBlock
+        selectOptions={contrAgentsStore.statuses}
+        submitAction={searchFilter}
+        resetAction={resetFilter}
+        searchLabel="Поиск по названию или ИНН"
+        selectLabel="Статус"
       />
 
       <Table

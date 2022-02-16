@@ -6,6 +6,8 @@ import ContrAgentsService from '../../http/contragents-service/contragents-servi
 export default class ContrAgentsStore {
   contrAgents = [];
 
+  statuses = [];
+
   isLoading = false;
 
   constructor() {
@@ -18,6 +20,7 @@ export default class ContrAgentsStore {
     try {
       const { data } = await this.contrAgentsService.fetchContrAgents();
       this.contrAgents = data.data;
+      this.statuses = data.statuses;
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {
@@ -46,6 +49,18 @@ export default class ContrAgentsStore {
         toast.success(data.message);
         this.contrAgents = this.contrAgents.filter((item) => item.id !== id);
       }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async searchFilter(dto = {}) {
+    this.isLoading = true;
+    try {
+      const { data } = await this.contrAgentsService.searchFilter(dto);
+      this.contrAgents = data.data;
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {

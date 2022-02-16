@@ -14,6 +14,7 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 const MainLayout = observer(() => {
   const { authStore, uiStore } = useStore();
+
   return (
     <div className={styles.MainLayout}>
       <Sidebar expanded={uiStore.expanded} />

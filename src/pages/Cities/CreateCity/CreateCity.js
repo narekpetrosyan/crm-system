@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Button } from '@mui/material';
+import { Button } from '@components/Button/Button';
 import PageHeading from '@components/PageHeading/PageHeading';
 import { useStore } from '@hooks/useStore';
 import { TextInput } from '@components/Form/TextInput/TextInput';
@@ -38,7 +38,9 @@ const CreateCity = () => {
       </div>
 
       <div className={styles.CitiesInnerSave}>
-        <Button onClick={form.handleSubmit(submitForm)}>Сохранить</Button>
+        <Button size={150} clickHandler={form.handleSubmit(submitForm)}>
+          Сохранить
+        </Button>
       </div>
     </InnerLayout>
   );
