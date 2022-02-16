@@ -2,7 +2,6 @@
 @import "@styles/mixins";
 
 .Button {
-    //max-width: var(--btn-size);
     width: var(--btn-size);
     cursor: pointer;
     transition: 300ms;
@@ -62,6 +61,20 @@
     
     &_warning {
       background: $warn;
+      color: $white;
+      opacity: 0.8;
+
+      * {
+        fill: $white;
+      }
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+    
+    &_submit {
+      background: $submit;
       color: $white;
       opacity: 0.8;
 

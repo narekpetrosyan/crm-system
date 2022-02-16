@@ -1,0 +1,33 @@
+.AnalyticsFilterBlockWrapper{
+  width: 100%;
+  padding: 20px 15px;
+  
+  .FormWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    
+    .FormInputs{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      
+      .SearchSelect{
+        flex: 0.3;
+      }
+      
+      .DateInput{
+        flex: 0.3;
+      }
+    }
+    
+    .FormButtons{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 20px;
+    }
+  }
+}

@@ -1,12 +1,12 @@
 import React, { useEffect, memo, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
-import { useStore } from '@hooks/useStore';
+import { useParams } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
-import { Button } from '@mui/material';
+import { useStore } from '@hooks/useStore';
+import InnerLayout from '@layouts/InnerLayout/InnerLayout';
+import { Button } from '@components/Button/Button';
 import PageHeading from '@components/PageHeading/PageHeading';
 import { TextInput } from '@components/Form/TextInput/TextInput';
-import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 
 import styles from './EditCity.module.scss';
 
@@ -54,7 +54,9 @@ const EditCity = observer(() => {
       </div>
 
       <div className={styles.CitiesInnerSave}>
-        <Button onClick={form.handleSubmit(submitForm)}>Сохранить</Button>
+        <Button onClick={form.handleSubmit(submitForm)} size={120}>
+          Сохранить
+        </Button>
       </div>
     </InnerLayout>
   );

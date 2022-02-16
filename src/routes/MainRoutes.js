@@ -31,6 +31,8 @@ const MainOrders = React.lazy(() => import('../pages/Orders/MainOrders/MainOrder
 const CreateOrder = React.lazy(() => import('../pages/Orders/CreateOrder/CreateOrder'));
 const EditOrder = React.lazy(() => import('../pages/Orders/EditOrder/EditOrder'));
 
+const MainAnalytics = React.lazy(() => import('../pages/Analytics/MainAnalytics/MainAnalytics'));
+
 const mainRoutes = {
   users: {
     exact: true,
@@ -131,6 +133,12 @@ const mainRoutes = {
     exact: false,
     pathName: '/orders/edit/:id',
     element: EditOrder,
+  },
+
+  analytics: {
+    exact: true,
+    pathName: '/analytics',
+    element: MainAnalytics,
   },
 };
 

@@ -1,12 +1,18 @@
 import React, { useMemo } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
-import { FormHelperText } from '@mui/material';
 import { useFormContext } from 'react-hook-form';
 
 import styles from './SelectInput.module.scss';
 
-export const SelectInput = ({ name, options, label, className }) => {
+export const SelectInput = ({
+  name,
+  options,
+  label,
+  className,
+  size = 200,
+  withTopLabel = false,
+}) => {
   const { register, setValue, formState, getValues } = useFormContext();
 
   const defaultSelected = useMemo(
@@ -16,15 +22,20 @@ export const SelectInput = ({ name, options, label, className }) => {
 
   return (
     <div className={clsx(styles.SelectInputWrapper, className)}>
+      {withTopLabel && <p className={styles.SelectInputLabel}>{label}</p>}
       <Select
         styles={{
           control: (base) => ({
             ...base,
             border: formState.errors[name] && '1px solid red',
+            minHeight: 34,
+            height: 34,
           }),
           container: (provided) => ({
             ...provided,
-            width: 200,
+            width: size,
+            minHeight: 34,
+            height: 34,
           }),
         }}
         options={options}
@@ -34,9 +45,7 @@ export const SelectInput = ({ name, options, label, className }) => {
         defaultValue={defaultSelected}
       />
       {formState.errors[name]?.message && (
-        <FormHelperText className={styles.HelperText}>
-          {formState.errors[name]?.message}
-        </FormHelperText>
+        <span className={styles.HelperText}>{formState.errors[name]?.message}</span>
       )}
     </div>
   );

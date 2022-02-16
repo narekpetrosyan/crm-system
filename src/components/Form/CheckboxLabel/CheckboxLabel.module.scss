@@ -1,5 +1,14 @@
 @import "@styles/mixins";
 
-.CheckboxLabel{
-    @include font-style(var(--f-size),400,#666);
+.CheckBoxWrapper{
+    padding: 3px 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    
+    .CheckboxLabel{
+        @include font-style(14px,700,#333);
+        user-select: none;
+    }
 }
+

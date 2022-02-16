@@ -8,6 +8,7 @@ import ContrAgentsStore from './contr-agents/contrAgentsStore';
 import CallsStore from './calls/callsStore';
 import WorkersStore from './workers/workersStore';
 import OrdersStore from './orders/ordersStore';
+import AnalyticsStore from './analytics/analyticsStore';
 
 configure({
   enforceActions: 'never',
@@ -30,6 +31,8 @@ export class RootStore {
 
   ordersStore;
 
+  analyticsStore;
+
   constructor() {
     this.authStore = new AuthStore();
     this.uiStore = new UiStore();
@@ -39,6 +42,7 @@ export class RootStore {
     this.callsStore = new CallsStore();
     this.workersStore = new WorkersStore();
     this.ordersStore = new OrdersStore();
+    this.analyticsStore = new AnalyticsStore();
   }
 }
 

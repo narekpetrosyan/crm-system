@@ -1,5 +1,15 @@
+@import "@styles/mixins";
+
 .SelectInputWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+    .SelectInputLabel{
+        @include font-style(14px,700,#333);
+    }
+
     .HelperText{
-        color: red;
+        @include font-style(12px ,400, red);
     }
 }

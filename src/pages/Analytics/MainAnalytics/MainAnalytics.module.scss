@@ -1,0 +1,9 @@
+@import "@styles/mixins";
+
+.AmountBlock {
+  padding: 8px 15px;
+  
+  .AmountBlockText {
+      @include font-style(18px,500,black);
+  }
+}

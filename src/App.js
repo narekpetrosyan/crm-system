@@ -22,7 +22,7 @@ const App = observer(() => {
       <AuthRoute
         isAuth={authStore.isAuth}
         type="authorized"
-        path={['/users', '/cities', '/contr-agents', '/calls', '/workers', '/orders']}
+        path={['/users', '/cities', '/contr-agents', '/calls', '/workers', '/orders', '/analytics']}
         routeComponent={MainLayout}
       />
 
