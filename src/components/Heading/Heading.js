@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import clsx from 'clsx';
 
 const elements = {
@@ -23,4 +23,4 @@ const Heading = ({ children, variant, className, ...props }) => {
   );
 };
 
-export default Heading;
+export default memo(Heading);

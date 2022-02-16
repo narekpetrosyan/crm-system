@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
+import clsx from 'clsx';
 import Select from 'react-select';
-import { useFormContext } from 'react-hook-form';
 import { FormHelperText } from '@mui/material';
+import { useFormContext } from 'react-hook-form';
 
 import styles from './SelectInput.module.scss';
-import clsx from 'clsx';
 
 export const SelectInput = ({ name, options, label, className }) => {
   const { register, setValue, formState, getValues } = useFormContext();

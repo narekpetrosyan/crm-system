@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import clsx from 'clsx';
 import { TextField } from '@mui/material';
 import { Icon } from '../../Icon/Icon';
 
 import styles from './TextInput.module.scss';
-import clsx from 'clsx';
 
 export const TextInput = ({ type, name, label, className, id, withIcon = false, iconName }) => {
   const {

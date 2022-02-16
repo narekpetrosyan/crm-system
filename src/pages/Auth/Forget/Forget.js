@@ -1,11 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
+import Heading from '@components/Heading/Heading';
 import { Button } from '@components/Button/Button';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 
-import { Link } from 'react-router-dom';
 import styles from './Forget.module.scss';
-import Heading from '../../../components/Heading/Heading';
 
 const Forget = () => {
   const form = useForm({
