@@ -61,5 +61,5 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.5.1"
   },
-  "proxy": "http://test5.365traveling.com"
+  "proxy": "https://test2.365traveling.com/"
 }

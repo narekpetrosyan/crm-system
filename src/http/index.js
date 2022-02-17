@@ -6,7 +6,7 @@ const headers = {
 
 export const $host = axios.create({
   //   baseURL: 'https://test5.365traveling.com',
-  baseURL: '/api',
+  baseURL: '/api/v1/',
   headers,
 });
 
@@ -16,7 +16,7 @@ export const $host = axios.create({
 
 export const $authHost = axios.create({
   //   baseURL: 'https://test5.365traveling.com',
-  baseURL: '/api',
+  baseURL: '/api/v1/',
   headers,
 });
 
