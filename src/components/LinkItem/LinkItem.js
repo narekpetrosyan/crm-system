@@ -12,20 +12,14 @@ export const LinkItem = observer(({ title, iconName, path }) => {
   } = useStore();
   return (
     <div className={styles.LinkItem}>
-      {!expanded ? (
-        <NavLink to={path} className={styles.WhenExpanded} activeClassName={styles.LinkItemActive}>
-          <Icon name={iconName} size={0.8} />
-        </NavLink>
-      ) : (
-        <NavLink
-          to={path}
-          className={styles.WhenNotExpanded}
-          activeClassName={styles.LinkItemActive}
-        >
-          <Icon name={iconName} size={0.8} />
-          <p>{title}</p>
-        </NavLink>
-      )}
+      <NavLink
+        to={path}
+        className={!expanded ? styles.WhenExpanded : styles.WhenNotExpanded}
+        activeClassName={styles.LinkItemActive}
+      >
+        <Icon name={iconName} size={0.8} />
+        {expanded && <p>{title}</p>}
+      </NavLink>
     </div>
   );
 });

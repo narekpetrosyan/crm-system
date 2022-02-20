@@ -54,7 +54,7 @@ const EditCity = observer(() => {
       </div>
 
       <div className={styles.CitiesInnerSave}>
-        <Button onClick={form.handleSubmit(submitForm)} size={120}>
+        <Button clickHandler={form.handleSubmit(submitForm)} size={120}>
           Сохранить
         </Button>
       </div>

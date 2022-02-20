@@ -1,8 +1,8 @@
 import React, { memo, useMemo } from 'react';
-import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import clsx from 'clsx';
-import AgActionButtons from '../AgActionButtons/AgActionButtons';
+import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import Loader from '../Loader/Loader';
+import AgActionButtons from '../AgActionButtons/AgActionButtons';
 
 import styles from './Table.module.scss';
 
@@ -12,7 +12,12 @@ const Table = ({
   columns = [],
   getRowStyle = () => {},
   cellStyle = {},
-  colDef = {},
+  colDef = {
+    flex: 1,
+    sortable: true,
+    suppressMovable: true,
+    resizable: true,
+  },
   cellRendererProps = {},
   withCellRenderer = true,
 }) => {
@@ -27,10 +32,6 @@ const Table = ({
       <AgGridReact
         rowSelection="single"
         defaultColDef={{
-          flex: 1,
-          sortable: true,
-          suppressMovable: true,
-          resizable: true,
           cellStyle: { ...cellDefaultStyles, cellStyle },
           ...colDef,
         }}

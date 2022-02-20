@@ -1,5 +1,5 @@
 {
-  "homepage": ".",
+  "homepage": "https://test3.365traveling.com/",
   "name": "crm-system",
   "version": "0.1.0",
   "private": true,
@@ -10,7 +10,6 @@
     "ag-grid-react": "^27.0.0",
     "axios": "^0.25.0",
     "clsx": "^1.1.1",
-    "http-proxy-middleware": "^2.0.3",
     "mobx": "^6.3.13",
     "mobx-react-lite": "^3.2.3",
     "moment": "^2.29.1",
