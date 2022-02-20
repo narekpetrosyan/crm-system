@@ -1,14 +1,17 @@
 import { makeAutoObservable } from 'mobx';
 import { toast } from 'react-toastify';
-// import { history } from '@utils/history/history';
 import ContrAgentsService from '../../http/contragents-service/contragents-service';
 
 export default class ContrAgentsStore {
   contrAgents = [];
 
+  contacts = [];
+
   statuses = [];
 
   isLoading = false;
+
+  isContactsLoading = false;
 
   constructor() {
     this.contrAgentsService = new ContrAgentsService();
@@ -66,5 +69,21 @@ export default class ContrAgentsStore {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  async getContrAgentContacts(id) {
+    this.isContactsLoading = true;
+    try {
+      const { data } = await this.contrAgentsService.getContrAgentContacts(id);
+      this.contacts = data.contacts;
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      this.isContactsLoading = false;
+    }
+  }
+
+  getContactEmailAndPhone(id) {
+    return this.contacts.filter((item) => item.id === id)[0];
   }
 }

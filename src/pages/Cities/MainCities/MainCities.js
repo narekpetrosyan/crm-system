@@ -11,9 +11,7 @@ const MainCities = observer(() => {
   const { citiesStore } = useStore();
 
   useEffect(() => {
-    if (!citiesStore.cities.length) {
-      citiesStore.fetchCities();
-    }
+    citiesStore.fetchCities();
   }, []);
 
   const headingButtonAction = useCallback(() => history.push('/cities/create'), []);

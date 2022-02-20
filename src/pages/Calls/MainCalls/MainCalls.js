@@ -12,9 +12,7 @@ const MainCalls = observer(() => {
   const { callsStore } = useStore();
 
   useEffect(() => {
-    if (!callsStore.calls.length) {
-      callsStore.fetchCalls();
-    }
+    callsStore.fetchCalls();
   }, []);
 
   const headingButtonAction = useCallback(() => history.push('/calls/create'), []);
@@ -23,7 +21,7 @@ const MainCalls = observer(() => {
   const cellRendererProps = useMemo(
     () => ({
       pushAction: (id) => history.push(`/calls/edit/${id}`),
-      removeAction: (id) => console.log(id),
+      removeAction: (id) => callsStore.removeCall(id),
     }),
     [],
   );

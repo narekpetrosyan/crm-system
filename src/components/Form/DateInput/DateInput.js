@@ -4,7 +4,12 @@ import { useFormContext } from 'react-hook-form';
 
 import styles from './DateInput.module.scss';
 
-const DateInput = ({ name, className, label }) => {
+const dateInputTypes = {
+  date: 'date',
+  datetime: 'datetime-local',
+};
+
+const DateInput = ({ name, className, label, variant = 'date' }) => {
   const {
     register,
     formState: { errors },
@@ -13,7 +18,7 @@ const DateInput = ({ name, className, label }) => {
   return (
     <div className={clsx(styles.DateInputWrapper, className)}>
       <label htmlFor={name}>{label}</label>
-      <input type="date" {...register(name)} id={name} />
+      <input type={dateInputTypes[variant]} {...register(name)} id={name} />
       {!!errors[name]?.message && <p>{!!errors[name]?.message}</p>}
     </div>
   );

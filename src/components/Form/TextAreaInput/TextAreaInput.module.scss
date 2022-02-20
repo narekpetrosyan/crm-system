@@ -1,0 +1,32 @@
+@import "@styles/variables";
+@import "@styles/mixins";
+
+.TextAreaInputWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    
+    .TextAreaInputBlock{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        
+        .TextAreaInput{
+            padding: 6px 12px;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            @include font-style(14px, 500, #555);
+            outline: none;
+            transition: 300ms;
+            
+            &:focus {
+                border-color: #3c8dbc;
+            }
+        }
+    }
+  
+    .InputErrorMessage{
+        @include font-style(12px, 400, red);
+    }
+}

@@ -28,4 +28,8 @@ export default class ContrAgentsService {
       },
     });
   }
+
+  async getContrAgentContacts(id) {
+    return await $authHost.get(`/contragent-calls?contragent_id=${id}`);
+  }
 }
