@@ -9,12 +9,12 @@ import PageHeading from '@components/PageHeading/PageHeading';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 import { SelectInput } from '@components/Form/SelectInput/SelectInput';
 import TextAreaInput from '@components/Form/TextAreaInput/TextAreaInput';
+import { CheckboxLabel } from '@components/Form/CheckboxLabel/CheckboxLabel';
 import { transformForSelect } from '@utils/helpers/transformForSelect';
 import { createCallValidationSchema } from '@utils/validation/callsValidationSchema';
 import { useStore } from '@hooks/useStore';
 
 import styles from './CreateCall.module.scss';
-import { CheckboxLabel } from '../../../components/Form/CheckboxLabel/CheckboxLabel';
 
 const CreateCall = observer(() => {
   const { contrAgentsStore } = useStore();
