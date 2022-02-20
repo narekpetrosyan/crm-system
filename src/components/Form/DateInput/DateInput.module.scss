@@ -22,4 +22,12 @@
       border-color: #3c8dbc;
     }
   }
+  
+  .InputDateError{
+    border: 1px solid red;
+  }
+  
+  .DateInputError{
+    @include font-style(12px, 400, red);
+  }
 }

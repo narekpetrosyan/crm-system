@@ -18,8 +18,13 @@ const DateInput = ({ name, className, label, variant = 'date' }) => {
   return (
     <div className={clsx(styles.DateInputWrapper, className)}>
       <label htmlFor={name}>{label}</label>
-      <input type={dateInputTypes[variant]} {...register(name)} id={name} />
-      {!!errors[name]?.message && <p>{!!errors[name]?.message}</p>}
+      <input
+        type={dateInputTypes[variant]}
+        {...register(name)}
+        id={name}
+        className={errors[name]?.message && styles.InputDateError}
+      />
+      {!!errors[name]?.message && <p className={styles.DateInputError}>{errors[name]?.message}</p>}
     </div>
   );
 };

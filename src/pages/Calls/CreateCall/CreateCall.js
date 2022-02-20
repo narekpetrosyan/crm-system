@@ -20,14 +20,14 @@ const CreateCall = observer(() => {
   const { contrAgentsStore } = useStore();
 
   const form = useForm({
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: yupResolver(createCallValidationSchema),
     defaultValues: {
       time: '',
       next_call_time: '',
       contragent_id: '',
       contact_id: '',
-      withNextCall: false,
+      withNextCallTime: false,
       phone: '',
       email: '',
       is_finished: false,
@@ -36,6 +36,7 @@ const CreateCall = observer(() => {
 
   const contactId = form.watch('contact_id');
   const contrAgentId = form.watch('contragent_id');
+  const withNextCallTime = form.watch('withNextCallTime');
 
   useEffect(() => {
     contrAgentsStore.fetchContrAgents();
@@ -50,7 +51,7 @@ const CreateCall = observer(() => {
   form.setValue('phone', contrAgentsStore.getContactEmailAndPhone(contactId)?.phone || '');
   form.setValue('email', contrAgentsStore.getContactEmailAndPhone(contactId)?.email || '');
 
-  const setNextCallTimeShown = useCallback(() => form.setValue('withNextCall', true), []);
+  const setNextCallTimeShown = useCallback(() => form.setValue('withNextCallTime', true), []);
 
   const submitForm = (data) => {
     console.log(data);
@@ -93,7 +94,7 @@ const CreateCall = observer(() => {
                 label="Дата и время звонка"
                 className={styles.DateInput}
               />
-              {!form.watch('withNextCall') && (
+              {!withNextCallTime ? (
                 <Button
                   color="warning"
                   size={250}
@@ -103,8 +104,7 @@ const CreateCall = observer(() => {
                 >
                   Ввести дату следущего звонка
                 </Button>
-              )}
-              {form.watch('withNextCall') && (
+              ) : (
                 <DateInput
                   name="next_call_time"
                   variant="datetime"
