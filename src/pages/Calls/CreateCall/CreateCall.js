@@ -17,7 +17,7 @@ import { useStore } from '@hooks/useStore';
 import styles from './CreateCall.module.scss';
 
 const CreateCall = observer(() => {
-  const { contrAgentsStore } = useStore();
+  const { contrAgentsStore, callsStore } = useStore();
 
   const form = useForm({
     mode: 'onChange',
@@ -31,6 +31,7 @@ const CreateCall = observer(() => {
       phone: '',
       email: '',
       is_finished: false,
+      changedCalls: [],
     },
   });
 
@@ -44,7 +45,9 @@ const CreateCall = observer(() => {
 
   useEffect(() => {
     if (contrAgentId && contrAgentId !== 'undefined') {
-      contrAgentsStore.getContrAgentContacts(contrAgentId);
+      contrAgentsStore.getContrAgentContacts(contrAgentId).then(() => {
+        form.setValue('changedCalls', contrAgentsStore?.contactResults);
+      });
     }
   }, [contrAgentId]);
 
@@ -54,7 +57,8 @@ const CreateCall = observer(() => {
   const setNextCallTimeShown = useCallback(() => form.setValue('withNextCallTime', true), []);
 
   const submitForm = (data) => {
-    console.log(data);
+    delete data.withNextCallTime;
+    callsStore.createCall(data);
   };
 
   return (
@@ -122,6 +126,33 @@ const CreateCall = observer(() => {
                 Сохранить
               </Button>
             </div>
+
+            {contrAgentsStore.isContactResultsLoaded && (
+              <div className={styles.CallsHistory}>
+                <PageHeading title="История звонков" />
+                {contrAgentsStore.contactResults.map((item, index) => (
+                  <div key={item.id} className={styles.CallsHistoryItem}>
+                    <div>
+                      <CheckboxLabel
+                        name={`changedCalls[${index}].is_finished`}
+                        label="Выполнен"
+                        value={item.is_finished}
+                      />
+                    </div>
+                    <div className={styles.CallsHistoryItemResult}>
+                      <TextAreaInput
+                        name={`changedCalls[${index}].result`}
+                        label="Результат"
+                        placeholder="Результат"
+                        value={item.result}
+                        resizable={false}
+                        disabled
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </form>
         </FormProvider>
       </div>

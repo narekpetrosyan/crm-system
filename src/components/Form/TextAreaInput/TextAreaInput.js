@@ -11,6 +11,7 @@ const TextAreaInput = ({
   placeholder,
   size = [8, 8],
   resizable = true,
+  disabled = false,
 }) => {
   const {
     register,
@@ -24,6 +25,8 @@ const TextAreaInput = ({
         <textarea
           style={{
             resize: !resizable && 'none',
+            backgroundColor: disabled && '#eee',
+            cursor: disabled && 'not-allowed',
           }}
           id={name}
           {...register(name)}
@@ -31,6 +34,7 @@ const TextAreaInput = ({
           rows={size[1]}
           className={styles.TextAreaInput}
           placeholder={placeholder}
+          disabled={disabled}
         />
       </div>
       {errors[name]?.message && (

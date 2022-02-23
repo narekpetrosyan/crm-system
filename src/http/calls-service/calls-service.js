@@ -9,6 +9,18 @@ export default class CallsService {
     return await $authHost.get('/calls-planned');
   }
 
+  async createCall(data) {
+    return await $authHost.post('/calls', data);
+  }
+
+  async getCallById(id) {
+    return await $authHost.get(`/calls/${id}`);
+  }
+
+  async saveCall(data, id) {
+    return await $authHost.put(`/calls/${id}`, data);
+  }
+
   async removeCall(id) {
     return await $authHost.delete(`/calls/${id}`);
   }

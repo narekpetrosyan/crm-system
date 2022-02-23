@@ -1,27 +1,26 @@
 import React, { useCallback, useEffect, useMemo, memo } from 'react';
+import { observer } from 'mobx-react-lite';
+import Table from '@components/Table/Table';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import PageHeading from '@components/PageHeading/PageHeading';
 import { history } from '@utils/history/history';
 import { useStore } from '@hooks/useStore';
-import Table from '@components/Table/Table';
 import { getTableColumns } from '../MainCalls/helpers/getTableColumns';
 import { convertTableData } from '../MainCalls/helpers/convertTableData';
 
-const PlannedCalls = () => {
+const PlannedCalls = observer(() => {
   const { callsStore } = useStore();
 
   useEffect(() => {
-    if (!callsStore.plannedCalls.length) {
-      callsStore.fetchPlannedCalls();
-    }
+    callsStore.fetchPlannedCalls();
   }, []);
 
   const headingButtonAction = useCallback(() => history.push('/calls'), []);
 
   const cellRendererProps = useMemo(
     () => ({
-      pushAction: (id) => console.log(id),
-      removeAction: (id) => console.log(id),
+      pushAction: (id) => history.push(`/calls/edit/${id}`),
+      removeAction: (id) => callsStore.removeCall(id),
     }),
     [],
   );
@@ -49,6 +48,6 @@ const PlannedCalls = () => {
       />
     </InnerLayout>
   );
-};
+});
 
 export default memo(PlannedCalls);

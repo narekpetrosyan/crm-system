@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, memo, useMemo } from 'react';
+import React, { useCallback, memo, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import { useStore } from '@hooks/useStore';
@@ -10,10 +10,7 @@ import { convertTableData } from './helpers/convertTableData';
 
 const MainCalls = observer(() => {
   const { callsStore } = useStore();
-
-  useEffect(() => {
-    callsStore.fetchCalls();
-  }, []);
+  const todayCallsCount = callsStore?.todayCallsCount;
 
   const headingButtonAction = useCallback(() => history.push('/calls/create'), []);
   const headingInsertedButtonAction = useCallback(() => history.push('/calls/planned'), []);
@@ -38,7 +35,11 @@ const MainCalls = observer(() => {
         buttonAction={headingButtonAction}
         insertButton
         insertButtonIconName="folder"
-        insertButtonTitle="Запланированные"
+        insertButtonTitle={
+          todayCallsCount !== 0
+            ? `Запланированные (сегодня - ${todayCallsCount})`
+            : 'Запланированные'
+        }
         insertButtonAction={headingInsertedButtonAction}
       />
 

@@ -5,13 +5,17 @@ import ContrAgentsService from '../../http/contragents-service/contragents-servi
 export default class ContrAgentsStore {
   contrAgents = [];
 
-  contacts = [];
-
   statuses = [];
 
   isLoading = false;
 
+  contacts = [];
+
+  contactResults = [];
+
   isContactsLoading = false;
+
+  isContactResultsLoaded = false;
 
   constructor() {
     this.contrAgentsService = new ContrAgentsService();
@@ -76,6 +80,8 @@ export default class ContrAgentsStore {
     try {
       const { data } = await this.contrAgentsService.getContrAgentContacts(id);
       this.contacts = data.contacts;
+      this.contactResults = data.results;
+      this.isContactResultsLoaded = true;
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {

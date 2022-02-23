@@ -6,7 +6,7 @@ import { Icon } from '../Icon/Icon';
 
 import styles from './LinkItem.module.scss';
 
-export const LinkItem = observer(({ title, iconName, path }) => {
+export const LinkItem = observer(({ title, iconName, path, todayCallsCount = null }) => {
   const {
     uiStore: { expanded },
   } = useStore();
@@ -18,7 +18,10 @@ export const LinkItem = observer(({ title, iconName, path }) => {
         activeClassName={styles.LinkItemActive}
       >
         <Icon name={iconName} size={0.8} />
-        {expanded && <p>{title}</p>}
+        <div className={styles.LinkItemWithBadge}>
+          {expanded && <p>{title}</p>}
+          {expanded && todayCallsCount && <p className={styles.Badge}>{todayCallsCount}</p>}
+        </div>
       </NavLink>
     </div>
   );
