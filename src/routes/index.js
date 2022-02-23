@@ -22,6 +22,7 @@ export const routes = [
     name: 'Calls',
     iconName: 'phone-white',
     title: 'Звонки',
+    todayCallsCount: 0,
   },
   {
     path: '/workers',

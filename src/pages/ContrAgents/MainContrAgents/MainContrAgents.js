@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import Table from '@components/Table/Table';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
@@ -11,10 +11,6 @@ import { convertTableData } from './helpers/convertTableData';
 
 const MainContrAgents = observer(() => {
   const { contrAgentsStore } = useStore();
-
-  useEffect(() => {
-    contrAgentsStore.fetchContrAgents();
-  }, []);
 
   const headingButtonAction = useCallback(() => history.push('/contr-agents/create'), []);
   const searchFilter = useCallback((data) => contrAgentsStore.searchFilter(data), []);

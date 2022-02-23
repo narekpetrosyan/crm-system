@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Switch } from 'react-router-dom';
 import { useStore } from '@hooks/useStore';
@@ -13,11 +13,16 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 const MainLayout = observer(() => {
-  const { authStore, uiStore } = useStore();
+  const { authStore, uiStore, callsStore, contrAgentsStore } = useStore();
+
+  useEffect(() => {
+    callsStore.fetchCalls();
+    contrAgentsStore.fetchContrAgents();
+  }, []);
 
   return (
     <div className={styles.MainLayout}>
-      <Sidebar expanded={uiStore.expanded} />
+      <Sidebar expanded={uiStore.expanded} todayCallsCount={callsStore.todayCallsCount} />
 
       <Header logoutHandler={authStore.logout} showMenu={uiStore.expandMenu} />
 

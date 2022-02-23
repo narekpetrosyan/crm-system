@@ -6,7 +6,16 @@ import { Icon } from '../../Icon/Icon';
 import styles from './TextInput.module.scss';
 
 export const TextInput = memo(
-  ({ type, name, label, className, withIcon = false, withTopLabel = false, iconName }) => {
+  ({
+    type,
+    name,
+    label,
+    className,
+    iconName,
+    withIcon = false,
+    withTopLabel = false,
+    disabled = false,
+  }) => {
     const {
       register,
       formState: { errors },
@@ -14,7 +23,7 @@ export const TextInput = memo(
 
     return (
       <div className={clsx(styles.InputWrapper, className)}>
-        {withTopLabel && <label htmlFor={name}>{label}</label>}
+        {withTopLabel && <p className={styles.SelectInputLabel}>{label}</p>}
         <div className={styles.InputBlock}>
           <input
             type={type}
@@ -23,6 +32,7 @@ export const TextInput = memo(
             className={clsx(styles.InputText, errors[name]?.message && styles.InputTextError)}
             id={name}
             placeholder={label}
+            disabled={disabled}
           />
           {withIcon && <Icon className={styles.InputIcon} name={iconName} size={0.8} />}
         </div>

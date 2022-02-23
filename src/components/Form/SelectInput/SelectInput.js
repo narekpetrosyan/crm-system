@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
 import { useFormContext } from 'react-hook-form';
@@ -14,6 +14,8 @@ export const SelectInput = ({
   withTopLabel = false,
 }) => {
   const { register, setValue, formState, getValues } = useFormContext();
+
+  const setSelectValue = useCallback((val) => setValue(name, val.value), []);
 
   const defaultSelected = useMemo(
     () => options.filter((item) => item.value === getValues(name)),
@@ -40,7 +42,7 @@ export const SelectInput = ({
         }}
         options={options}
         {...register(name)}
-        onChange={(val) => setValue(name, val.value)}
+        onChange={setSelectValue}
         placeholder={label}
         defaultValue={defaultSelected}
       />

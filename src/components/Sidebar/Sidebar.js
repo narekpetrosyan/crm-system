@@ -5,7 +5,7 @@ import { LinkItem } from '../LinkItem/LinkItem';
 
 import styles from './Sidebar.module.scss';
 
-export const Sidebar = ({ expanded = true }) => {
+export const Sidebar = ({ expanded = true, todayCallsCount }) => {
   return (
     <div className={styles.Sidebar} style={{ '--sidebar-size': expanded ? '230px' : '50px' }}>
       <div className={styles.SidebarInner}>
@@ -22,6 +22,9 @@ export const Sidebar = ({ expanded = true }) => {
               path={item.path}
               title={item.title}
               iconName={item.iconName}
+              todayCallsCount={
+                item.name === 'Calls' && todayCallsCount !== 0 ? todayCallsCount : ''
+              }
             />
           ))}
         </div>

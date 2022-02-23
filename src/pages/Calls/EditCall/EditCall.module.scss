@@ -1,0 +1,58 @@
+.CallsInnerBody{
+    padding: 10px;
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      
+      .FormInputs{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      
+        .FormInputsTop{
+          display: flex;
+          flex-direction: row;
+          align-items: flex-end;
+          flex: 1;
+          gap: 10px;   
+        }
+      }
+      
+      .FormDates{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        flex: 1;
+        gap: 30px;
+        
+         .DateInput {
+          flex: 0.4;
+         }
+      }
+      
+      .CallsInnerSave{
+        border-top: 1px solid #f4f4f4;
+        padding: 10px;
+      }
+      
+      .CallsHistory{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        
+        .CallsHistoryItem{
+          display: flex;
+          flex: 1;
+          flex-direction: row;
+          gap: 10px;
+          
+          .CallsHistoryItemResult {
+            flex: 1;
+          }
+        }
+      }
+    }
+}
