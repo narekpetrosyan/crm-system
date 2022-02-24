@@ -4,8 +4,9 @@ import Table from '@components/Table/Table';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import FilterBlock from '@components/FilterBlock/FilterBlock';
 import PageHeading from '@components/PageHeading/PageHeading';
-import { useStore } from '@hooks/useStore';
 import { history } from '@utils/history/history';
+import { statusSelectData } from '@utils/helpers/staticSeletcData';
+import { useStore } from '@hooks/useStore';
 import { getTableColumns } from './helpers/getTableColumns';
 import { convertTableData } from './helpers/convertTableData';
 
@@ -43,7 +44,7 @@ const MainContrAgents = observer(() => {
       />
 
       <FilterBlock
-        selectOptions={contrAgentsStore.statuses}
+        selectOptions={statusSelectData}
         submitAction={searchFilter}
         resetAction={resetFilter}
         searchLabel="Поиск по названию или ИНН"

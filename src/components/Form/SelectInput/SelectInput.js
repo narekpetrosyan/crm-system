@@ -32,6 +32,7 @@ export const SelectInput = ({
             border: formState.errors[name] && '1px solid red',
             minHeight: 34,
             height: 34,
+            borderRadius: 'none',
           }),
           container: (provided) => ({
             ...provided,

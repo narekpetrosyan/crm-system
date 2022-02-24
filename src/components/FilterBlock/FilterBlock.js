@@ -3,7 +3,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Button } from '@components/Button/Button';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 import { SelectInput } from '@components/Form/SelectInput/SelectInput';
-import { transformForSelect } from '@utils/helpers/transformForSelect';
 
 import styles from './FilterBlock.module.scss';
 
@@ -47,7 +46,7 @@ const FilterBlock = ({ selectOptions, submitAction, resetAction, searchLabel, se
               <SelectInput
                 name="status"
                 label={selectLabel}
-                options={[{ value: '', label: 'Пусто' }, ...transformForSelect(selectOptions)]}
+                options={[{ value: '', label: 'Пусто' }, ...selectOptions]}
                 className={styles.SearchSelect}
               />
             </div>

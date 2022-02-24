@@ -6,6 +6,7 @@ import PageHeading from '@components/PageHeading/PageHeading';
 import FilterBlock from '@components/FilterBlock/FilterBlock';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import { history } from '@utils/history/history';
+import { statusSelectData } from '@utils/helpers/staticSeletcData';
 import { getTableColumns } from './helpers/getTableColumns';
 import { convertTableData } from './helpers/convertTableData';
 
@@ -23,7 +24,7 @@ const MainWorkers = observer(() => {
   const cellRendererProps = useMemo(
     () => ({
       pushAction: (id) => history.push(`/workers/edit/${id}`),
-      removeAction: (id) => console.log(id),
+      removeAction: (id) => workersStore.removeWorker(id),
       withThirdButton: true,
       setOnRemoveAction: (id) => workersStore.setOnRemove(id),
       recoverAction: (id) => workersStore.setOnRemove(id, true),
@@ -44,7 +45,7 @@ const MainWorkers = observer(() => {
       />
 
       <FilterBlock
-        selectOptions={workersStore.statuses}
+        selectOptions={statusSelectData}
         submitAction={searchFilter}
         resetAction={resetFilter}
         searchLabel="Поиск по ФИО или номеру телефона"

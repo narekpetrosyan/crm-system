@@ -5,6 +5,18 @@ export default class WorkersService {
     return await $authHost.get('/workers');
   }
 
+  async createWorker(data) {
+    return await $authHost.post('/workers', data);
+  }
+
+  async getWorkerById(id) {
+    return await $authHost.get(`/workers/${id}`);
+  }
+
+  async saveWorker(id, data) {
+    return await $authHost.put(`/workers/${id}`, data);
+  }
+
   async setOnRemove(id, softRestore) {
     return await $authHost.delete(
       `/workers/softDelete/${id}`,
@@ -16,6 +28,10 @@ export default class WorkersService {
     );
   }
 
+  async removeWorker(id) {
+    return await $authHost.delete(`/workers/${id}`);
+  }
+
   async searchFilter(data) {
     return await $authHost.get(`/workers`, {
       params: {
@@ -23,5 +39,9 @@ export default class WorkersService {
         status: data.status,
       },
     });
+  }
+
+  async fetchAreas() {
+    return await $authHost.get('/workers/getAreas');
   }
 }

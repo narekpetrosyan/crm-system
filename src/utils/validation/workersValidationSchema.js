@@ -1,0 +1,26 @@
+import * as Yup from 'yup';
+
+export const createWorkerValidationSchema = Yup.object().shape({
+  name: Yup.string().required('The field is required.'),
+  surname: Yup.string().required('The field is required.'),
+  patronymic: Yup.string().required('The field is required.'),
+  dt_birth: Yup.string().required('The field is required.'),
+  created_at: Yup.string().required('The field is required.'),
+  address: Yup.string().required('The field is required.'),
+  address_reg: Yup.string().required('The field is required.'),
+  area: Yup.string().required('The field is required.'),
+  phone: Yup.string().required('The field is required.'),
+  phone_dop: Yup.string().required('The field is required.'),
+  bank_name: Yup.string().required('The field is required.'),
+  number_card: Yup.string().required('The field is required.'),
+  exp_date_medical_book: Yup.string().required('The field is required.'),
+  status: Yup.string().required('The field is required.'),
+  passport_number: Yup.string().required('The field is required.'),
+  passport_series: Yup.string().required('The field is required.'),
+  passport_issued: Yup.string().required('The field is required.'),
+  passport_created_at: Yup.string().required('The field is required.'),
+  passport_department_code: Yup.string().required('The field is required.'),
+  comment: Yup.string().required('The field is required.'),
+  inn: Yup.string().required('The field is required.'),
+  snils: Yup.string().required('The field is required.'),
+});
