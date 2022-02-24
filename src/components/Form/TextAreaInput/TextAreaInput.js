@@ -32,7 +32,7 @@ const TextAreaInput = ({
           {...register(name)}
           cols={size[0]}
           rows={size[1]}
-          className={styles.TextAreaInput}
+          className={clsx(styles.TextAreaInput, errors[name]?.message && styles.InputTextError)}
           placeholder={placeholder}
           disabled={disabled}
         />

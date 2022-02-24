@@ -19,26 +19,30 @@ const EditUser = observer(() => {
   const { id } = useParams();
   const { usersStore } = useStore();
 
-  useEffect(() => {
-    usersStore.getUserById(id);
-    usersStore.fetchPermissonsAndCities();
-  }, [id]);
-
   const form = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(createUserValidationSchema),
     defaultValues: useMemo(
       () => ({
-        name: usersStore.user?.name,
-        email: usersStore.user?.email,
+        name: '',
+        email: '',
         password: '',
         permissions: [],
         is_admin: false,
-        city_id: usersStore.user?.city_id,
+        city_id: '',
       }),
       [usersStore.user],
     ),
   });
+
+  useEffect(() => {
+    Promise.all([usersStore.fetchPermissonsAndCities(), usersStore.getUserById(id)]).then(() => {
+      form.setValue('name', usersStore.user.name);
+      form.setValue('email', usersStore.user.email);
+      form.setValue('is_admin', usersStore.user.is_admin);
+      form.setValue('city_id', usersStore.user.city_id);
+    });
+  }, []);
 
   useEffect(() => {
     form.reset(usersStore.user);
@@ -64,18 +68,19 @@ const EditUser = observer(() => {
                   name="city_id"
                   label="Город"
                   options={transformForSelect(usersStore.cities, 'id', 'name')}
+                  className={styles.FormInputsSelect}
                 />
                 <TextInput type="password" name="password" label="Пароль" id="password" />
                 <CheckboxLabel label="Администратор" name="is_admin" />
               </div>
 
               <div className={styles.FormPermissions}>
-                {usersStore.permissions.map((permItem) => (
+                {usersStore.permissions.map((permItem, index) => (
                   <CheckboxLabel
                     value={permItem.id}
                     key={permItem.id}
                     label={permItem.name}
-                    name="permissions[]"
+                    name={`permissions[${index}]`}
                     size={13}
                   />
                 ))}
@@ -86,7 +91,7 @@ const EditUser = observer(() => {
       </div>
 
       <div className={styles.UsersInnerSave}>
-        <Button clickHandler={form.handleSubmit(submitForm)} size={150}>
+        <Button color="submit" clickHandler={form.handleSubmit(submitForm)} size={150}>
           Сохранить
         </Button>
       </div>
