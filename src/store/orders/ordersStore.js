@@ -1,6 +1,7 @@
 import { makeAutoObservable } from 'mobx';
 import OrdersService from '../../http/orders-service/orders-service';
 import { toast } from 'react-toastify';
+import { history } from '../../utils/history/history';
 
 export default class OrdersStore {
   orders = [];
@@ -19,6 +20,52 @@ export default class OrdersStore {
     try {
       const { data } = await this.ordersService.fetchOrders();
       this.orders = data.data;
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async createOrder(dto) {
+    this.isLoading = true;
+    try {
+      const { data } = await this.ordersService.createOrder({ data: dto });
+      if (data.success) {
+        toast.success(data.message);
+        await this.fetchOrders();
+        history.push(`/orders/edit/${data.data.id}`);
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async getOrderById(id) {
+    this.isLoading = true;
+    try {
+      const { data } = await this.ordersService.getOrderById(id);
+      this.order = data.data;
+      if (!this.orders.length) {
+        await this.fetchOrders();
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async saveOrder(id, dto) {
+    this.isLoading = true;
+    try {
+      const { data } = await this.ordersService.saveOrder(id, { data: dto });
+      if (data.success) {
+        toast.success(data.message);
+        history.push('/orders');
+      }
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {

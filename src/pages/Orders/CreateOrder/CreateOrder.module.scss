@@ -1,0 +1,18 @@
+.CreateOrderInnerBody{
+   height: 100%;
+  
+  .CreateOrderForm{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    
+    .CreateOrderFormBlock{
+      display: grid;
+      grid-auto-flow: column;
+      grid-template-columns: repeat(5,1fr);
+      gap: 20px;
+      flex: 1;
+    }
+  }
+}

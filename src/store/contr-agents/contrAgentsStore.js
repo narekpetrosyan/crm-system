@@ -1,9 +1,16 @@
 import { makeAutoObservable } from 'mobx';
 import { toast } from 'react-toastify';
 import ContrAgentsService from '../../http/contragents-service/contragents-service';
+import { history } from '../../utils/history/history';
 
 export default class ContrAgentsStore {
   contrAgents = [];
+
+  filteredContrAgents = [];
+
+  contrAgentAfterFilter = null;
+
+  contrAgent = null;
 
   statuses = [];
 
@@ -28,6 +35,53 @@ export default class ContrAgentsStore {
       const { data } = await this.contrAgentsService.fetchContrAgents();
       this.contrAgents = data.data;
       this.statuses = data.statuses;
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async createContrAgent(dto) {
+    this.isLoading = true;
+    try {
+      const { data } = await this.contrAgentsService.createContrAgent({ data: dto });
+      if (data.success) {
+        toast.success(data.message);
+        await this.fetchContrAgents();
+        history.push('/contr-agents');
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async getContrAgentById(id) {
+    this.isLoading = true;
+    try {
+      const { data } = await this.contrAgentsService.getContrAgentById(id);
+      this.contrAgent = data.data;
+      if (!this.contrAgents.length) {
+        await this.fetchContrAgents();
+      }
+    } catch (error) {
+      toast.error(error.response.data.message);
+      throw error;
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  async saveContrAgent(id, dto) {
+    this.isLoading = true;
+    try {
+      const { data } = await this.contrAgentsService.saveContrAgent(id, { data: dto });
+      if (data.success) {
+        toast.success(data.message);
+        history.push('/contr-agents');
+      }
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {

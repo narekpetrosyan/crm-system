@@ -12,3 +12,20 @@ export const statusSelectData = [
   { value: 'UNAVAILABLE', label: 'Недоступен' },
   { value: 'REJECTED', label: 'Отказ' },
 ];
+
+export const contrAgentsStatusesSelectData = [
+  { value: 'ACTIVE', label: 'Действующий' },
+  { value: 'BLACK_LIST', label: 'В чёрном списке' },
+  { value: 'IN_PROGRESS', label: 'В разработке' },
+];
+
+export const workTypes = [
+  {
+    value: 'PER_HOUR',
+    label: 'Час',
+  },
+  {
+    value: 'PER_SHIFT',
+    label: 'Смена',
+  },
+];

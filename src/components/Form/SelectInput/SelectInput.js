@@ -2,6 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
 import { useFormContext } from 'react-hook-form';
+import Loader from '../../Loader/Loader';
 
 import styles from './SelectInput.module.scss';
 
@@ -12,6 +13,7 @@ export const SelectInput = ({
   className,
   size = 200,
   withTopLabel = false,
+  isLoading = false,
 }) => {
   const { register, setValue, formState, getValues } = useFormContext();
 
@@ -21,6 +23,8 @@ export const SelectInput = ({
     () => options.filter((item) => item.value === getValues(name)),
     [getValues(name)],
   );
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className={clsx(styles.SelectInputWrapper, className)}>

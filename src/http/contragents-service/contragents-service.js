@@ -5,6 +5,18 @@ export default class ContrAgentsService {
     return await $authHost.get('/contr-agents');
   }
 
+  async createContrAgent(data) {
+    return await $authHost.post('/contr-agents', data);
+  }
+
+  async getContrAgentById(id) {
+    return await $authHost.get(`/contr-agents/${id}`);
+  }
+
+  async saveContrAgent(id, data) {
+    return await $authHost.put(`/contr-agents/${id}`, data);
+  }
+
   async setOnRemove(id, softRestore) {
     return await $authHost.delete(
       `/contr-agents/softDelete/${id}`,

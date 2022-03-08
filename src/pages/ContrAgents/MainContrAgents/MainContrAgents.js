@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
-import Table from '@components/Table/Table';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
+import Table from '@components/Table/Table';
 import FilterBlock from '@components/FilterBlock/FilterBlock';
 import PageHeading from '@components/PageHeading/PageHeading';
 import { history } from '@utils/history/history';

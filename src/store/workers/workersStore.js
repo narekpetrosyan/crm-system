@@ -54,9 +54,9 @@ export default class WorkersStore {
       if (!this.areas.length) {
         await this.fetchAreas();
       }
-      console.log(this.worker);
     } catch (error) {
       toast.error(error.response.data.message);
+      throw error;
     } finally {
       this.isLoading = false;
     }

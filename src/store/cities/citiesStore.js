@@ -17,14 +17,18 @@ export default class CitiesStore {
 
   async fetchCities() {
     this.isLoading = true;
-    try {
-      const { data } = await this.citiesService.fetchCities();
-      this.cities = data.data;
-    } catch (error) {
-      toast.error(error.response.data.message);
-    } finally {
-      this.isLoading = false;
-    }
+    return new Promise((resolve) => {
+      resolve(this.citiesService.fetchCities());
+    })
+      .then(({ data }) => {
+        this.cities = data.data;
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
   }
 
   async createCity(dto) {

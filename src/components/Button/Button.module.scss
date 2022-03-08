@@ -86,4 +86,18 @@
         opacity: 1;
       }
     }
+  
+    &_danger {
+      background: $danger;
+      color: $white;
+      opacity: 0.8;
+
+      * {
+        fill: $white;
+      }
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
   }

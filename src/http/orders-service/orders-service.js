@@ -5,6 +5,18 @@ export default class OrdersService {
     return await $authHost.get('/orders');
   }
 
+  async createOrder(data) {
+    return await $authHost.post('/orders', data);
+  }
+
+  async getOrderById(id) {
+    return await $authHost.get(`/orders/${id}`);
+  }
+
+  async saveOrder(id, data) {
+    return await $authHost.put(`/orders/${id}`, data);
+  }
+
   async setOnRemove(id, softRestore) {
     return await $authHost.delete(
       `/orders/softDelete/${id}`,

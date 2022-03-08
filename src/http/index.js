@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const headers = {
   Accept: 'application/json',
@@ -32,10 +33,12 @@ $authHost.interceptors.response.use(
     return config;
   },
   async (error) => {
-    if (error.response.status === 401 || error.response.status === 403) {
+    if (error.response.status === 401) {
       localStorage.removeItem('isAuth');
       localStorage.removeItem('token');
       window.location.href = '/';
+    } else if (error.response.status === 403) {
+      toast.error('You dont have permission.');
     }
     throw error;
   },

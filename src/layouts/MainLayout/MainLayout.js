@@ -13,11 +13,12 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 const MainLayout = observer(() => {
-  const { authStore, uiStore, callsStore, contrAgentsStore } = useStore();
+  const { authStore, uiStore, callsStore, contrAgentsStore, citiesStore } = useStore();
 
   useEffect(() => {
     callsStore.fetchCalls();
     contrAgentsStore.fetchContrAgents();
+    citiesStore.fetchCities();
   }, []);
 
   return (

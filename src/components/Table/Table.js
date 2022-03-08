@@ -2,6 +2,7 @@ import React, { memo, useMemo } from 'react';
 import clsx from 'clsx';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 import Loader from '../Loader/Loader';
+import { Button } from '../Button/Button';
 import AgActionButtons from '../AgActionButtons/AgActionButtons';
 
 import styles from './Table.module.scss';
@@ -10,7 +11,7 @@ const Table = ({
   rowData,
   isLoading = false,
   columns = [],
-  getRowStyle = () => {},
+  getRowStyle = () => ({}),
   cellStyle = {},
   colDef = {
     flex: 1,
@@ -20,6 +21,8 @@ const Table = ({
   },
   cellRendererProps = {},
   withCellRenderer = true,
+  withAnalyticCellRenderer = false,
+  analyticPushAction,
 }) => {
   const cellDefaultStyles = useMemo(() => ({ fontSize: '12px', fontWeight: '600' }), []);
 
@@ -35,7 +38,7 @@ const Table = ({
           cellStyle: { ...cellDefaultStyles, cellStyle },
           ...colDef,
         }}
-        getRowStyle={getRowStyle}
+        getRowStyle={(params) => getRowStyle(params)}
         rowData={rowData}
       >
         {columns.map((colItem) => (
@@ -74,6 +77,17 @@ const Table = ({
                 />
               )
             }
+          />
+        )}
+        {withAnalyticCellRenderer && (
+          <AgGridColumn
+            field="actions"
+            headerName=""
+            cellRenderer={({ data }) => (
+              <Button color="primary" clickHandler={() => analyticPushAction(data.id)} size={200}>
+                Посмотреть
+              </Button>
+            )}
           />
         )}
       </AgGridReact>
