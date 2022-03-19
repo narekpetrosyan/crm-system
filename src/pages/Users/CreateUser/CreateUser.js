@@ -34,6 +34,8 @@ const CreateUser = observer(() => {
   }, []);
 
   const submitForm = (data) => {
+    console.log(data);
+    debugger;
     usersStore.createUser(data);
     form.reset({}, { keepValues: false });
   };

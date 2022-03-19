@@ -48,7 +48,7 @@ export default class UsersStore {
     this.isLoading = true;
     try {
       const { data } = await this.authService.getUserById(id);
-      this.user = data.data;
+      this.user = { ...data.data, permissions: data.permissions };
     } catch (error) {
       toast.error(error.response.data.message);
     } finally {

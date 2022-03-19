@@ -4,13 +4,24 @@ import { useFormContext } from 'react-hook-form';
 
 import styles from './CheckboxLabel.module.scss';
 
-export const CheckboxLabel = ({ label, name, className, size = 14 }) => {
-  const { register } = useFormContext();
+export const CheckboxLabel = ({ label, name, value, className, size = 14 }) => {
+  const { register, getValues } = useFormContext();
+
+  const arr = getValues(name);
+
+  const isChecked = Array.isArray(arr) && arr?.includes(value);
 
   return (
     <div className={clsx(styles.CheckBoxWrapper, className)}>
-      <input type="checkbox" {...register(name)} id={name} style={{ '--f-size': `${size}px` }} />
-      <label htmlFor={name} className={styles.CheckboxLabel}>
+      <input
+        type="checkbox"
+        defaultValue={value}
+        checked={isChecked}
+        {...register(name)}
+        id={label}
+        style={{ '--f-size': `${size}px` }}
+      />
+      <label htmlFor={label} className={styles.CheckboxLabel}>
         {label}
       </label>
     </div>

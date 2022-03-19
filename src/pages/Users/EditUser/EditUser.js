@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, memo } from 'react';
+import React, { useEffect, memo } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
@@ -22,17 +22,14 @@ const EditUser = observer(() => {
   const form = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(createUserValidationSchema),
-    defaultValues: useMemo(
-      () => ({
-        name: '',
-        email: '',
-        password: '',
-        permissions: [],
-        is_admin: false,
-        city_id: '',
-      }),
-      [usersStore.user],
-    ),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      permissions: usersStore?.user?.permissions,
+      is_admin: false,
+      city_id: '',
+    },
   });
 
   useEffect(() => {
@@ -41,6 +38,7 @@ const EditUser = observer(() => {
       form.setValue('email', usersStore.user.email);
       form.setValue('is_admin', usersStore.user.is_admin);
       form.setValue('city_id', usersStore.user.city_id);
+      form.setValue('permissions', usersStore.user.permissions);
     });
   }, []);
 
@@ -49,6 +47,8 @@ const EditUser = observer(() => {
   }, [usersStore.user]);
 
   const submitForm = (data) => {
+    console.log(data);
+    debugger;
     usersStore.saveUser(data, id);
     form.reset({}, { keepValues: false });
   };
@@ -75,12 +75,12 @@ const EditUser = observer(() => {
               </div>
 
               <div className={styles.FormPermissions}>
-                {usersStore.permissions.map((permItem, index) => (
+                {usersStore.permissions.map((permItem) => (
                   <CheckboxLabel
                     value={permItem.id}
                     key={permItem.id}
                     label={permItem.name}
-                    name={`permissions[${index}]`}
+                    name="permissions[]"
                     size={13}
                   />
                 ))}
