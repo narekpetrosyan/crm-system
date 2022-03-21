@@ -34,9 +34,11 @@ const CreateUser = observer(() => {
   }, []);
 
   const submitForm = (data) => {
-    console.log(data);
-    debugger;
-    usersStore.createUser(data);
+    const dataToSend = {
+      ...data,
+      permissions: data.permissions.filter(Boolean),
+    };
+    usersStore.createUser(dataToSend);
     form.reset({}, { keepValues: false });
   };
 
@@ -61,12 +63,12 @@ const CreateUser = observer(() => {
               </div>
 
               <div className={styles.FormPermissions}>
-                {usersStore.permissions.map((permItem) => (
+                {usersStore.permissions.map((permItem, index) => (
                   <CheckboxLabel
                     value={permItem.id}
                     key={permItem.id}
                     label={permItem.name}
-                    name="permissions[]"
+                    name={`permissions.${index}`}
                     size={13}
                   />
                 ))}

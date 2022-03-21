@@ -26,7 +26,7 @@ const EditUser = observer(() => {
       name: '',
       email: '',
       password: '',
-      permissions: usersStore?.user?.permissions,
+      permissions: [],
       is_admin: false,
       city_id: '',
     },
@@ -38,7 +38,10 @@ const EditUser = observer(() => {
       form.setValue('email', usersStore.user.email);
       form.setValue('is_admin', usersStore.user.is_admin);
       form.setValue('city_id', usersStore.user.city_id);
-      form.setValue('permissions', usersStore.user.permissions);
+      form.setValue(
+        `permissions`,
+        Object.values(usersStore.user.permissions).filter((item) => item),
+      );
     });
   }, []);
 
@@ -47,9 +50,11 @@ const EditUser = observer(() => {
   }, [usersStore.user]);
 
   const submitForm = (data) => {
-    console.log(data);
-    debugger;
-    usersStore.saveUser(data, id);
+    const dataToSend = {
+      ...data,
+      permissions: data.permissions.filter(Boolean),
+    };
+    usersStore.saveUser(dataToSend, id);
     form.reset({}, { keepValues: false });
   };
 
@@ -75,12 +80,12 @@ const EditUser = observer(() => {
               </div>
 
               <div className={styles.FormPermissions}>
-                {usersStore.permissions.map((permItem) => (
+                {usersStore.permissions.map((permItem, index) => (
                   <CheckboxLabel
                     value={permItem.id}
                     key={permItem.id}
                     label={permItem.name}
-                    name="permissions[]"
+                    name={`permissions.${index}`}
                     size={13}
                   />
                 ))}
