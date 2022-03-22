@@ -11,7 +11,7 @@ import { getTableColumns } from './helpers/getTableColumns';
 import { convertTableData } from './helpers/convertTableData';
 
 const MainContrAgents = observer(() => {
-  const { contrAgentsStore } = useStore();
+  const { contrAgentsStore, authStore } = useStore();
 
   const headingButtonAction = useCallback(() => history.push('/contr-agents/create'), []);
   const searchFilter = useCallback((data) => contrAgentsStore.searchFilter(data), []);
@@ -21,7 +21,9 @@ const MainContrAgents = observer(() => {
     () => ({
       pushAction: (id) => history.push(`/contr-agents/edit/${id}`),
       removeAction: (id) => contrAgentsStore.removeContrAgent(id),
-      withThirdButton: true,
+      showEdit: authStore.transformedPermissions.includes(7),
+      showRemove: authStore.transformedPermissions.includes(8),
+      withThirdButton: authStore.transformedPermissions.includes(22),
       setOnRemoveAction: (id) => contrAgentsStore.setOnRemove(id),
       recoverAction: (id) => contrAgentsStore.setOnRemove(id, true),
     }),
@@ -37,7 +39,7 @@ const MainContrAgents = observer(() => {
     <InnerLayout>
       <PageHeading
         title="Контрагенты"
-        withButton
+        withButton={authStore.transformedPermissions.includes(6)}
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
@@ -56,6 +58,10 @@ const MainContrAgents = observer(() => {
         rowData={contrAgentsData}
         cellRendererProps={cellRendererProps}
         columns={getTableColumns}
+        withCellRenderer={
+          authStore.transformedPermissions.includes(8) ||
+          authStore.transformedPermissions.includes(7)
+        }
       />
     </InnerLayout>
   );

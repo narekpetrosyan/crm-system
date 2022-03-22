@@ -6,11 +6,11 @@ import { Header } from '@components/Header/Header';
 import { Sidebar } from '@components/Sidebar/Sidebar';
 import { AuthRoute } from '@components/AuthRoute/AuthRoute';
 import Loader from '@components/Loader/Loader';
-import mainRoutes from '../../routes/MainRoutes';
 
 import styles from './MainLayout.module.scss';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
+import { getRoutesByPermissions } from '../../routes/getRoutesByPermissions';
 
 const MainLayout = observer(() => {
   const { authStore, uiStore, callsStore, contrAgentsStore, citiesStore } = useStore();
@@ -30,7 +30,7 @@ const MainLayout = observer(() => {
       <div className={styles.Content}>
         <React.Suspense fallback={<Loader />}>
           <Switch>
-            {Object.values(mainRoutes).map((item) => (
+            {getRoutesByPermissions(authStore.permissions).map((item) => (
               <AuthRoute
                 key={item.pathName}
                 exact={item.exact}

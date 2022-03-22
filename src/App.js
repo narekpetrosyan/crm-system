@@ -5,9 +5,17 @@ import { AuthRoute } from './components/AuthRoute/AuthRoute';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import Authentication from './pages/Auth/Authentication';
 import NotFound from './pages/NotFound/NotFound';
+import { useEffect } from 'react';
+import Loader from './components/Loader/Loader';
 
 const App = observer(() => {
   const { authStore } = useStore();
+
+  useEffect(() => {
+    authStore.getMe();
+  }, []);
+
+  if (authStore.isLoading) return <Loader />;
 
   return (
     <Switch>

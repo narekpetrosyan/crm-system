@@ -1,14 +1,14 @@
 import React from 'react';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { FormProvider, useForm } from 'react-hook-form';
 import { loginValidationSchema } from '@utils/validation/authValidationSchema';
-import { observer } from 'mobx-react-lite';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 import { Button } from '@components/Button/Button';
 import { CheckboxLabel } from '@components/Form/CheckboxLabel/CheckboxLabel';
-import { useStore } from '@hooks/useStore';
 import Heading from '@components/Heading/Heading';
+import { useStore } from '@hooks/useStore';
 
 import styles from './Login.module.scss';
 
@@ -26,7 +26,8 @@ const Login = observer(() => {
   });
 
   const submitForm = (data) => {
-    authStore.login(data);
+    const { email, password } = data;
+    authStore.login(email, password);
     form.reset({ email: '', password: '' }, { keepValues: false });
   };
 

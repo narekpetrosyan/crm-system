@@ -10,6 +10,7 @@
     "ag-grid-react": "^27.0.0",
     "axios": "^0.25.0",
     "clsx": "^1.1.1",
+    "lodash": "^4.17.21",
     "mobx": "^6.3.13",
     "mobx-react-lite": "^3.2.3",
     "moment": "^2.29.1",

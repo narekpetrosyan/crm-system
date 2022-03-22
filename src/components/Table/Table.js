@@ -58,6 +58,8 @@ const Table = ({
               cellRendererProps.withThirdButton ? (
                 <AgActionButtons
                   data={data}
+                  showEdit={cellRendererProps.showEdit}
+                  showRemove={cellRendererProps.showRemove}
                   editAction={cellRendererProps.pushAction}
                   removeAction={cellRendererProps.removeAction}
                   withThirdButton={cellRendererProps.withThirdButton}
@@ -71,6 +73,8 @@ const Table = ({
               ) : (
                 <AgActionButtons
                   data={data}
+                  showEdit={cellRendererProps.showEdit}
+                  showRemove={cellRendererProps.showRemove}
                   editAction={cellRendererProps.pushAction}
                   removeAction={cellRendererProps.removeAction}
                   withThirdButton={false}

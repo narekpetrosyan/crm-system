@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { routes } from '../../routes';
 import { LinkItem } from '../LinkItem/LinkItem';
 
 import styles from './Sidebar.module.scss';
+import { getNavigationRoutesByPermissions } from '../../routes/getRoutesByPermissions';
+import { observer } from 'mobx-react-lite';
+import { useStore } from '../../hooks/useStore';
 
-export const Sidebar = ({ expanded = true, todayCallsCount }) => {
+export const Sidebar = observer(({ expanded = true, todayCallsCount }) => {
+  const { authStore } = useStore();
+
   return (
     <div className={styles.Sidebar} style={{ '--sidebar-size': expanded ? '230px' : '50px' }}>
       <div className={styles.SidebarInner}>
@@ -16,10 +20,10 @@ export const Sidebar = ({ expanded = true, todayCallsCount }) => {
           </Link>
         </div>
         <div>
-          {routes.map((item) => (
+          {getNavigationRoutesByPermissions(authStore.permissions).map((item) => (
             <LinkItem
-              key={item.path}
-              path={item.path}
+              key={item.pathName}
+              path={item.pathName}
               title={item.title}
               iconName={item.iconName}
               todayCallsCount={
@@ -31,4 +35,4 @@ export const Sidebar = ({ expanded = true, todayCallsCount }) => {
       </div>
     </div>
   );
-};
+});

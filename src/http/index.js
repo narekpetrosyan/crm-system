@@ -32,7 +32,7 @@ $authHost.interceptors.response.use(
     return config;
   },
   async (error) => {
-    if (error.response.status === 401 || error.response.status === 403) {
+    if (error.response.status === 403) {
       localStorage.removeItem('isAuth');
       localStorage.removeItem('token');
       window.location.href = '/';

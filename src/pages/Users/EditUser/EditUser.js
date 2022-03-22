@@ -27,7 +27,7 @@ const EditUser = observer(() => {
       email: '',
       password: '',
       permissions: [],
-      is_admin: false,
+      is_admin: usersStore.user?.is_admin,
       city_id: '',
     },
   });

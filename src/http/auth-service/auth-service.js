@@ -1,15 +1,19 @@
 import { $authHost, $host } from '..';
 
 export default class AuthService {
-  async login(email, password) {
-    return await $host.post('/login', {
+  static getMe() {
+    return $authHost.get('/me');
+  }
+
+  static login(email, password) {
+    return $host.post('/login', {
       email,
       password,
     });
   }
 
-  async register(name, email, password, password_confirmation) {
-    return await $host.post('/register', {
+  static register(name, email, password, password_confirmation) {
+    return $host.post('/register', {
       name,
       email,
       password,
@@ -17,7 +21,7 @@ export default class AuthService {
     });
   }
 
-  async logout() {
+  static async logout() {
     return await $authHost.post('/logout');
   }
 }

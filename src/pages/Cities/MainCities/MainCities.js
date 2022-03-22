@@ -8,7 +8,7 @@ import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import { getTableColumns } from './helpers/getTableColumns';
 
 const MainCities = observer(() => {
-  const { citiesStore } = useStore();
+  const { citiesStore, authStore } = useStore();
 
   useEffect(() => {
     citiesStore.fetchCities();
@@ -20,7 +20,8 @@ const MainCities = observer(() => {
     () => ({
       pushAction: (id) => history.push(`/cities/edit/${id}`),
       removeAction: (id) => citiesStore.removeCity(id),
-      withThirdButton: false,
+      showEdit: authStore.transformedPermissions.includes(20),
+      showRemove: authStore.transformedPermissions.includes(21),
     }),
     [],
   );
@@ -29,7 +30,7 @@ const MainCities = observer(() => {
     <InnerLayout>
       <PageHeading
         title="Города"
-        withButton
+        withButton={authStore.transformedPermissions.includes(19)}
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
@@ -39,6 +40,10 @@ const MainCities = observer(() => {
         isLoading={citiesStore.isLoading}
         cellRendererProps={cellRendererProps}
         columns={getTableColumns}
+        withCellRenderer={
+          authStore.transformedPermissions.includes(20) ||
+          authStore.transformedPermissions.includes(21)
+        }
         rowData={citiesStore.cities}
       />
     </InnerLayout>

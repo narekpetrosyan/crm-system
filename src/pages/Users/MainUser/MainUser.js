@@ -9,11 +9,15 @@ import { convertTableData } from './helpers/convertTableData';
 import { getTableColumns } from './helpers/getTableColumns';
 
 const MainUser = observer(() => {
-  const { usersStore } = useStore();
+  const { usersStore, authStore } = useStore();
 
   useEffect(() => {
     usersStore.fetchUsers();
   }, []);
+
+  console.log(
+    authStore.transformedPermissions.includes(3) || authStore.transformedPermissions.includes(4),
+  );
 
   const usersData = useMemo(() => convertTableData(usersStore.users), [usersStore.users]);
 
@@ -23,6 +27,8 @@ const MainUser = observer(() => {
     () => ({
       pushAction: (id) => history.push(`/users/edit/${id}`),
       removeAction: (id) => usersStore.removeUser(id),
+      showEdit: authStore.transformedPermissions.includes(3),
+      showRemove: authStore.transformedPermissions.includes(4),
     }),
     [],
   );
@@ -31,7 +37,7 @@ const MainUser = observer(() => {
     <InnerLayout>
       <PageHeading
         title="Пользователи"
-        withButton
+        withButton={authStore.transformedPermissions.includes(2)}
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
@@ -39,6 +45,10 @@ const MainUser = observer(() => {
 
       <Table
         isLoading={usersStore.isLoading}
+        withCellRenderer={
+          authStore.transformedPermissions.includes(3) ||
+          authStore.transformedPermissions.includes(4)
+        }
         cellRendererProps={cellRendererProps}
         rowData={usersData}
         columns={getTableColumns}

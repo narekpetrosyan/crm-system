@@ -8,19 +8,24 @@ export default class AuthStore {
 
   isLoading = false;
 
+  permissions = [];
+
+  transformedPermissions = [];
+
   constructor() {
-    this.authService = new AuthService();
     makeAutoObservable(this);
     this.logout = this.logout.bind(this);
   }
 
-  async login({ email, password }) {
+  async login(email, password) {
     this.isLoading = true;
     try {
-      const { data } = await this.authService.login(email, password);
+      const { data } = await AuthService.login(email, password);
       localStorage.setItem('isAuth', JSON.stringify(true));
       localStorage.setItem('token', data.token);
       this.isAuth = true;
+      this.permissions = data.permissions;
+      this.transformPermissions();
       history.push('/');
     } catch (error) {
       if (error.response.data.errors && Object.keys(error.response.data.errors).length) {
@@ -38,14 +43,11 @@ export default class AuthStore {
   async register({ name, email, password, password_confirmation }) {
     this.isLoading = true;
     try {
-      const { data } = await this.authService.register(
-        name,
-        email,
-        password,
-        password_confirmation,
-      );
+      const { data } = await AuthService.register(name, email, password, password_confirmation);
 
       this.isAuth = true;
+      this.permissions = data.permissions;
+      this.transformPermissions();
       localStorage.setItem('isAuth', JSON.stringify(true));
       localStorage.setItem('token', data.token);
       history.push('/');
@@ -65,7 +67,7 @@ export default class AuthStore {
   async logout() {
     this.isLoading = true;
     try {
-      await this.authService.logout();
+      await AuthService.logout();
       this.isAuth = false;
       localStorage.removeItem('isAuth');
       localStorage.removeItem('token');
@@ -75,5 +77,23 @@ export default class AuthStore {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  async getMe() {
+    try {
+      this.isLoading = true;
+      const { data } = await AuthService.getMe();
+      this.permissions = data.permissions;
+      this.transformPermissions();
+      this.isAuth = true;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  transformPermissions() {
+    this.transformedPermissions = this.permissions.map((el) => el.id);
   }
 }

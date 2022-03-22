@@ -11,7 +11,7 @@ import { getTableColumns } from './helpers/getTableColumns';
 import { convertTableData } from './helpers/convertTableData';
 
 const MainWorkers = observer(() => {
-  const { workersStore } = useStore();
+  const { workersStore, authStore } = useStore();
 
   useEffect(() => {
     workersStore.fetchWorkers();
@@ -25,7 +25,9 @@ const MainWorkers = observer(() => {
     () => ({
       pushAction: (id) => history.push(`/workers/edit/${id}`),
       removeAction: (id) => workersStore.removeWorker(id),
-      withThirdButton: true,
+      showEdit: authStore.transformedPermissions.includes(11),
+      showRemove: authStore.transformedPermissions.includes(12),
+      withThirdButton: authStore.transformedPermissions.includes(23),
       setOnRemoveAction: (id) => workersStore.setOnRemove(id),
       recoverAction: (id) => workersStore.setOnRemove(id, true),
     }),
@@ -38,7 +40,7 @@ const MainWorkers = observer(() => {
     <InnerLayout>
       <PageHeading
         title="Работники"
-        withButton
+        withButton={authStore.transformedPermissions.includes(10)}
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
@@ -57,6 +59,11 @@ const MainWorkers = observer(() => {
         cellRendererProps={cellRendererProps}
         rowData={workersData}
         columns={getTableColumns}
+        withCellRenderer={
+          authStore.transformedPermissions.includes(11) ||
+          authStore.transformedPermissions.includes(12) ||
+          authStore.transformedPermissions.includes(23)
+        }
       />
     </InnerLayout>
   );

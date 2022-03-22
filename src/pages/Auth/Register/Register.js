@@ -1,13 +1,13 @@
 import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { registerValidationSchema } from '@utils/validation/authValidationSchema';
 import { observer } from 'mobx-react-lite';
-import { TextInput } from '@components/Form/TextInput/TextInput';
-import { Button } from '@components/Button/Button';
-import { useStore } from '@hooks/useStore';
+import { FormProvider, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Heading from '@components/Heading/Heading';
+import { Button } from '@components/Button/Button';
+import { TextInput } from '@components/Form/TextInput/TextInput';
+import { useStore } from '@hooks/useStore';
+import { registerValidationSchema } from '@utils/validation/authValidationSchema';
 
 import styles from './Register.module.scss';
 

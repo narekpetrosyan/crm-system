@@ -8,7 +8,7 @@ import { history } from '@utils/history/history';
 import { getTableColumns } from './helpers/getTableColumns';
 
 const MainOrders = observer(() => {
-  const { ordersStore } = useStore();
+  const { ordersStore, authStore } = useStore();
 
   useEffect(() => {
     if (!ordersStore.orders.length) {
@@ -24,7 +24,9 @@ const MainOrders = observer(() => {
       removeAction: (id) => ordersStore.removeOrder(id),
       setOnRemoveAction: (id) => ordersStore.setOnRemove(id),
       recoverAction: (id) => ordersStore.setOnRemove(id, true),
-      withThirdButton: true,
+      showEdit: authStore.transformedPermissions.includes(15),
+      showRemove: authStore.transformedPermissions.includes(16),
+      withThirdButton: authStore.transformedPermissions.includes(24),
     }),
     [],
   );
@@ -37,7 +39,7 @@ const MainOrders = observer(() => {
     <InnerLayout>
       <PageHeading
         title="Заказы"
-        withButton
+        withButton={authStore.transformedPermissions.includes(14)}
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
@@ -49,6 +51,11 @@ const MainOrders = observer(() => {
         cellRendererProps={cellRendererProps}
         getRowStyle={getRowStyle}
         columns={getTableColumns}
+        withCellRenderer={
+          authStore.transformedPermissions.includes(15) ||
+          authStore.transformedPermissions.includes(16) ||
+          authStore.transformedPermissions.includes(24)
+        }
       />
     </InnerLayout>
   );
