@@ -94,6 +94,6 @@ export default class AuthStore {
   }
 
   transformPermissions() {
-    this.transformedPermissions = this.permissions.map((el) => el.id);
+    this.transformedPermissions = this.permissions.map((el) => +el.id);
   }
 }

@@ -15,10 +15,6 @@ const MainUser = observer(() => {
     usersStore.fetchUsers();
   }, []);
 
-  console.log(
-    authStore.transformedPermissions.includes(3) || authStore.transformedPermissions.includes(4),
-  );
-
   const usersData = useMemo(() => convertTableData(usersStore.users), [usersStore.users]);
 
   const headingButtonAction = useCallback(() => history.push('/users/create'), []);
