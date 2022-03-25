@@ -39,7 +39,7 @@ const EditCall = observer(() => {
   });
 
   const withNextCallTime = form.watch('withNextCallTime');
-  const contrAgentId = form.watch('contragent_id');
+  const contrAgentId = form.watch('contragent_id')?.value;
 
   useEffect(() => {
     callsStore.getCallById(id).then(() => {
@@ -79,7 +79,14 @@ const EditCall = observer(() => {
 
   const submitForm = (data) => {
     delete data.withNextCallTime;
-    callsStore.saveCall(data, id);
+    callsStore.saveCall(
+      {
+        ...data,
+        contact_id: data.contact_id.value,
+        contragent_id: data.contragent_id.value,
+      },
+      id,
+    );
   };
 
   const setNextCallTimeShown = useCallback(() => form.setValue('withNextCallTime', true), []);

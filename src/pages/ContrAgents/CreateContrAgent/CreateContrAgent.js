@@ -82,7 +82,11 @@ const CreateContrAgent = observer(() => {
   }, []);
 
   const submitForm = (data) => {
-    contrAgentsStore.createContrAgent(data);
+    contrAgentsStore.createContrAgent({
+      ...data,
+      city_id: data.city_id.value,
+      status: data.status.value,
+    });
   };
 
   return (

@@ -10,7 +10,10 @@ import styles from './AnalyticsFilter.module.scss';
 
 const AnalyticsFilter = ({ form, selectOptions, submitAction, selectLabel }) => {
   const submitForm = useCallback((data) => {
-    submitAction(data);
+    submitAction({
+      ...data,
+      contragent_id: data.contragent_id.value,
+    });
   }, []);
 
   return (

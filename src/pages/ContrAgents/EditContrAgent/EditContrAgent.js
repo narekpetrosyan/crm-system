@@ -54,7 +54,11 @@ const EditContrAgent = observer(() => {
   }, [contrAgentsStore.contrAgent]);
 
   const submitForm = (data) => {
-    contrAgentsStore.saveContrAgent(id, data);
+    contrAgentsStore.saveContrAgent(id, {
+      ...data,
+      city_id: data.city_id.value,
+      status: data.status.value,
+    });
   };
 
   if (contrAgentsStore.isLoading && citiesStore.isLoading) return <Loader />;

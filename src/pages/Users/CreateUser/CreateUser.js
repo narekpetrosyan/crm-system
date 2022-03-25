@@ -37,6 +37,7 @@ const CreateUser = observer(() => {
     const dataToSend = {
       ...data,
       permissions: data.permissions.filter(Boolean),
+      city_id: data.city_id.value,
     };
     usersStore.createUser(dataToSend);
     form.reset({}, { keepValues: false });

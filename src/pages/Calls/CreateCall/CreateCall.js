@@ -35,8 +35,8 @@ const CreateCall = observer(() => {
     },
   });
 
-  const contactId = form.watch('contact_id');
-  const contrAgentId = form.watch('contragent_id');
+  const contactId = form.watch('contact_id')?.value;
+  const contrAgentId = form.watch('contragent_id')?.value;
   const withNextCallTime = form.watch('withNextCallTime');
 
   useEffect(() => {
@@ -58,7 +58,11 @@ const CreateCall = observer(() => {
 
   const submitForm = (data) => {
     delete data.withNextCallTime;
-    callsStore.createCall(data);
+    callsStore.createCall({
+      ...data,
+      contact_id: data.contact_id.value,
+      contragent_id: data.contragent_id.value,
+    });
   };
 
   return (

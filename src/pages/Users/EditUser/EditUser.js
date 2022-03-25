@@ -53,6 +53,7 @@ const EditUser = observer(() => {
     const dataToSend = {
       ...data,
       permissions: data.permissions.filter(Boolean),
+      city_id: data.city_id.value,
     };
     usersStore.saveUser(dataToSend, id);
     form.reset({}, { keepValues: false });

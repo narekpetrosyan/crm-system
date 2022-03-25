@@ -1,7 +1,7 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import Select from 'react-select';
-import { useFormContext } from 'react-hook-form';
+import { useController, useFormContext } from 'react-hook-form';
 import Loader from '../../Loader/Loader';
 
 import styles from './SelectInput.module.scss';
@@ -15,14 +15,23 @@ export const SelectInput = ({
   withTopLabel = false,
   isLoading = false,
 }) => {
-  const { register, setValue, formState, getValues } = useFormContext();
+  const { getValues, control, setValue } = useFormContext();
 
-  const setSelectValue = useCallback((val) => setValue(name, val.value), []);
+  const {
+    field: { value, onChange },
+    fieldState: { error },
+  } = useController({ name, control });
 
   const defaultSelected = useMemo(
-    () => options.filter((item) => item.value === getValues(name)),
+    () => options.find((item) => item.value === getValues(name)),
     [getValues(name)],
   );
+
+  useEffect(() => {
+    if (defaultSelected) {
+      setValue(name, defaultSelected);
+    }
+  }, [defaultSelected]);
 
   if (isLoading) return <Loader />;
 
@@ -33,7 +42,7 @@ export const SelectInput = ({
         styles={{
           control: (base) => ({
             ...base,
-            border: formState.errors[name] && '1px solid red',
+            border: error?.message && '1px solid red',
             minHeight: 34,
             height: 34,
             borderRadius: 'none',
@@ -46,14 +55,13 @@ export const SelectInput = ({
           }),
         }}
         options={options}
-        {...register(name)}
-        onChange={setSelectValue}
+        name={name}
+        onChange={onChange}
         placeholder={label}
+        value={value}
         defaultValue={defaultSelected}
       />
-      {formState.errors[name]?.message && (
-        <span className={styles.HelperText}>{formState.errors[name]?.message}</span>
-      )}
+      {error?.message && <span className={styles.HelperText}>{error?.message}</span>}
     </div>
   );
 };

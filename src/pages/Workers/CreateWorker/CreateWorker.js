@@ -55,7 +55,12 @@ const CreateWorker = observer(() => {
   }, []);
 
   const submitForm = (data) => {
-    workersStore.createWorker(data);
+    workersStore.createWorker({
+      ...data,
+      area: data.area.value,
+      status: data.status.value,
+      gender: data.gender.value,
+    });
   };
 
   if (workersStore.isLoading) return <Loader />;

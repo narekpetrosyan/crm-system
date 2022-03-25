@@ -50,8 +50,10 @@ const CreateOrder = observer(() => {
   });
 
   const watchContrAgentId = form.watch('contragent_id');
-  const watchObjectId = form.watch('object_id');
-  const watchContactId = form.watch('contact_id');
+  const watchObjectId = form.watch('object_id')?.value;
+  const watchContactId = form.watch('contact_id')?.value;
+
+  console.log(watchContrAgentId, watchObjectId, watchContactId);
 
   useEffect(() => {
     form.reset({
@@ -72,7 +74,12 @@ const CreateOrder = observer(() => {
   }, [watchContactId]);
 
   const submitForm = (data) => {
-    ordersStore.createOrder(data);
+    ordersStore.createOrder({
+      ...data,
+      object_id: data.object_id.value,
+      work_type: data.work_type.value,
+      contact_id: data.contact_id.value,
+    });
   };
 
   return (

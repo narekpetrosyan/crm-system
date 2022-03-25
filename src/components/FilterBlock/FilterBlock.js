@@ -16,7 +16,10 @@ const FilterBlock = ({ selectOptions, submitAction, resetAction, searchLabel, se
   });
 
   const submitForm = useCallback((data) => {
-    submitAction(data);
+    submitAction({
+      ...data,
+      status: data.status.value,
+    });
   }, []);
 
   const resetFormAndData = useCallback(() => {
