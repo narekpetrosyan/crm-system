@@ -59,7 +59,6 @@ export const SelectInput = ({
         onChange={onChange}
         placeholder={label}
         value={value}
-        defaultValue={defaultSelected}
       />
       {error?.message && <span className={styles.HelperText}>{error?.message}</span>}
     </div>
