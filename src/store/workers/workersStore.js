@@ -49,11 +49,9 @@ export default class WorkersStore {
   async getWorkerById(id) {
     this.isLoading = true;
     try {
+      await this.fetchAreas();
       const { data } = await this.workersService.getWorkerById(id);
       this.worker = data.data;
-      if (!this.areas.length) {
-        await this.fetchAreas();
-      }
     } catch (error) {
       toast.error(error.response.data.message);
       throw error;

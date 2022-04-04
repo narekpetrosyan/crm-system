@@ -28,13 +28,15 @@ const EditCity = observer(() => {
     ),
   });
 
+  const { reset, control } = form;
+
   useEffect(() => {
-    form.reset(citiesStore.city);
+    reset(citiesStore.city);
   }, [citiesStore.city]);
 
   const submitForm = (data) => {
     citiesStore.saveCity(data, id);
-    form.reset({}, { keepValues: false });
+    reset({}, { keepValues: false });
   };
 
   return (
@@ -46,7 +48,7 @@ const EditCity = observer(() => {
           <FormProvider {...form}>
             <form>
               <div className={styles.FormInputs}>
-                <TextInput type="text" name="name" label="Название" id="name" />
+                <TextInput control={control} type="text" name="name" label="Название" id="name" />
               </div>
             </form>
           </FormProvider>

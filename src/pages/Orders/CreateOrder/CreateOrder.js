@@ -49,28 +49,26 @@ const CreateOrder = observer(() => {
     },
   });
 
-  const watchContrAgentId = form.watch('contragent_id');
-  const watchObjectId = form.watch('object_id')?.value;
-  const watchContactId = form.watch('contact_id')?.value;
+  const { watch, getValues, reset, setValue, control } = form;
+
+  const watchContrAgentId = watch('contragent_id');
+  const watchObjectId = watch('object_id')?.value;
+  const watchContactId = watch('contact_id')?.value;
 
   console.log(watchContrAgentId, watchObjectId, watchContactId);
 
   useEffect(() => {
-    form.reset({
-      ...form.getValues(),
+    reset({
+      ...getValues(),
       objectList: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.objects,
-      contactList: form.getValues('objectList')?.find((item) => item.id === watchObjectId)
-        ?.contacts,
+      contactList: getValues('objectList')?.find((item) => item.id === watchObjectId)?.contacts,
       price: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.price,
       w_price: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.w_price,
     });
   }, [watchContrAgentId, watchObjectId]);
 
   useEffect(() => {
-    form.setValue(
-      'phone',
-      form.getValues('contactList')?.find((item) => item.id === watchContactId)?.phone,
-    );
+    setValue('phone', getValues('contactList')?.find((item) => item.id === watchContactId)?.phone);
   }, [watchContactId]);
 
   const submitForm = (data) => {
@@ -100,16 +98,22 @@ const CreateOrder = observer(() => {
                 withTopLabel
                 label="Объект"
                 name="object_id"
-                options={transformForSelect(form.getValues('objectList'), 'id', 'name')}
+                options={transformForSelect(getValues('objectList'), 'id', 'name')}
               />
               <SelectInput
                 withTopLabel
                 label="Контактное лицо"
                 name="contact_id"
-                options={transformForSelect(form.getValues('contactList'), 'id', 'name')}
+                options={transformForSelect(getValues('contactList'), 'id', 'name')}
               />
-              <TextInput name="phone" withTopLabel label="Телефон" disabled />
-              <TextInput type="number" name="price" withTopLabel label="Ставка в час" />
+              <TextInput control={control} name="phone" withTopLabel label="Телефон" disabled />
+              <TextInput
+                control={control}
+                type="number"
+                name="price"
+                withTopLabel
+                label="Ставка в час"
+              />
             </div>
 
             <div className={styles.CreateOrderFormBlock}>
@@ -120,6 +124,7 @@ const CreateOrder = observer(() => {
                 label="Единица измерения"
               />
               <TextInput
+                control={control}
                 type="number"
                 name="w_price"
                 withTopLabel

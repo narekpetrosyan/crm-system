@@ -35,6 +35,8 @@ const CreateCall = observer(() => {
     },
   });
 
+  const { control } = form;
+
   const contactId = form.watch('contact_id')?.value;
   const contrAgentId = form.watch('contragent_id')?.value;
   const withNextCallTime = form.watch('withNextCallTime');
@@ -88,8 +90,22 @@ const CreateCall = observer(() => {
                   label="Контактное лицо"
                   options={transformForSelect(contrAgentsStore.contacts, 'id', 'name')}
                 />
-                <TextInput size={300} name="phone" withTopLabel label="Телефон" disabled />
-                <TextInput size={300} name="email" withTopLabel label="Email" disabled />
+                <TextInput
+                  control={control}
+                  size={300}
+                  name="phone"
+                  withTopLabel
+                  label="Телефон"
+                  disabled
+                />
+                <TextInput
+                  control={control}
+                  size={300}
+                  name="email"
+                  withTopLabel
+                  label="Email"
+                  disabled
+                />
               </div>
               <div>
                 <CheckboxLabel name="is_finished" label="Выполнен" />

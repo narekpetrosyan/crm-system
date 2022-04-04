@@ -25,10 +25,12 @@ const Login = observer(() => {
     },
   });
 
+  const { reset, control } = form;
+
   const submitForm = (data) => {
     const { email, password } = data;
     authStore.login(email, password);
-    form.reset({ email: '', password: '' }, { keepValues: false });
+    reset({ email: '', password: '' }, { keepValues: false });
   };
 
   return (
@@ -40,6 +42,7 @@ const Login = observer(() => {
           <div className={styles.FormWrapper}>
             <div className={styles.InputGroup}>
               <TextInput
+                control={control}
                 type="text"
                 name="email"
                 label="Email"
@@ -50,6 +53,7 @@ const Login = observer(() => {
             </div>
             <div className={styles.InputGroup}>
               <TextInput
+                control={control}
                 type="password"
                 name="password"
                 label="Password"

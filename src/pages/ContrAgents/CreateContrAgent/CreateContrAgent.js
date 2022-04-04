@@ -8,20 +8,19 @@ import PageHeading from '@components/PageHeading/PageHeading';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 import { SelectInput } from '@components/Form/SelectInput/SelectInput';
 import TextAreaInput from '@components/Form/TextAreaInput/TextAreaInput';
-import { AsyncSelectInput } from '@components/Form/SelectInput/AsyncSelectInput';
 import { transformForSelect } from '@utils/helpers/transformForSelect';
 import { contrAgentsStatusesSelectData } from '@utils/helpers/staticSeletcData';
 import { createContrAgentValidationSchema } from '@utils/validation/contrAgentsValidationSchema';
 import { useStore } from '@hooks/useStore';
-import { useSelectOptions } from '@hooks/useSelectOptions';
 import ContactNestedFields from './NestedFields/ContactNestedFields';
 import ObjectsNestedFields from './NestedFields/ObjectsNestedFields';
 
 import styles from './CreateContrAgent.module.scss';
+import { useSelectOptions } from '../../../hooks/useSelectOptions';
 
 const CreateContrAgent = observer(() => {
   const { citiesStore, contrAgentsStore } = useStore();
-  const { searchByText, isLoading } = useSelectOptions();
+  const { filteredUsers, isLoading } = useSelectOptions();
 
   const form = useForm({
     defaultValues: {
@@ -73,6 +72,7 @@ const CreateContrAgent = observer(() => {
       ],
     },
     resolver: yupResolver(createContrAgentValidationSchema),
+    shouldUnregister: true,
   });
 
   const { control } = form;
@@ -86,6 +86,7 @@ const CreateContrAgent = observer(() => {
       ...data,
       city_id: data.city_id.value,
       status: data.status.value,
+      responsible_id: data.responsible_id.value,
     });
   };
 
@@ -96,30 +97,44 @@ const CreateContrAgent = observer(() => {
         <FormProvider {...form}>
           <div className={styles.CreateContrAgentForm}>
             <div className={styles.CreateContrAgentFormBlock}>
-              <TextInput withTopLabel label="Наименование" name="name" />
-              <TextInput withTopLabel label="Юридический адрес" name="address_legal" />
-              <TextInput withTopLabel label="Фактический адрес" name="address_actual" />
+              <TextInput control={control} withTopLabel label="Наименование" name="name" />
+              <TextInput
+                control={control}
+                withTopLabel
+                label="Юридический адрес"
+                name="address_legal"
+              />
+              <TextInput
+                control={control}
+                withTopLabel
+                label="Фактический адрес"
+                name="address_actual"
+              />
             </div>
             <div className={styles.CreateContrAgentFormBlock}>
               <TextInput
+                control={control}
                 type="number"
                 withTopLabel
                 label="Ставка для заказчика руб./ч"
                 name="price"
               />
               <TextInput
+                control={control}
                 type="number"
                 withTopLabel
                 label="Ставка работника, руб./ч"
                 name="w_price"
               />
               <TextInput
+                control={control}
                 type="number"
                 withTopLabel
                 label="Ставка работника (Первый этап) руб./ч"
                 name="w_price_step_one"
               />
               <TextInput
+                control={control}
                 type="number"
                 withTopLabel
                 label="Ставка работника (Второй этап) руб./ч"
@@ -127,16 +142,33 @@ const CreateContrAgent = observer(() => {
               />
             </div>
             <div className={styles.CreateContrAgentFormBlock}>
-              <TextInput type="number" withTopLabel label="ИНН" name="INN" />
-              <TextInput type="number" withTopLabel label="КПП" name="KPP" />
-              <TextInput type="number" withTopLabel label="БИК" name="BIK" />
-              <TextInput type="number" withTopLabel label="ОГРН" name="ORGNIP" />
+              <TextInput control={control} type="number" withTopLabel label="ИНН" name="INN" />
+              <TextInput control={control} type="number" withTopLabel label="КПП" name="KPP" />
+              <TextInput control={control} type="number" withTopLabel label="БИК" name="BIK" />
+              <TextInput control={control} type="number" withTopLabel label="ОГРН" name="ORGNIP" />
             </div>
             <div className={styles.CreateContrAgentFormBlock}>
-              <TextInput withTopLabel label="Наименование банка" name="bank_name" />
-              <TextInput type="number" withTopLabel label="Кор. счёт" name="short_account_number" />
-              <TextInput type="number" withTopLabel label="Расчётный счёт" name="payment_account" />
-              <TextInput withTopLabel label="Адрес сайта" name="url" />
+              <TextInput
+                control={control}
+                withTopLabel
+                label="Наименование банка"
+                name="bank_name"
+              />
+              <TextInput
+                control={control}
+                type="number"
+                withTopLabel
+                label="Кор. счёт"
+                name="short_account_number"
+              />
+              <TextInput
+                control={control}
+                type="number"
+                withTopLabel
+                label="Расчётный счёт"
+                name="payment_account"
+              />
+              <TextInput control={control} withTopLabel label="Адрес сайта" name="url" />
             </div>
             <div className={styles.CreateContrAgentFormBlock}>
               <TextAreaInput
@@ -152,13 +184,14 @@ const CreateContrAgent = observer(() => {
                 label="Город"
                 name="city_id"
               />
-              <AsyncSelectInput
-                loading={isLoading}
-                asyncSearch={searchByText}
-                withTopLabel
-                label="Ответственный"
-                name="responsible_id"
-              />
+              {!isLoading && (
+                <SelectInput
+                  withTopLabel
+                  label="Ответственный"
+                  name="responsible_id"
+                  options={filteredUsers}
+                />
+              )}
               <SelectInput
                 withTopLabel
                 options={contrAgentsStatusesSelectData}

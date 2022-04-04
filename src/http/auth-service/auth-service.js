@@ -1,8 +1,14 @@
 import { $authHost, $host } from '..';
+import axios from 'axios';
 
 export default class AuthService {
   static getMe() {
-    return $authHost.get('/me');
+    const token = localStorage.getItem('token') || undefined;
+    return axios.get('/api/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 
   static login(email, password) {

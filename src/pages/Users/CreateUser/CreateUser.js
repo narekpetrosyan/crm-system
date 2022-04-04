@@ -29,8 +29,10 @@ const CreateUser = observer(() => {
     },
   });
 
+  const { reset, control } = form;
+
   useEffect(() => {
-    usersStore.fetchPermissonsAndCities();
+    usersStore.fetchPermissionsAndCities();
   }, []);
 
   const submitForm = (data) => {
@@ -40,7 +42,7 @@ const CreateUser = observer(() => {
       city_id: data.city_id.value,
     };
     usersStore.createUser(dataToSend);
-    form.reset({}, { keepValues: false });
+    reset({}, { keepValues: false });
   };
 
   return (
@@ -52,14 +54,20 @@ const CreateUser = observer(() => {
           <FormProvider {...form}>
             <form>
               <div className={styles.FormInputs}>
-                <TextInput type="text" name="name" label="Имя" id="name" />
-                <TextInput type="email" name="email" label="Email" id="email" />
+                <TextInput control={control} type="text" name="name" label="Имя" id="name" />
+                <TextInput control={control} type="email" name="email" label="Email" id="email" />
                 <SelectInput
                   name="city_id"
                   label="Город"
                   options={transformForSelect(usersStore.cities, 'id', 'name')}
                 />
-                <TextInput type="password" name="password" label="Пароль" id="password" />
+                <TextInput
+                  control={control}
+                  type="password"
+                  name="password"
+                  label="Пароль"
+                  id="password"
+                />
                 <CheckboxLabel label="Администратор" name="is_admin" />
               </div>
 

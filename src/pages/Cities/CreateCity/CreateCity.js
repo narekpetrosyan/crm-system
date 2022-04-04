@@ -18,9 +18,11 @@ const CreateCity = () => {
     },
   });
 
+  const { control, reset } = form;
+
   const submitForm = (data) => {
     citiesStore.createCity(data);
-    form.reset({}, { keepValues: false });
+    reset({}, { keepValues: false });
   };
 
   return (
@@ -31,7 +33,7 @@ const CreateCity = () => {
         <FormProvider {...form}>
           <form>
             <div className={styles.FormInputs}>
-              <TextInput type="text" name="name" label="Название" id="name" />
+              <TextInput control={control} type="text" name="name" label="Название" id="name" />
             </div>
           </form>
         </FormProvider>

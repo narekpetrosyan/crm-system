@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useController } from 'react-hook-form';
 import clsx from 'clsx';
 import { Icon } from '../../Icon/Icon';
 
@@ -7,6 +7,7 @@ import styles from './TextInput.module.scss';
 
 export const TextInput = memo(
   ({
+    control,
     type,
     name,
     label,
@@ -17,9 +18,9 @@ export const TextInput = memo(
     disabled = false,
   }) => {
     const {
-      register,
-      formState: { errors },
-    } = useFormContext();
+      fieldState: { error },
+      field,
+    } = useController({ name, control });
 
     return (
       <div className={clsx(styles.InputWrapper, className)}>
@@ -27,18 +28,16 @@ export const TextInput = memo(
         <div className={styles.InputBlock}>
           <input
             type={type}
-            {...register(name)}
             style={{ '--padding-right': withIcon ? '30px' : 0 }}
-            className={clsx(styles.InputText, errors[name]?.message && styles.InputTextError)}
+            className={clsx(styles.InputText, error?.message && styles.InputTextError)}
             id={name}
             placeholder={label}
             disabled={disabled}
+            {...field}
           />
           {withIcon && <Icon className={styles.InputIcon} name={iconName} size={0.8} />}
         </div>
-        {errors[name]?.message && (
-          <span className={styles.InputErrorMessage}>{errors[name]?.message}</span>
-        )}
+        {error?.message && <span className={styles.InputErrorMessage}>{error?.message}</span>}
       </div>
     );
   },

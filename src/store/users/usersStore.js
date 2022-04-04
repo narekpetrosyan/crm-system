@@ -15,14 +15,14 @@ export default class UsersStore {
   isLoading = false;
 
   constructor() {
-    this.authService = new UsersService();
+    this.usersService = new UsersService();
     makeAutoObservable(this);
   }
 
   async fetchUsers() {
     this.isLoading = true;
     try {
-      const { data } = await this.authService.fetchUsers();
+      const { data } = await this.usersService.fetchUsers();
       this.users = data.data;
     } catch (error) {
       toast.error(error.response.data.message);
@@ -31,10 +31,10 @@ export default class UsersStore {
     }
   }
 
-  async fetchPermissonsAndCities() {
+  async fetchPermissionsAndCities() {
     this.isLoading = true;
     try {
-      const { data } = await this.authService.fetchPermissonsAndCities();
+      const { data } = await this.usersService.fetchPermissionsAndCities();
       this.permissions = data.permissions;
       this.cities = data.cities;
     } catch (error) {
@@ -47,7 +47,7 @@ export default class UsersStore {
   async getUserById(id) {
     this.isLoading = true;
     try {
-      const { data } = await this.authService.getUserById(id);
+      const { data } = await this.usersService.getUserById(id);
       this.user = { ...data.data, permissions: data.permissions };
     } catch (error) {
       toast.error(error.response.data.message);
@@ -58,7 +58,7 @@ export default class UsersStore {
 
   async createUser({ name, email, password, is_admin, permissions, city_id }) {
     try {
-      const { data } = await this.authService.createUser({
+      const { data } = await this.usersService.createUser({
         data: { name, email, password, permissions, is_admin, city_id },
       });
       toast.success(data.message);
@@ -70,7 +70,7 @@ export default class UsersStore {
 
   async saveUser({ name, email, password, permissions, is_admin, city_id }, userId) {
     try {
-      const { data } = await this.authService.saveUser(
+      const { data } = await this.usersService.saveUser(
         {
           data: { name, email, password, permissions, is_admin, city_id },
         },
@@ -86,7 +86,7 @@ export default class UsersStore {
   async removeUser(id) {
     this.isLoading = true;
     try {
-      const { data } = await this.authService.removeUser(id);
+      const { data } = await this.usersService.removeUser(id);
       if (data.success) {
         toast.success(data.message);
         this.users = this.users.filter((item) => item.id !== id);

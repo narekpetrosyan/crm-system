@@ -18,7 +18,7 @@ export const SelectInput = ({
   const { getValues, control, setValue } = useFormContext();
 
   const {
-    field: { value, onChange },
+    field,
     fieldState: { error },
   } = useController({ name, control });
 
@@ -56,9 +56,10 @@ export const SelectInput = ({
         }}
         options={options}
         name={name}
-        onChange={onChange}
+        // onChange={onChange}
         placeholder={label}
-        value={value}
+        // value={value}
+        {...field}
       />
       {error?.message && <span className={styles.HelperText}>{error?.message}</span>}
     </div>

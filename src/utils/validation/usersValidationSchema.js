@@ -4,5 +4,4 @@ export const createUserValidationSchema = Yup.object().shape({
   name: Yup.string().required('The field is required.'),
   email: Yup.string().email('Email must be valid.').required('The field is required.'),
   password: Yup.string().required('The field is required.'),
-  city_id: Yup.object().required('The field is required.'),
 });

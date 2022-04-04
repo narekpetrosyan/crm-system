@@ -24,12 +24,11 @@ const Register = observer(() => {
     },
   });
 
+  const { control, reset } = form;
+
   const submitForm = (data) => {
     authStore.register(data);
-    form.reset(
-      { name: '', email: '', password: '', password_confirmation: '' },
-      { keepValues: false },
-    );
+    reset({ name: '', email: '', password: '', password_confirmation: '' }, { keepValues: false });
   };
 
   return (
@@ -41,6 +40,7 @@ const Register = observer(() => {
           <div className={styles.FormWrapper}>
             <div className={styles.InputGroup}>
               <TextInput
+                control={control}
                 type="text"
                 name="name"
                 label="Full name"
@@ -51,6 +51,7 @@ const Register = observer(() => {
             </div>
             <div className={styles.InputGroup}>
               <TextInput
+                control={control}
                 type="text"
                 name="email"
                 label="Email"
@@ -61,6 +62,7 @@ const Register = observer(() => {
             </div>
             <div className={styles.InputGroup}>
               <TextInput
+                control={control}
                 type="password"
                 name="password"
                 label="Password"
@@ -71,6 +73,7 @@ const Register = observer(() => {
             </div>
             <div className={styles.InputGroup}>
               <TextInput
+                control={control}
                 type="password"
                 name="password_confirmation"
                 label="Retype password"

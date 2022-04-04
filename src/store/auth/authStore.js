@@ -87,6 +87,10 @@ export default class AuthStore {
       this.transformPermissions();
       this.isAuth = true;
     } catch (error) {
+      if (error?.response.status === 401) {
+        localStorage.removeItem('isAuth');
+        localStorage.removeItem('token');
+      }
       console.log(error);
     } finally {
       this.isLoading = false;

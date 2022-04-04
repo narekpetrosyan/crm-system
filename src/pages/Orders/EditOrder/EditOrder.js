@@ -29,6 +29,7 @@ const EditOrder = observer(() => {
   const form = useForm({
     mode: 'onSubmit',
   });
+  const { control, watch, reset, getValues, setValue } = form;
 
   useEffect(() => {
     if (id)
@@ -39,28 +40,25 @@ const EditOrder = observer(() => {
       });
   }, []);
 
-  const watchContrAgentId = form.watch('contragent_id');
-  const watchObjectId = form.watch('object_id')?.value;
-  const watchContactId = form.watch('contact_id')?.value;
+  const watchContrAgentId = watch('contragent_id');
+  const watchObjectId = watch('object_id')?.value;
+  const watchContactId = watch('contact_id')?.value;
 
   useEffect(() => {
-    form.reset({
+    reset({
       ...ordersStore.order,
       contragent_id: ordersStore.order?.ob?.contragent_id,
       w_price: ordersStore.order?.price_for_worker,
       comment: ordersStore.order?.contragent?.comment,
       objectList: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.objects,
-      contactList: form.getValues('objectList')?.filter((item) => item.id !== watchObjectId)[0]
+      contactList: getValues('objectList')?.filter((item) => item.id !== watchObjectId)[0]
         ?.contacts,
       price: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.price,
     });
   }, [ordersStore.order, watchContrAgentId, watchObjectId, watchContactId]);
 
   useEffect(() => {
-    form.setValue(
-      'phone',
-      form.getValues('contactList')?.find((item) => item.id === watchContactId)?.phone,
-    );
+    setValue('phone', getValues('contactList')?.find((item) => item.id === watchContactId)?.phone);
   }, [watchContactId]);
 
   const downloadXLSXFile = async () => {
@@ -106,16 +104,22 @@ const EditOrder = observer(() => {
                 withTopLabel
                 label="Объект"
                 name="object_id"
-                options={transformForSelect(form.getValues('objectList'), 'id', 'name')}
+                options={transformForSelect(getValues('objectList'), 'id', 'name')}
               />
               <SelectInput
                 withTopLabel
                 label="Контактное лицо"
                 name="contact_id"
-                options={transformForSelect(form.getValues('contactList'), 'id', 'name')}
+                options={transformForSelect(getValues('contactList'), 'id', 'name')}
               />
-              <TextInput name="phone" withTopLabel label="Телефон" disabled />
-              <TextInput type="number" name="price" withTopLabel label="Ставка в час" />
+              <TextInput control={control} name="phone" withTopLabel label="Телефон" disabled />
+              <TextInput
+                control={control}
+                type="number"
+                name="price"
+                withTopLabel
+                label="Ставка в час"
+              />
             </div>
 
             <div className={styles.CreateOrderFormBlock}>
@@ -126,6 +130,7 @@ const EditOrder = observer(() => {
                 label="Единица измерения"
               />
               <TextInput
+                control={control}
                 type="number"
                 name="w_price"
                 withTopLabel

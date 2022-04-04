@@ -79,6 +79,7 @@ export default class ContrAgentsStore {
     try {
       const { data } = await this.contrAgentsService.saveContrAgent(id, { data: dto });
       if (data.success) {
+        await this.fetchContrAgents();
         toast.success(data.message);
         history.push('/contr-agents');
       }

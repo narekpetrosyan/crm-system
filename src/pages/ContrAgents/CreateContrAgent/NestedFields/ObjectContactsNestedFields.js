@@ -26,13 +26,20 @@ const ObjectContactsNestedFields = ({ index, control }) => {
       {contrAgentObjectContacts.map((itemCont, idx) => (
         <div key={itemCont.id} className={styles.CreateContrAgentFormAddedBlockItemNested}>
           <div className={styles.CreateContrAgentFormContrAgentBlock}>
-            <TextInput withTopLabel label="ФИО" name={`objList[${index}].contacts[${idx}].name`} />
             <TextInput
+              control={control}
+              withTopLabel
+              label="ФИО"
+              name={`objList[${index}].contacts[${idx}].name`}
+            />
+            <TextInput
+              control={control}
               withTopLabel
               label="Должность"
               name={`objList[${index}].contacts[${idx}].position`}
             />
             <TextInput
+              control={control}
               type="number"
               withTopLabel
               label="Номер телефона"
@@ -41,12 +48,14 @@ const ObjectContactsNestedFields = ({ index, control }) => {
           </div>
           <div className={styles.CreateContrAgentFormContrAgentBlock}>
             <TextInput
+              control={control}
               type="number"
               withTopLabel
               label="Доп. телефона"
               name={`objList[${index}].contacts[${idx}].phone_dop`}
             />
             <TextInput
+              control={control}
               withTopLabel
               label="Email"
               name={`objList[${index}].contacts[${idx}].email`}

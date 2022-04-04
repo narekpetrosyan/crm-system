@@ -15,12 +15,11 @@ const Forget = () => {
     },
   });
 
+  const { reset, control } = form;
+
   const submitForm = (data) => {
     console.log(data);
-    form.reset(
-      { name: '', email: '', password: '', password_confirmation: '' },
-      { keepValues: false },
-    );
+    reset({ name: '', email: '', password: '', password_confirmation: '' }, { keepValues: false });
   };
   return (
     <div className={styles.ForgetWrapper}>
@@ -31,6 +30,7 @@ const Forget = () => {
           <div className={styles.FormWrapper}>
             <div className={styles.InputGroup}>
               <TextInput
+                control={control}
                 type="text"
                 name="email"
                 label="Email"

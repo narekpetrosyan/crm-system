@@ -15,10 +15,12 @@ const FilterBlock = ({ selectOptions, submitAction, resetAction, searchLabel, se
     },
   });
 
+  const { control } = form;
+
   const submitForm = useCallback((data) => {
     submitAction({
       ...data,
-      status: data.status.value,
+      status: data?.status.value,
     });
   }, []);
 
@@ -40,6 +42,7 @@ const FilterBlock = ({ selectOptions, submitAction, resetAction, searchLabel, se
           <form>
             <div className={styles.FormInputs}>
               <TextInput
+                control={control}
                 type="text"
                 name="name"
                 label={searchLabel}

@@ -1,19 +1,11 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { $authHost } from '@http';
 import { transformForSelect } from '@utils/helpers/transformForSelect';
 
 export const useSelectOptions = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [filteredContrAgents, setFilteredContrAgents] = useState([]);
-
-  const filterUsers = useCallback(async (inputValue) => {
-    const { data } = await $authHost.get('/search-user', {
-      params: {
-        query: inputValue,
-      },
-    });
-    return transformForSelect(data.results, 'id', 'name');
-  }, []);
+  const [filteredUsers, setFilteredUsers] = useState([]);
 
   const filterContrAgents = useCallback(async (inputNameValue) => {
     const { data } = await $authHost.get('/search-contragent', {
@@ -25,17 +17,19 @@ export const useSelectOptions = () => {
     return transformForSelect(data.results, 'id', 'name');
   }, []);
 
-  const searchByText = useCallback((inputValue) => {
-    return new Promise((resolve) => {
-      if (inputValue.trim() === '') return;
-      resolve(filterUsers(inputValue));
-    })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        setIsLoading(true);
+        const { data } = await $authHost.get('/search-user');
+        setFilteredUsers(transformForSelect(data.results, 'id', 'name'));
+      } catch (e) {
+        console.log(e);
+      } finally {
         setIsLoading(false);
-      });
+      }
+    };
+    getUsers();
   }, []);
 
   const searchContrAgentByName = useCallback((inputNameValue) => {
@@ -51,5 +45,5 @@ export const useSelectOptions = () => {
       });
   }, []);
 
-  return { searchContrAgentByName, filteredContrAgents, searchByText, isLoading };
+  return { searchContrAgentByName, filteredContrAgents, isLoading, filteredUsers };
 };

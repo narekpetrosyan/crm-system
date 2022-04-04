@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, FormProvider } from 'react-hook-form';
 import Loader from '@components/Loader/Loader';
 import { Button } from '@components/Button/Button';
@@ -10,8 +9,8 @@ import PageHeading from '@components/PageHeading/PageHeading';
 import { TextInput } from '@components/Form/TextInput/TextInput';
 import { SelectInput } from '@components/Form/SelectInput/SelectInput';
 import TextAreaInput from '@components/Form/TextAreaInput/TextAreaInput';
+import { CreatableSelectInput } from '@components/Form/SelectInput/CreatableSelect';
 import { genderSelectData, statusSelectData } from '@utils/helpers/staticSeletcData';
-import { createWorkerValidationSchema } from '@utils/validation/workersValidationSchema';
 import { useStore } from '@hooks/useStore';
 
 import styles from './CreateWorker.module.scss';
@@ -20,7 +19,7 @@ const CreateWorker = observer(() => {
   const { workersStore } = useStore();
 
   const form = useForm({
-    resolver: yupResolver(createWorkerValidationSchema),
+    // resolver: yupResolver(createWorkerValidationSchema),
     defaultValues: {
       name: '',
       surname: '',
@@ -50,6 +49,8 @@ const CreateWorker = observer(() => {
     },
   });
 
+  const { control } = form;
+
   useEffect(() => {
     workersStore.fetchAreas();
   }, []);
@@ -73,30 +74,52 @@ const CreateWorker = observer(() => {
         <FormProvider {...form}>
           <form>
             <div className={styles.CreateWorkerFormBlock}>
-              <TextInput name="surname" label="Фамилия" withTopLabel />
-              <TextInput name="name" label="Имя" withTopLabel />
-              <TextInput name="patronymic" label="Отчество" withTopLabel />
+              <TextInput control={control} name="surname" label="Фамилия" withTopLabel />
+              <TextInput control={control} name="name" label="Имя" withTopLabel />
+              <TextInput control={control} name="patronymic" label="Отчество" withTopLabel />
               <DateInput name="dt_birth" label="Дата рождения" />
               <SelectInput name="gender" label="Пол" withTopLabel options={genderSelectData} />
               <DateInput name="created_at" label="Дата регистрации" />
             </div>
             <div className={styles.CreateWorkerFormBlock}>
-              <TextInput name="address" label="Адрес проживания" withTopLabel />
-              <SelectInput
+              <TextInput control={control} name="address" label="Адрес проживания" withTopLabel />
+              <CreatableSelectInput
                 name="area"
                 label="Район проживания"
                 withTopLabel
                 options={workersStore.areas}
               />
-              <TextInput type="number" name="phone" label="Тел. 1" withTopLabel />
-              <TextInput type="number" name="phone_dop" label="Тел. 2" withTopLabel />
-              <TextInput type="number" name="inn" label="ИНН" withTopLabel />
-              <TextInput type="number" name="snils" label="Снилс" withTopLabel />
+              <TextInput control={control} type="number" name="phone" label="Тел. 1" withTopLabel />
+              <TextInput
+                control={control}
+                type="number"
+                name="phone_dop"
+                label="Тел. 2"
+                withTopLabel
+              />
+              <TextInput control={control} type="number" name="inn" label="ИНН" withTopLabel />
+              <TextInput control={control} type="number" name="snils" label="Снилс" withTopLabel />
             </div>
             <div className={styles.CreateWorkerFormBlock}>
-              <TextInput name="address_reg" label="Адрес регистрации" withTopLabel />
-              <TextInput name="bank_name" label="Наименование банка" withTopLabel />
-              <TextInput type="number" name="number_card" label="Карта №" withTopLabel />
+              <TextInput
+                control={control}
+                name="address_reg"
+                label="Адрес регистрации"
+                withTopLabel
+              />
+              <TextInput
+                control={control}
+                name="bank_name"
+                label="Наименование банка"
+                withTopLabel
+              />
+              <TextInput
+                control={control}
+                type="number"
+                name="number_card"
+                label="Карта №"
+                withTopLabel
+              />
               <DateInput name="exp_date_medical_book" label="Медкнижка до" />
             </div>
             <div className={styles.CreateWorkerFormBlock}>
@@ -111,6 +134,7 @@ const CreateWorker = observer(() => {
               </div>
               <div className={styles.CreateWorkerFormBlockItem}>
                 <TextInput
+                  control={control}
                   type="number"
                   name="passport_number"
                   label="Паспорт (номер)"
@@ -121,6 +145,7 @@ const CreateWorker = observer(() => {
             <div className={styles.CreateWorkerFormBlock}>
               <div className={styles.CreateWorkerFormBlockItem}>
                 <TextInput
+                  control={control}
                   type="number"
                   name="passport_series"
                   label="Паспорт (серия)"
@@ -128,7 +153,12 @@ const CreateWorker = observer(() => {
                 />
               </div>
               <div className={styles.CreateWorkerFormBlockItem}>
-                <TextInput name="passport_issued" label="Кем выдан" withTopLabel />
+                <TextInput
+                  control={control}
+                  name="passport_issued"
+                  label="Кем выдан"
+                  withTopLabel
+                />
               </div>
             </div>
             <div className={styles.CreateWorkerFormBlock}>
@@ -136,7 +166,12 @@ const CreateWorker = observer(() => {
                 <DateInput name="passport_created_at" label="Когда выдан" />
               </div>
               <div className={styles.CreateWorkerFormBlockItem}>
-                <TextInput name="passport_department_code" label="Код подразделения" withTopLabel />
+                <TextInput
+                  control={control}
+                  name="passport_department_code"
+                  label="Код подразделения"
+                  withTopLabel
+                />
               </div>
             </div>
             <div className={styles.CreateWorkerFormBlock}>

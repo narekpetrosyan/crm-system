@@ -23,13 +23,20 @@ const ContactNestedFields = observer(({ control }) => {
       {contrAgentContacts.map((item, index) => (
         <div key={item.id} className={styles.CreateContrAgentFormAddedBlockItem}>
           <div className={styles.CreateContrAgentFormContrAgentBlock}>
-            <TextInput withTopLabel label="ФИО" name={`contactListContragent[${index}].name`} />
             <TextInput
+              control={control}
+              withTopLabel
+              label="ФИО"
+              name={`contactListContragent[${index}].name`}
+            />
+            <TextInput
+              control={control}
               withTopLabel
               label="Должность"
               name={`contactListContragent[${index}].position`}
             />
             <TextInput
+              control={control}
               type="number"
               withTopLabel
               label="Номер телефона"
@@ -38,12 +45,18 @@ const ContactNestedFields = observer(({ control }) => {
           </div>
           <div className={styles.CreateContrAgentFormContrAgentBlock}>
             <TextInput
+              control={control}
               type="number"
               withTopLabel
               label="Доп. телефон"
               name={`contactListContragent[${index}].phone_dop`}
             />
-            <TextInput withTopLabel label="Email" name={`contactListContragent[${index}].email`} />
+            <TextInput
+              control={control}
+              withTopLabel
+              label="Email"
+              name={`contactListContragent[${index}].email`}
+            />
             <Button color="danger" size={150} clickHandler={() => remove(index)}>
               Удалить
             </Button>

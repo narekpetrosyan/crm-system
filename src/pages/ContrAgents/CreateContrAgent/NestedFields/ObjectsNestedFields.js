@@ -23,8 +23,18 @@ const ObjectsNestedFields = ({ control }) => {
       {contrAgentObjects.map((item, index) => (
         <div key={item.id} className={styles.CreateContrAgentFormAddedBlockItem}>
           <div className={styles.CreateContrAgentFormContrAgentBlock}>
-            <TextInput withTopLabel label="Наименование объекта" name={`objList[${index}].name`} />
-            <TextInput withTopLabel label="Адрес объекта" name={`objList[${index}].address`} />
+            <TextInput
+              control={control}
+              withTopLabel
+              label="Наименование объекта"
+              name={`objList[${index}].name`}
+            />
+            <TextInput
+              control={control}
+              withTopLabel
+              label="Адрес объекта"
+              name={`objList[${index}].address`}
+            />
             <Button color="danger" size={150} clickHandler={() => removeObject(index)}>
               Удалить
             </Button>

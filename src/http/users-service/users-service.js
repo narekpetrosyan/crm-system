@@ -5,7 +5,7 @@ export default class UsersService {
     return await $authHost.get('/users');
   }
 
-  async fetchPermissonsAndCities() {
+  async fetchPermissionsAndCities() {
     return await $authHost.get('/permission-list');
   }
 

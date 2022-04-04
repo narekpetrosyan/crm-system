@@ -13,3 +13,10 @@ export const transformForSelect = (data, field1, field2) => {
   }
   return [];
 };
+
+export const transformForSelectObject = (data, f1, f2) => {
+  return {
+    value: data[f1],
+    label: data[f2],
+  };
+};

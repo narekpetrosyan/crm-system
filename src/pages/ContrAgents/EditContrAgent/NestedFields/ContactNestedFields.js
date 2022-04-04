@@ -20,13 +20,20 @@ const ContactNestedFields = observer(({ control }) => {
         return (
           <div key={item.id} className={styles.EditContrAgentFormAddedBlockItem}>
             <div className={styles.EditContrAgentFormContrAgentBlock}>
-              <TextInput withTopLabel label="ФИО" name={`contactListContragent[${index}].name`} />
               <TextInput
+                control={control}
+                withTopLabel
+                label="ФИО"
+                name={`contactListContragent[${index}].name`}
+              />
+              <TextInput
+                control={control}
                 withTopLabel
                 label="Должность"
                 name={`contactListContragent[${index}].position`}
               />
               <TextInput
+                control={control}
                 type="number"
                 withTopLabel
                 label="Номер телефона"
@@ -35,12 +42,14 @@ const ContactNestedFields = observer(({ control }) => {
             </div>
             <div className={styles.EditContrAgentFormContrAgentBlock}>
               <TextInput
+                control={control}
                 type="number"
                 withTopLabel
                 label="Доп. телефон"
                 name={`contactListContragent[${index}].phone_dop`}
               />
               <TextInput
+                control={control}
                 withTopLabel
                 label="Email"
                 name={`contactListContragent[${index}].email`}

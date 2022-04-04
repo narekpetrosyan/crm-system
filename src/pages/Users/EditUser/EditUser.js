@@ -32,18 +32,17 @@ const EditUser = observer(() => {
     },
   });
 
+  const { setValue, control, reset } = form;
+
   useEffect(() => {
-    Promise.all([usersStore.fetchPermissonsAndCities(), usersStore.getUserById(id)]).then(() => {
-      form.setValue('name', usersStore.user.name);
-      form.setValue('email', usersStore.user.email);
-      form.setValue('is_admin', usersStore.user.is_admin);
-      form.setValue('city_id', usersStore.user.city_id);
-      form.setValue(
-        `permissions`,
-        Object.values(usersStore.user.permissions).filter((item) => item),
-      );
+    Promise.all([usersStore.fetchPermissionsAndCities(), usersStore.getUserById(id)]).then(() => {
+      setValue('name', usersStore.user.name);
+      setValue('email', usersStore.user.email);
+      setValue('is_admin', usersStore.user.is_admin);
+      setValue('city_id', usersStore.user.city_id);
+      setValue(`permissions`, [...usersStore.user.permissions]);
     });
-  }, []);
+  }, [reset]);
 
   useEffect(() => {
     form.reset(usersStore.user);
@@ -52,7 +51,7 @@ const EditUser = observer(() => {
   const submitForm = (data) => {
     const dataToSend = {
       ...data,
-      permissions: data.permissions.filter(Boolean),
+      permissions: [...data.permissions.filter(Boolean)],
       city_id: data.city_id.value,
     };
     usersStore.saveUser(dataToSend, id);
@@ -68,15 +67,21 @@ const EditUser = observer(() => {
           <FormProvider {...form}>
             <form>
               <div className={styles.FormInputs}>
-                <TextInput type="text" name="name" label="Имя" id="name" />
-                <TextInput type="email" name="email" label="Email" id="email" />
+                <TextInput type="text" name="name" label="Имя" id="name" control={control} />
+                <TextInput type="email" name="email" label="Email" id="email" control={control} />
                 <SelectInput
                   name="city_id"
                   label="Город"
                   options={transformForSelect(usersStore.cities, 'id', 'name')}
                   className={styles.FormInputsSelect}
                 />
-                <TextInput type="password" name="password" label="Пароль" id="password" />
+                <TextInput
+                  type="password"
+                  name="password"
+                  label="Пароль"
+                  id="password"
+                  control={control}
+                />
                 <CheckboxLabel label="Администратор" name="is_admin" />
               </div>
 
@@ -86,7 +91,7 @@ const EditUser = observer(() => {
                     value={permItem.id}
                     key={permItem.id}
                     label={permItem.name}
-                    name={`permissions.${index}`}
+                    name={`permissions[${index}]`}
                     size={13}
                   />
                 ))}

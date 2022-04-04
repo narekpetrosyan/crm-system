@@ -21,6 +21,8 @@ const PlannedCalls = observer(() => {
     () => ({
       pushAction: (id) => history.push(`/calls/edit/${id}`),
       removeAction: (id) => callsStore.removeCall(id),
+      showEdit: true,
+      showRemove: true,
     }),
     [],
   );
@@ -45,6 +47,7 @@ const PlannedCalls = observer(() => {
         rowData={callsData}
         columns={getTableColumns}
         cellRendererProps={cellRendererProps}
+        withCellRenderer
       />
     </InnerLayout>
   );
