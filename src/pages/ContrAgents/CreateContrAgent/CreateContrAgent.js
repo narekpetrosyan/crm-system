@@ -14,9 +14,9 @@ import { createContrAgentValidationSchema } from '@utils/validation/contrAgentsV
 import { useStore } from '@hooks/useStore';
 import ContactNestedFields from './NestedFields/ContactNestedFields';
 import ObjectsNestedFields from './NestedFields/ObjectsNestedFields';
+import { useSelectOptions } from '../../../hooks/useSelectOptions';
 
 import styles from './CreateContrAgent.module.scss';
-import { useSelectOptions } from '../../../hooks/useSelectOptions';
 
 const CreateContrAgent = observer(() => {
   const { citiesStore, contrAgentsStore } = useStore();
@@ -205,7 +205,13 @@ const CreateContrAgent = observer(() => {
             <ObjectsNestedFields control={control} />
 
             <div className={styles.CreateContrAgentFormBlock}>
-              <Button color="submit" clickHandler={form.handleSubmit(submitForm)} size={150}>
+              <Button
+                color="submit"
+                clickHandler={form.handleSubmit(submitForm)}
+                size={150}
+                disabled={contrAgentsStore.isLoading}
+                loading={contrAgentsStore.isLoading}
+              >
                 Сохранить
               </Button>
             </div>

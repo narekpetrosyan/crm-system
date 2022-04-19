@@ -146,7 +146,13 @@ const CreateOrder = observer(() => {
             </div>
 
             <div className={styles.CreateOrderFormBlock}>
-              <Button color="submit" clickHandler={form.handleSubmit(submitForm)} size={150}>
+              <Button
+                color="submit"
+                clickHandler={form.handleSubmit(submitForm)}
+                size={150}
+                disabled={ordersStore.isLoading}
+                loading={ordersStore.isLoading}
+              >
                 Сохранить
               </Button>
             </div>

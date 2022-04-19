@@ -88,7 +88,12 @@ const CreateUser = observer(() => {
       </div>
 
       <div className={styles.UsersInnerSave}>
-        <Button clickHandler={form.handleSubmit(submitForm)} size={150}>
+        <Button
+          clickHandler={form.handleSubmit(submitForm)}
+          size={150}
+          disabled={usersStore.isLoading}
+          loading={usersStore.isLoading}
+        >
           Сохранить
         </Button>
       </div>

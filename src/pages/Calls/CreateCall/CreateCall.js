@@ -142,7 +142,13 @@ const CreateCall = observer(() => {
             </div>
 
             <div className={styles.CallsInnerSave}>
-              <Button color="submit" clickHandler={form.handleSubmit(submitForm)} size={150}>
+              <Button
+                color="submit"
+                clickHandler={form.handleSubmit(submitForm)}
+                size={150}
+                disabled={callsStore.isLoading}
+                loading={callsStore.isLoading}
+              >
                 Сохранить
               </Button>
             </div>

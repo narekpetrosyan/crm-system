@@ -33,6 +33,7 @@ export default class CitiesStore {
 
   async createCity(dto) {
     try {
+      this.isLoading = true;
       const { data } = await this.citiesService.createCity({
         data: dto,
       });
@@ -41,6 +42,8 @@ export default class CitiesStore {
       await this.fetchCities();
     } catch (error) {
       toast.error('Что то пошло не так.');
+    } finally {
+      this.isLoading = false;
     }
   }
 

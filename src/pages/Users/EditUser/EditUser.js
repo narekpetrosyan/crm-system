@@ -102,7 +102,13 @@ const EditUser = observer(() => {
       </div>
 
       <div className={styles.UsersInnerSave}>
-        <Button color="submit" clickHandler={form.handleSubmit(submitForm)} size={150}>
+        <Button
+          color="submit"
+          clickHandler={form.handleSubmit(submitForm)}
+          size={150}
+          disabled={usersStore.isLoading}
+          loading={usersStore.isLoading}
+        >
           Сохранить
         </Button>
       </div>

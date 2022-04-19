@@ -16,7 +16,7 @@ export const transformForSelect = (data, field1, field2) => {
 
 export const transformForSelectObject = (data, f1, f2) => {
   return {
-    value: data[f1],
+    value: !Number.isNaN(Number(data[f1])) ? Number(data[f1]) : data[f1],
     label: data[f2],
   };
 };

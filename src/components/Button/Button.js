@@ -12,16 +12,22 @@ export const Button = memo(
     type = 'submit',
     color = 'common',
     disabled = false,
+    loading = false,
   }) => {
     return (
       <button
-        className={clsx(styles.Button, styles[`Button_${color}`], className)}
+        className={clsx(
+          styles.Button,
+          styles[`Button_${color}`],
+          className,
+          loading && styles.loading,
+        )}
         style={{ '--btn-size': size ? `${size}px` : '100%' }}
         type={type}
         onClick={clickHandler}
         disabled={disabled}
       >
-        {children}
+        {!loading ? children : <div>Loading...</div>}
       </button>
     );
   },

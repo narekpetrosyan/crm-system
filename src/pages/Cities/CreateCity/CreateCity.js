@@ -40,7 +40,13 @@ const CreateCity = () => {
       </div>
 
       <div className={styles.CitiesInnerSave}>
-        <Button color="submit" size={150} clickHandler={form.handleSubmit(submitForm)}>
+        <Button
+          color="submit"
+          size={150}
+          clickHandler={form.handleSubmit(submitForm)}
+          disabled={citiesStore.isLoading}
+          loading={citiesStore.isLoading}
+        >
           Сохранить
         </Button>
       </div>

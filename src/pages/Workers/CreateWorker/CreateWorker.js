@@ -19,7 +19,6 @@ const CreateWorker = observer(() => {
   const { workersStore } = useStore();
 
   const form = useForm({
-    // resolver: yupResolver(createWorkerValidationSchema),
     defaultValues: {
       name: '',
       surname: '',
@@ -181,7 +180,13 @@ const CreateWorker = observer(() => {
             </div>
 
             <div className={styles.CreateWorkerFormBlock}>
-              <Button color="submit" clickHandler={form.handleSubmit(submitForm)} size={150}>
+              <Button
+                color="submit"
+                clickHandler={form.handleSubmit(submitForm)}
+                size={150}
+                disabled={workersStore.isLoading}
+                loading={workersStore.isLoading}
+              >
                 Сохранить
               </Button>
             </div>

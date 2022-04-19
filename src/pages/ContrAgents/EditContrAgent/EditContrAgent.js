@@ -12,19 +12,19 @@ import { SelectInput } from '@components/Form/SelectInput/SelectInput';
 import TextAreaInput from '@components/Form/TextAreaInput/TextAreaInput';
 import ContactNestedFields from './NestedFields/ContactNestedFields';
 import ObjectsNestedFields from './NestedFields/ObjectsNestedFields';
-import { transformForSelect } from '@utils/helpers/transformForSelect';
+import { transformForSelect, transformForSelectObject } from '@utils/helpers/transformForSelect';
 import { contrAgentsStatusesSelectData } from '@utils/helpers/staticSeletcData';
 import { createContrAgentValidationSchema } from '@utils/validation/contrAgentsValidationSchema';
 import { useStore } from '@hooks/useStore';
 import { useSelectOptions } from '@hooks/useSelectOptions';
 
 import styles from './EditContrAgent.module.scss';
-import { transformForSelectObject } from '../../../utils/helpers/transformForSelect';
 
 const EditContrAgent = observer(() => {
   const { id } = useParams();
   const { citiesStore, contrAgentsStore } = useStore();
   const { filteredUsers, isLoading } = useSelectOptions();
+
   const form = useForm({
     mode: 'onSubmit',
     resolver: yupResolver(createContrAgentValidationSchema),
@@ -40,7 +40,6 @@ const EditContrAgent = observer(() => {
       if (id) await contrAgentsStore.getContrAgentById(id);
     };
     fetchContrAgentData().then(() => {
-      console.log(transformForSelectObject(contrAgentsStore.contrAgent?.responsible, 'id', 'name'));
       setValue(
         'responsible_id',
         transformForSelectObject(contrAgentsStore.contrAgent?.responsible, 'id', 'name'),
@@ -52,6 +51,7 @@ const EditContrAgent = observer(() => {
     form.reset({
       ...contrAgentsStore.contrAgent,
       contactListContragent: contrAgentsStore.contrAgent?.contacts,
+      city_id: Number(contrAgentsStore.contrAgent?.city_id),
       objList: contrAgentsStore.contrAgent?.objects.map((it) => ({
         ...it,
         contacts: it.contacts,
@@ -62,9 +62,9 @@ const EditContrAgent = observer(() => {
   const submitForm = (data) => {
     contrAgentsStore.saveContrAgent(id, {
       ...data,
-      city_id: data.city_id.value,
-      status: data?.status.value,
-      responsible_id: data.responsible_id.value,
+      city_id: data.city_id?.value,
+      status: data.status?.value,
+      responsible_id: data.responsible_id?.value,
     });
   };
 
@@ -185,7 +185,13 @@ const EditContrAgent = observer(() => {
             <ObjectsNestedFields control={control} />
 
             <div className={styles.EditContrAgentFormBlock}>
-              <Button color="submit" clickHandler={form.handleSubmit(submitForm)} size={150}>
+              <Button
+                color="submit"
+                clickHandler={form.handleSubmit(submitForm)}
+                size={150}
+                disabled={contrAgentsStore.isLoading}
+                loading={contrAgentsStore.isLoading}
+              >
                 Сохранить
               </Button>
             </div>

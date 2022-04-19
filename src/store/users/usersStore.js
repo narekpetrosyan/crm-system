@@ -58,6 +58,7 @@ export default class UsersStore {
 
   async createUser({ name, email, password, is_admin, permissions, city_id }) {
     try {
+      this.isLoading = true;
       const { data } = await this.usersService.createUser({
         data: { name, email, password, permissions, is_admin, city_id },
       });
@@ -65,11 +66,14 @@ export default class UsersStore {
       history.push('/users');
     } catch (error) {
       toast.error('Что то пошло не так.');
+    } finally {
+      this.isLoading = false;
     }
   }
 
   async saveUser({ name, email, password, permissions, is_admin, city_id }, userId) {
     try {
+      this.isLoading = true;
       const { data } = await this.usersService.saveUser(
         {
           data: { name, email, password, permissions, is_admin, city_id },
@@ -80,6 +84,8 @@ export default class UsersStore {
       history.push('/users');
     } catch (error) {
       toast.error('Что то пошло не так.');
+    } finally {
+      this.isLoading = false;
     }
   }
 

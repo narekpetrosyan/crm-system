@@ -56,7 +56,13 @@ const EditCity = observer(() => {
       </div>
 
       <div className={styles.CitiesInnerSave}>
-        <Button color="submit" clickHandler={form.handleSubmit(submitForm)} size={120}>
+        <Button
+          color="submit"
+          clickHandler={form.handleSubmit(submitForm)}
+          size={120}
+          disabled={citiesStore.isLoading}
+          loading={citiesStore.isLoading}
+        >
           Сохранить
         </Button>
       </div>

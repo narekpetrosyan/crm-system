@@ -85,7 +85,7 @@ const Register = observer(() => {
           </div>
 
           <div className={styles.ButtonCheckbox}>
-            <Button disabled={authStore.isLoading} color="primary">
+            <Button disabled={authStore.isLoading} loading={authStore.isLoading} color="primary">
               Register
             </Button>
           </div>

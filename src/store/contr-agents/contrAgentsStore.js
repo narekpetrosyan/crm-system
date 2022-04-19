@@ -8,8 +8,6 @@ export default class ContrAgentsStore {
 
   filteredContrAgents = [];
 
-  contrAgentAfterFilter = null;
-
   contrAgent = null;
 
   statuses = [];

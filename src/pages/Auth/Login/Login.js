@@ -66,7 +66,12 @@ const Login = observer(() => {
 
           <div className={styles.ButtonCheckbox}>
             <CheckboxLabel label="Remember Me" name="rememberMe" />
-            <Button color="primary" className={styles.SubmitButton} disabled={authStore.isLoading}>
+            <Button
+              color="primary"
+              className={styles.SubmitButton}
+              disabled={authStore.isLoading}
+              loading={authStore.isLoading}
+            >
               Sign In
             </Button>
           </div>
