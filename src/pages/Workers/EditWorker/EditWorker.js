@@ -60,7 +60,7 @@ const EditWorker = observer(() => {
         setValue('patronymic', workersStore.worker.patronymic);
         setValue('dt_birth', workersStore.worker.dt_birth);
         setValue('created_at', workersStore.worker.created_at);
-        setValue('gender', workersStore.worker.gender);
+        setValue('gender', Number(workersStore.worker.gender));
         setValue('address', workersStore.worker.address);
         setValue('area', workersStore.worker?.area);
         setValue('phone', workersStore.worker.phone);

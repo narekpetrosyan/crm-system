@@ -11,7 +11,7 @@ export const CreatableSelectInput = observer(
     const { control } = useFormContext();
 
     const {
-      field,
+      field: { onChange, value, onBlur },
       fieldState: { error },
     } = useController({ name, control });
 
@@ -37,8 +37,17 @@ export const CreatableSelectInput = observer(
           options={options}
           name={name}
           placeholder={label}
-          {...field}
-          isClearable
+          noOptionsMessage={() => 'Отсутствуют элементы для выбора'}
+          value={value}
+          onBlur={onBlur}
+          onChange={onChange}
+          onCreateOption={(value) => {
+            onChange({
+              label: value,
+              value,
+              isNew: true,
+            });
+          }}
         />
         {error?.message && <span className={styles.HelperText}>{error?.message}</span>}
       </div>

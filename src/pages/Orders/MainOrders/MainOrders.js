@@ -11,9 +11,7 @@ const MainOrders = observer(() => {
   const { ordersStore, authStore } = useStore();
 
   useEffect(() => {
-    if (!ordersStore.orders.length) {
-      ordersStore.fetchOrders();
-    }
+    ordersStore.fetchOrders();
   }, []);
 
   const headingButtonAction = useCallback(() => history.push('/orders/create'), []);

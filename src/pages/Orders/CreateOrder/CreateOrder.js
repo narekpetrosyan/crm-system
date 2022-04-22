@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useForm, FormProvider } from 'react-hook-form';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
@@ -9,16 +9,13 @@ import { TextInput } from '@components/Form/TextInput/TextInput';
 import { SelectInput } from '@components/Form/SelectInput/SelectInput';
 import TextAreaInput from '@components/Form/TextAreaInput/TextAreaInput';
 import { CheckboxLabel } from '@components/Form/CheckboxLabel/CheckboxLabel';
-import { AsyncSelectInput } from '@components/Form/SelectInput/AsyncSelectInput';
 import { useStore } from '@hooks/useStore';
-import { useSelectOptions } from '@hooks/useSelectOptions';
 import { workTypes } from '@utils/helpers/staticSeletcData';
-import { transformForSelect } from '@utils/helpers/transformForSelect';
+import { useCaValues } from '../hooks/useCaValues';
 
 import styles from './CreateOrder.module.scss';
 
 const CreateOrder = observer(() => {
-  const { isLoading, searchContrAgentByName, filteredContrAgents } = useSelectOptions();
   const { ordersStore } = useStore();
 
   const form = useForm({
@@ -49,27 +46,16 @@ const CreateOrder = observer(() => {
     },
   });
 
-  const { watch, getValues, reset, setValue, control } = form;
+  const { setValue, control } = form;
 
-  const watchContrAgentId = watch('contragent_id');
-  const watchObjectId = watch('object_id')?.value;
-  const watchContactId = watch('contact_id')?.value;
-
-  console.log(watchContrAgentId, watchObjectId, watchContactId);
-
-  useEffect(() => {
-    reset({
-      ...getValues(),
-      objectList: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.objects,
-      contactList: getValues('objectList')?.find((item) => item.id === watchObjectId)?.contacts,
-      price: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.price,
-      w_price: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.w_price,
-    });
-  }, [watchContrAgentId, watchObjectId]);
-
-  useEffect(() => {
-    setValue('phone', getValues('contactList')?.find((item) => item.id === watchContactId)?.phone);
-  }, [watchContactId]);
+  const {
+    contrAgents,
+    contrAgentsLoading,
+    caObjectsLoading,
+    caObjects,
+    caOContactList,
+    caOContactListLoading,
+  } = useCaValues(control, setValue);
 
   const submitForm = (data) => {
     ordersStore.createOrder({
@@ -77,6 +63,7 @@ const CreateOrder = observer(() => {
       object_id: data.object_id.value,
       work_type: data.work_type.value,
       contact_id: data.contact_id.value,
+      contragent_id: data.contragent_id.value,
     });
   };
 
@@ -87,24 +74,26 @@ const CreateOrder = observer(() => {
         <FormProvider {...form}>
           <div className={styles.CreateOrderForm}>
             <div className={styles.CreateOrderFormBlock}>
-              <AsyncSelectInput
+              <SelectInput
                 name="contragent_id"
-                loading={isLoading}
-                asyncSearch={searchContrAgentByName}
+                loading={contrAgentsLoading}
+                options={contrAgents}
                 withTopLabel
                 label="Контрагент"
               />
               <SelectInput
                 withTopLabel
                 label="Объект"
+                loading={caObjectsLoading}
                 name="object_id"
-                options={transformForSelect(getValues('objectList'), 'id', 'name')}
+                options={caObjects}
               />
               <SelectInput
                 withTopLabel
                 label="Контактное лицо"
                 name="contact_id"
-                options={transformForSelect(getValues('contactList'), 'id', 'name')}
+                options={caOContactList}
+                loading={caOContactListLoading}
               />
               <TextInput control={control} name="phone" withTopLabel label="Телефон" disabled />
               <TextInput

@@ -11,7 +11,6 @@ import { TextInput } from '@components/Form/TextInput/TextInput';
 import { SelectInput } from '@components/Form/SelectInput/SelectInput';
 import TextAreaInput from '@components/Form/TextAreaInput/TextAreaInput';
 import { CheckboxLabel } from '@components/Form/CheckboxLabel/CheckboxLabel';
-import { AsyncSelectInput } from '@components/Form/SelectInput/AsyncSelectInput';
 import { workTypes } from '@utils/helpers/staticSeletcData';
 import { transformForSelect } from '@utils/helpers/transformForSelect';
 import { useSelectOptions } from '@hooks/useSelectOptions';
@@ -23,7 +22,7 @@ import styles from '../CreateOrder/CreateOrder.module.scss';
 const EditOrder = observer(() => {
   const { id } = useParams();
   const { ordersStore } = useStore();
-  const { isLoading, searchContrAgentByName, filteredContrAgents } = useSelectOptions();
+  const { isLoading, contrAgents } = useSelectOptions();
   const [selectedOption, setSelectedOption] = useState(null);
 
   const form = useForm({
@@ -34,9 +33,10 @@ const EditOrder = observer(() => {
   useEffect(() => {
     if (id)
       ordersStore.getOrderById(id).then(() => {
-        searchContrAgentByName(ordersStore.order?.contragent?.name).then((data) => {
-          setSelectedOption(data[0]);
-        });
+        setSelectedOption(contrAgents?.find((el) => el.id === ordersStore.order?.contragent?.id));
+        // contrAgents(ordersStore.order?.contragent?.name).then((data) => {
+        //   setSelectedOption(data[0]);
+        // });
       });
   }, []);
 
@@ -50,10 +50,10 @@ const EditOrder = observer(() => {
       contragent_id: ordersStore.order?.ob?.contragent_id,
       w_price: ordersStore.order?.price_for_worker,
       comment: ordersStore.order?.contragent?.comment,
-      objectList: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.objects,
+      objectList: contrAgents.find((item) => item.id === watchContrAgentId)?.objects,
       contactList: getValues('objectList')?.filter((item) => item.id !== watchObjectId)[0]
         ?.contacts,
-      price: filteredContrAgents.find((item) => item.id === watchContrAgentId)?.price,
+      price: contrAgents.find((item) => item.id === watchContrAgentId)?.price,
     });
   }, [ordersStore.order, watchContrAgentId, watchObjectId, watchContactId]);
 
@@ -79,6 +79,7 @@ const EditOrder = observer(() => {
       object_id: data.object_id.value,
       work_type: data.work_type.value,
       contact_id: data.contact_id.value,
+      contragent_id: data.contragent_id.value,
     });
   };
 
@@ -91,14 +92,14 @@ const EditOrder = observer(() => {
         <FormProvider {...form}>
           <div className={styles.CreateOrderForm}>
             <div className={styles.CreateOrderFormBlock}>
-              <AsyncSelectInput
+              <SelectInput
                 name="contragent_id"
                 value={selectedOption}
                 loading={isLoading}
-                asyncSearch={searchContrAgentByName}
                 withTopLabel
                 label="Контрагент"
                 isLoading={isLoading}
+                options={transformForSelect(contrAgents, 'id', 'name')}
               />
               <SelectInput
                 withTopLabel

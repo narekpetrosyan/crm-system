@@ -58,7 +58,7 @@ const CreateWorker = observer(() => {
     workersStore.createWorker({
       ...data,
       area: data.area.value,
-      status: data.status.value,
+      status: data.status.value || 'READY',
       gender: data.gender.value,
     });
   };

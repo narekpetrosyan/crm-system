@@ -31,4 +31,12 @@ export default class OrdersService {
   async removeOrder(id) {
     return await $authHost.delete(`/orders/${id}`);
   }
+
+  static async getCaObjects(id) {
+    return await $authHost.get(`/contragent-object/${id}`);
+  }
+
+  static async getCaOContactList(id) {
+    return await $authHost.get(`/contragent-object-contact-list/${id}`);
+  }
 }

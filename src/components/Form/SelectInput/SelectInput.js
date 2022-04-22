@@ -13,7 +13,7 @@ export const SelectInput = ({
   className,
   size = 200,
   withTopLabel = false,
-  isLoading = false,
+  loading = false,
 }) => {
   const { getValues, control, setValue } = useFormContext();
 
@@ -33,7 +33,7 @@ export const SelectInput = ({
     }
   }, [defaultSelected]);
 
-  if (isLoading) return <Loader />;
+  if (loading) return <Loader />;
 
   return (
     <div className={clsx(styles.SelectInputWrapper, className)}>
