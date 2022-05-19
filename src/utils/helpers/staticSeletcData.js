@@ -29,3 +29,14 @@ export const workTypes = [
     label: 'Смена',
   },
 ];
+
+export const yesNo = [
+  {
+    value: 0,
+    label: 'Нет',
+  },
+  {
+    value: 1,
+    label: 'Да',
+  },
+];

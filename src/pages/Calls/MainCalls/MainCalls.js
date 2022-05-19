@@ -1,4 +1,4 @@
-import React, { useCallback, memo, useMemo } from 'react';
+import React, { useCallback, memo, useMemo, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import { useStore } from '@hooks/useStore';
@@ -11,6 +11,10 @@ import { convertTableData } from './helpers/convertTableData';
 const MainCalls = observer(() => {
   const { callsStore } = useStore();
   const todayCallsCount = callsStore?.todayCallsCount;
+
+  useEffect(() => {
+    callsStore.fetchCalls();
+  }, []);
 
   const headingButtonAction = useCallback(() => history.push('/calls/create'), []);
   const headingInsertedButtonAction = useCallback(() => history.push('/calls/planned'), []);

@@ -5,7 +5,7 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb",
+//        "airbnb",
         "plugin:prettier/recommended",
         "prettier"
     ],
@@ -17,10 +17,12 @@
         "sourceType": "module"
     },
     "plugins": [
+        "import",
         "react",
         "prettier"
     ],
     "rules": {
+        "react/display-name": "off",
         "react/jsx-filename-extension": [
             1,
             {
@@ -37,7 +39,7 @@
                 "unnamedComponents": "arrow-function"
             }
         ],
-        "import/prefer-default-export": "off",
+//        "import/prefer-default-export": "off",
         "no-debugger": "off",
         "no-console": 0,
         "react/require-default-props": "off",
@@ -47,12 +49,13 @@
         "import/no-unresolved": "off",
         "react/button-has-type": "off",
         "class-methods-use-this": "off",
-        "no-return-await": "off",
-        "no-useless-catch": "off",
+//        "no-return-await": "off",
+//        "no-useless-catch": "off",
         "no-param-reassign": "off",
         "camelcase": "off",
         "no-shadow": "off",
         "import/order": "off",
-        "react/no-unstable-nested-components": "off"
+        "react/no-unstable-nested-components": "off",
+        "no-unused-vars": "off"
     }
 }

@@ -39,6 +39,7 @@ export default class CallsStore {
         data: dto,
       });
       toast.success(data.message);
+      this.fetchCalls();
       history.push('/calls');
     } catch (error) {
       toast.error(error.response.data.message);
@@ -52,6 +53,7 @@ export default class CallsStore {
     try {
       const { data } = await this.callsService.saveCall(dto, id);
       toast.success(data.message);
+      this.fetchCalls();
       history.push('/calls');
     } catch (error) {
       toast.error(error.response.data.message);

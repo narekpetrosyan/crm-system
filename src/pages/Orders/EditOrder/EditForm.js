@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from '../CreateOrder/CreateOrder.module.scss';
 import { SelectInput } from '../../../components/Form/SelectInput/SelectInput';
 import { TextInput } from '../../../components/Form/TextInput/TextInput';
@@ -8,11 +8,12 @@ import TextAreaInput from '../../../components/Form/TextAreaInput/TextAreaInput'
 import { transformForSelect } from '../../../utils/helpers/transformForSelect';
 import { useCaValues } from '../hooks/useCaValues';
 import { useFormContext } from 'react-hook-form';
-import { workTypes } from '../../../utils/helpers/staticSeletcData';
 import { useDefaultValues } from '../hooks/useDefaultValues';
+import { useStore } from '../../../hooks/useStore';
 
 const EditForm = ({ control, order }) => {
-  const { setValue } = useFormContext();
+  const { workersStore } = useStore();
+  const { setValue, watch } = useFormContext();
   const {
     contrAgents,
     contrAgentsLoading,
@@ -20,8 +21,15 @@ const EditForm = ({ control, order }) => {
     caObjects,
     caOContactList,
     caOContactListLoading,
+    contrAgentsAll,
   } = useCaValues(control, setValue);
   useDefaultValues(contrAgents, caObjects, caOContactList);
+
+  const watchCA = watch?.('contragent_id')?.value;
+
+  useEffect(() => {
+    watchCA && workersStore.setSelectedCA(contrAgentsAll.find((el) => el.id === watchCA));
+  }, [watchCA]);
 
   return (
     <div className={styles.CreateOrderForm}>
@@ -48,17 +56,22 @@ const EditForm = ({ control, order }) => {
           loading={caOContactListLoading}
         />
         <TextInput control={control} name="phone" withTopLabel label="Телефон" disabled />
-        <TextInput control={control} type="number" name="price" withTopLabel label="Ставка в час" />
+        <TextInput
+          control={control}
+          type="number"
+          name="price"
+          withTopLabel
+          label="Ставка заказчик"
+        />
       </div>
 
       <div className={styles.CreateOrderFormBlock}>
-        <SelectInput name="work_type" options={workTypes} withTopLabel label="Единица измерения" />
         <TextInput
           control={control}
           type="number"
           name="w_price"
           withTopLabel
-          label="Стоимость для работника"
+          label="Ставка работник"
         />
         <DateInput variant="datetime" name="start_time" label="Начало смены" />
         <DateInput variant="datetime" name="end_time" label="Окончание смены" />

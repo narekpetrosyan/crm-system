@@ -10,7 +10,6 @@ import { SelectInput } from '@components/Form/SelectInput/SelectInput';
 import TextAreaInput from '@components/Form/TextAreaInput/TextAreaInput';
 import { CheckboxLabel } from '@components/Form/CheckboxLabel/CheckboxLabel';
 import { useStore } from '@hooks/useStore';
-import { workTypes } from '@utils/helpers/staticSeletcData';
 import { useCaValues } from '../hooks/useCaValues';
 
 import styles from './CreateOrder.module.scss';
@@ -61,7 +60,7 @@ const CreateOrder = observer(() => {
     ordersStore.createOrder({
       ...data,
       object_id: data.object_id.value,
-      work_type: data.work_type.value,
+      work_type: 'PER_HOUR',
       contact_id: data.contact_id.value,
       contragent_id: data.contragent_id.value,
     });
@@ -101,23 +100,17 @@ const CreateOrder = observer(() => {
                 type="number"
                 name="price"
                 withTopLabel
-                label="Ставка в час"
+                label="Ставка заказчик"
               />
             </div>
 
             <div className={styles.CreateOrderFormBlock}>
-              <SelectInput
-                name="work_type"
-                options={workTypes}
-                withTopLabel
-                label="Единица измерения"
-              />
               <TextInput
                 control={control}
                 type="number"
                 name="w_price"
                 withTopLabel
-                label="Стоимость для работника"
+                label="Ставка работник"
               />
               <DateInput variant="datetime" name="start_time" label="Начало смены" />
               <DateInput variant="datetime" name="end_time" label="Окончание смены" />

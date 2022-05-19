@@ -7,6 +7,7 @@ import { workTypes } from '../../../utils/helpers/staticSeletcData';
 
 export const useCaValues = (control, setValue) => {
   const [contrAgents, setContrAgents] = useState([]);
+  const [contrAgentsAll, setContrAgentsAll] = useState([]);
   const [contrAgentsLoading, setContrAgentsLoading] = useState([]);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ export const useCaValues = (control, setValue) => {
       try {
         setContrAgentsLoading(true);
         const { data } = await $authHost.get('/search-contragent');
+        setContrAgentsAll(data?.results);
         setContrAgents(transformForSelect(data.results, 'id', 'name'));
       } catch (e) {
         console.log(e);
@@ -93,5 +95,6 @@ export const useCaValues = (control, setValue) => {
     caObjectsLoading,
     caOContactList,
     caOContactListLoading,
+    contrAgentsAll,
   };
 };

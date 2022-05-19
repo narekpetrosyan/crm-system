@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useParams } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
@@ -9,20 +9,43 @@ import PageHeading from '@components/PageHeading/PageHeading';
 import { useStore } from '@hooks/useStore';
 import { $authHost } from '../../../http';
 import EditForm from './EditForm';
+import { PickWorker } from './PickWorker/PickWorker';
+import { WorkersTable } from './WorkersTable/WorkersTable';
 
 import styles from '../CreateOrder/CreateOrder.module.scss';
 
 const EditOrder = observer(() => {
+  const [workers, setWorkers] = useState([]);
+  const [filterType, setFilterType] = useState('ALL');
   const { id } = useParams();
-  const { ordersStore } = useStore();
+  const { ordersStore, workersStore } = useStore();
+
+  const handleFilter = (val = 'ALL') => {
+    setFilterType(val);
+    if (val === 'ALL') {
+      workersStore.orderWorkers = workersStore.orderWorkers;
+      return;
+    }
+    if (workersStore.orderWorkers.length === 0) return;
+    workersStore.orderWorkers = workersStore.orderWorkers.filter((el) => el.status_en === val);
+  };
+
+  useEffect(() => {
+    return () => {
+      setWorkers([]);
+      workersStore.orderWorkersInSmen = [];
+    };
+  }, []);
 
   const form = useForm({
     mode: 'onSubmit',
     defaultValues: {
       ...ordersStore.order,
+      is_payment: ordersStore.order?.is_fully_paid,
+      workers: [],
     },
   });
-  const { control } = form;
+  const { control, setValue, getValues } = form;
 
   useEffect(() => {
     if (id) ordersStore.getOrderById(id);
@@ -44,11 +67,22 @@ const EditOrder = observer(() => {
     ordersStore.saveOrder(id, {
       ...data,
       object_id: data.object_id.value,
-      work_type: data.work_type.value,
+      work_type: 'PER_HOUR',
       contact_id: data.contact_id.value,
       contragent_id: data.contragent_id.value,
       user_id: data.user_id.value,
+      is_fully_paid: data.is_payment,
+      workers: data.workers,
     });
+  };
+
+  const clickSelectButton = (id) => {
+    workersStore.setWorkersInSmen(workersStore.orderWorkers.find((el) => el.id === id));
+    workersStore.orderWorkers = workersStore.orderWorkers.filter((el) => el.id !== id);
+    setValue('workers', [
+      ...getValues('workers'),
+      workersStore.orderWorkers.find((el) => el.id === id),
+    ]);
   };
 
   if (ordersStore.isLoading) return <Loader />;
@@ -59,22 +93,38 @@ const EditOrder = observer(() => {
       <div className={styles.CreateOrderInnerBody}>
         <FormProvider {...form}>
           <EditForm control={control} order={ordersStore.order} />
-
-          <div className={styles.CreateOrderFormBlock}>
-            <Button
-              color="submit"
-              clickHandler={form.handleSubmit(submitForm)}
-              size={150}
-              disabled={ordersStore.isLoading}
-              loading={ordersStore.isLoading}
-            >
-              Сохранить
-            </Button>
-            <Button color="submit" clickHandler={downloadXLSXFile} size={150}>
-              Скачать XLSX
-            </Button>
-          </div>
         </FormProvider>
+        <PickWorker orderId={id} />
+
+        <div>
+          <WorkersTable
+            rowData={workersStore.orderWorkers}
+            isLoading={workersStore.isLoadingFF}
+            filterHandler={handleFilter}
+            selectButtonHandler={clickSelectButton}
+            showWorkingTable={filterType === 'WORKING'}
+          />
+        </div>
+
+        <div className={styles.CreateOrderFormBlock}>
+          <Button
+            color="submit"
+            clickHandler={form.handleSubmit(submitForm)}
+            size={150}
+            disabled={ordersStore.isLoading}
+            loading={ordersStore.isLoading}
+          >
+            Сохранить
+          </Button>
+          {ordersStore.order?.is_fully_paid && (
+            <Button color="submit" clickHandler={downloadXLSXFile} size={150}>
+              Закрыть смену
+            </Button>
+          )}
+          <Button color="submit" clickHandler={downloadXLSXFile} size={150}>
+            Скачать XLSX
+          </Button>
+        </div>
       </div>
     </InnerLayout>
   );

@@ -41,6 +41,17 @@ export default class WorkersService {
     });
   }
 
+  async searchForOrderFilter(data) {
+    return await $authHost.get(`/workers/search`, {
+      params: {
+        order_id: data.order_id,
+        gender: data.gender,
+        step: data.step,
+        area: data.area,
+      },
+    });
+  }
+
   async fetchAreas() {
     return await $authHost.get('/workers/getAreas');
   }

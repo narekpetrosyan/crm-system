@@ -1,0 +1,32 @@
+.tableFilterWrapper {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tableFilterBtns {
+  margin: 0;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.tableFilterBtn {
+  background-color: #fff;
+  color: #444;
+  border-right-color: #f4f4f4;
+  padding: 10px 15px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    color: rgba(#444,.7);
+  }
+}
+
+.active {
+  border-top: 3px solid #3c8dbc;
+}

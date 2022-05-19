@@ -14,6 +14,7 @@ export const SelectInput = ({
   size = 200,
   withTopLabel = false,
   loading = false,
+  isMulti = false,
 }) => {
   const { getValues, control, setValue } = useFormContext();
 
@@ -56,10 +57,10 @@ export const SelectInput = ({
         }}
         options={options}
         name={name}
-        // onChange={onChange}
         placeholder={label}
-        // value={value}
         {...field}
+        isMulti={isMulti}
+        isClearable={false}
       />
       {error?.message && <span className={styles.HelperText}>{error?.message}</span>}
     </div>

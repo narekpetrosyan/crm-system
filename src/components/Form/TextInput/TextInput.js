@@ -16,6 +16,7 @@ export const TextInput = memo(
     withIcon = false,
     withTopLabel = false,
     disabled = false,
+    size,
   }) => {
     const {
       fieldState: { error },
@@ -28,7 +29,7 @@ export const TextInput = memo(
         <div className={styles.InputBlock}>
           <input
             type={type}
-            style={{ '--padding-right': withIcon ? '30px' : 0 }}
+            style={{ '--padding-right': withIcon ? '30px' : 0, width: size === 'sm' && 60 }}
             className={clsx(styles.InputText, error?.message && styles.InputTextError)}
             id={name}
             placeholder={label}

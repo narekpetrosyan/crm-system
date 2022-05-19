@@ -6,11 +6,19 @@ import { history } from '../../utils/history/history';
 export default class WorkersStore {
   workers = [];
 
+  orderWorkers = [];
+
+  orderWorkersInSmen = [];
+
+  selectedCA = null;
+
   worker = null;
 
   areas = [];
 
   isLoading = false;
+
+  isLoadingFF = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -115,6 +123,18 @@ export default class WorkersStore {
     }
   }
 
+  async searchForOrderFilter(dto = {}) {
+    try {
+      this.isLoadingFF = true;
+      const { data } = await this.workersService.searchForOrderFilter(dto);
+      this.orderWorkers = data.data;
+    } catch (error) {
+      toast.error(error.response.data.message);
+    } finally {
+      this.isLoadingFF = false;
+    }
+  }
+
   async fetchAreas() {
     this.isLoading = true;
     try {
@@ -128,5 +148,13 @@ export default class WorkersStore {
     } finally {
       this.isLoading = false;
     }
+  }
+
+  setWorkersInSmen(data) {
+    this.orderWorkersInSmen = [...this.orderWorkersInSmen, data];
+  }
+
+  setSelectedCA(data) {
+    this.selectedCA = data;
   }
 }
