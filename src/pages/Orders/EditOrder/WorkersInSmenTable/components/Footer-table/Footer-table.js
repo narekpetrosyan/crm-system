@@ -21,7 +21,8 @@ export const FooterTable = memo(({ rowData }) => {
               key={index}
               style={{
                 padding: '0 10px',
-                fontSize: 18,
+                fontSize: 12,
+                fontWeight: '600',
                 textAlign: 'center',
                 margin: '0 auto',
               }}

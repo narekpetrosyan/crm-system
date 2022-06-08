@@ -1,4 +1,5 @@
 import { TextInput } from '../../../../components/Form/TextInput/TextInput';
+import { CheckboxLabel } from '../../../../components/Form/CheckboxLabel/CheckboxLabel';
 
 export const inSmenColumns = (control) => {
   return [
@@ -22,11 +23,21 @@ export const inSmenColumns = (control) => {
       ),
     },
     {
+      field: 'is_paid',
+      headerName: '₽',
+      cellRenderer: ({ data }) => <CheckboxLabel control={control} name={`${data.id}_is_paid`} />,
+    },
+    {
       field: 'w_price_step_two',
       headerName: 'ЗП 2 этап',
       cellRenderer: ({ data }) => (
         <TextInput type="number" size="sm" control={control} name={`${data.id}_w_price_step_two`} />
       ),
+    },
+    {
+      field: 'is_paid',
+      headerName: '₽',
+      cellRenderer: ({ data }) => <CheckboxLabel control={control} name={`${data.id}_is_paid`} />,
     },
     {
       field: 'w_price',

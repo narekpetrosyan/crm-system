@@ -28,7 +28,9 @@ const WorkersInSmenTable = observer(() => {
       e: '',
       workers_cnt: wHours,
       w_price_step_one: wPriceStepOne,
+      f: '',
       w_price_step_two: wPriceStepTwo,
+      g: '',
       w_price: wPrice,
       price: price,
     };

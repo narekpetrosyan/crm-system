@@ -76,6 +76,7 @@ const EditForm = ({ control, order }) => {
         <DateInput variant="datetime" name="start_time" label="Начало смены" />
         <DateInput variant="datetime" name="end_time" label="Окончание смены" />
         <CheckboxLabel name="is_payment" label="Оплачено заказчиком" />
+        <CheckboxLabel name="active" label="Не учитывать обед" />
       </div>
 
       <div>

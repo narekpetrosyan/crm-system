@@ -77,12 +77,12 @@ const EditOrder = observer(() => {
   };
 
   const clickSelectButton = (id) => {
-    workersStore.setWorkersInSmen(workersStore.orderWorkers.find((el) => el.id === id));
-    workersStore.orderWorkers = workersStore.orderWorkers.filter((el) => el.id !== id);
     setValue('workers', [
       ...getValues('workers'),
       workersStore.orderWorkers.find((el) => el.id === id),
     ]);
+    workersStore.setWorkersInSmen(workersStore.orderWorkers.find((el) => el.id === id));
+    workersStore.orderWorkers = workersStore.orderWorkers.filter((el) => el.id !== id);
   };
 
   if (ordersStore.isLoading) return <Loader />;
