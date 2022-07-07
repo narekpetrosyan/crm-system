@@ -150,8 +150,12 @@ export default class WorkersStore {
     }
   }
 
-  setWorkersInSmen(data) {
-    this.orderWorkersInSmen = [...this.orderWorkersInSmen, data];
+  filterOrderWorkers(id) {
+    this.orderWorkers = this.orderWorkers.filter((el) => +el.id !== +id);
+  }
+
+  filterWorkersInSmen(id) {
+    this.orderWorkersInSmen = this.orderWorkersInSmen.filter((el) => +el.id !== +id);
   }
 
   setSelectedCA(data) {

@@ -2,7 +2,7 @@ import mainRoutes from './MainRoutes';
 import _ from 'lodash';
 
 export const getRoutesByPermissions = (permissions) => {
-  const permItems = permissions.length ? permissions.map((it) => +it.id) : [];
+  const permItems = permissions.length ? permissions.map((it) => it.slug) : [];
   const newRoutes = _.filter(
     Object.values(mainRoutes).map((el) => {
       return el.permissions.length
@@ -20,7 +20,7 @@ export const getNavigationRoutesByPermissions = (permissions) => {
     .map((el) => el.iconName && el)
     .filter(Boolean);
 
-  const permItems = permissions.length ? permissions.map((it) => +it.id) : [];
+  const permItems = permissions.length ? permissions.map((it) => it.slug) : [];
   const newRoutes = _.filter(
     Object.values(navLinks).map((el) => {
       return el.permissions.length

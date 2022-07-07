@@ -11,7 +11,7 @@ export const useTableCalculator = ({ watchedData }) => {
     if (Object.keys(watchedData).length > 0) {
       let totalWHours = 0;
       for (const prop in watchedData) {
-        if (prop.includes('workers_cnt')) {
+        if (prop.includes('working_hours')) {
           if (watchedData[prop]) {
             totalWHours += Number(+watchedData[prop]);
           }
@@ -25,7 +25,7 @@ export const useTableCalculator = ({ watchedData }) => {
     if (Object.keys(watchedData).length > 0) {
       let totalPriceStepOne = 0;
       for (const prop in watchedData) {
-        if (prop.includes('w_price_step_one')) {
+        if (prop.includes('price_first_stage')) {
           if (watchedData[prop]) {
             totalPriceStepOne += Number(+watchedData[prop]);
           }
@@ -39,7 +39,7 @@ export const useTableCalculator = ({ watchedData }) => {
     if (Object.keys(watchedData).length > 0) {
       let totalPriceStepTwo = 0;
       for (const prop in watchedData) {
-        if (prop.includes('w_price_step_two')) {
+        if (prop.includes('price_second_stage')) {
           if (watchedData[prop]) {
             totalPriceStepTwo += Number(+watchedData[prop]);
           }
@@ -53,7 +53,7 @@ export const useTableCalculator = ({ watchedData }) => {
     if (Object.keys(watchedData).length > 0) {
       let totalPrice = 0;
       for (const prop in watchedData) {
-        if (prop.match(/\d+\_(price)\b/g)) {
+        if (prop.match(/\d+\_(c_price)\b/g)) {
           if (watchedData[prop]) {
             totalPrice += Number(+watchedData[prop]);
           }

@@ -7,9 +7,11 @@ import { history } from '@utils/history/history';
 import Table from '@components/Table/Table';
 import { getTableColumns } from './helpers/getTableColumns';
 import { convertTableData } from './helpers/convertTableData';
+import { useObserve } from '../../../hooks/useObserve';
 
 const MainCalls = observer(() => {
   const { callsStore } = useStore();
+  useObserve();
   const todayCallsCount = callsStore?.todayCallsCount;
 
   useEffect(() => {

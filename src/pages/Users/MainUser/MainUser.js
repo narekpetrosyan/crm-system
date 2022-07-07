@@ -7,9 +7,11 @@ import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import Table from '@components/Table/Table';
 import { convertTableData } from './helpers/convertTableData';
 import { getTableColumns } from './helpers/getTableColumns';
+import { useObserve } from '../../../hooks/useObserve';
 
 const MainUser = observer(() => {
   const { usersStore, authStore } = useStore();
+  useObserve();
 
   useEffect(() => {
     usersStore.fetchUsers();
@@ -23,17 +25,17 @@ const MainUser = observer(() => {
     () => ({
       pushAction: (id) => history.push(`/users/edit/${id}`),
       removeAction: (id) => usersStore.removeUser(id),
-      showEdit: authStore.transformedPermissions.includes(3),
-      showRemove: authStore.transformedPermissions.includes(4),
+      showEdit: authStore.transformedPermissions.includes('edit.users'),
+      showRemove: authStore.transformedPermissions.includes('delete.users'),
     }),
-    [],
+    [authStore],
   );
 
   return (
     <InnerLayout>
       <PageHeading
         title="Пользователи"
-        withButton={authStore.transformedPermissions.includes(2)}
+        withButton={authStore.transformedPermissions.includes('create.users')}
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
@@ -42,8 +44,8 @@ const MainUser = observer(() => {
       <Table
         isLoading={usersStore.isLoading}
         withCellRenderer={
-          authStore.transformedPermissions.includes(3) ||
-          authStore.transformedPermissions.includes(4)
+          authStore.transformedPermissions.includes('edit.users') ||
+          authStore.transformedPermissions.includes('delete.users')
         }
         cellRendererProps={cellRendererProps}
         rowData={usersData}

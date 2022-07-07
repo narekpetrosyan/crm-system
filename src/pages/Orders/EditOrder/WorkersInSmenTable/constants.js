@@ -1,7 +1,9 @@
 import { TextInput } from '../../../../components/Form/TextInput/TextInput';
 import { CheckboxLabel } from '../../../../components/Form/CheckboxLabel/CheckboxLabel';
+import AgActionButtons from '../../../../components/AgActionButtons/AgActionButtons';
+import React from 'react';
 
-export const inSmenColumns = (control) => {
+export const inSmenColumns = ({ control, removeAction, saveAction }) => {
   return [
     { field: 'id', hide: true, headerName: 'ID' },
     { field: 'fullName', headerName: 'ФИО' },
@@ -9,48 +11,86 @@ export const inSmenColumns = (control) => {
     { field: 'number_card', headerName: 'Номер карты' },
     { field: 'bank_name', headerName: 'Банк' },
     {
-      field: 'workers_cnt',
+      field: 'working_hours',
       headerName: 'Смена часов',
       cellRenderer: ({ data }) => (
-        <TextInput type="number" size="sm" control={control} name={`${data.id}_workers_cnt`} />
+        <TextInput type="number" size="sm" control={control} name={`${data.id}_working_hours`} />
       ),
     },
     {
-      field: 'w_price_step_one',
+      field: 'price_first_stage',
       headerName: 'ЗП 1 этап',
       cellRenderer: ({ data }) => (
-        <TextInput type="number" size="sm" control={control} name={`${data.id}_w_price_step_one`} />
+        <TextInput
+          type="number"
+          size="sm"
+          control={control}
+          name={`${data.id}_price_first_stage`}
+        />
       ),
     },
     {
-      field: 'is_paid',
+      field: 'is_paid_first_stage',
       headerName: '₽',
-      cellRenderer: ({ data }) => <CheckboxLabel control={control} name={`${data.id}_is_paid`} />,
+      cellRenderer: ({ data }) => (
+        <CheckboxLabel control={control} name={`${data.id}_is_paid_first_stage`} />
+      ),
     },
     {
-      field: 'w_price_step_two',
+      field: 'price_second_stage',
       headerName: 'ЗП 2 этап',
       cellRenderer: ({ data }) => (
-        <TextInput type="number" size="sm" control={control} name={`${data.id}_w_price_step_two`} />
+        <TextInput
+          type="number"
+          size="sm"
+          control={control}
+          name={`${data.id}_price_second_stage`}
+        />
       ),
     },
     {
-      field: 'is_paid',
+      field: 'is_paid_second_stage',
       headerName: '₽',
-      cellRenderer: ({ data }) => <CheckboxLabel control={control} name={`${data.id}_is_paid`} />,
+      cellRenderer: ({ data }) => (
+        <CheckboxLabel control={control} name={`${data.id}_is_paid_second_stage`} />
+      ),
     },
     {
       field: 'w_price',
       headerName: 'Сумма з/п работника',
       cellRenderer: ({ data }) => (
-        <TextInput type="number" size="sm" control={control} name={`${data.id}_w_price`} />
+        <TextInput type="number" size="sm" control={control} name={`${data.id}_w_price`} disabled />
       ),
     },
     {
-      field: 'price',
+      field: 'c_price',
       headerName: 'Цена клиент',
       cellRenderer: ({ data }) => (
-        <TextInput type="number" size="sm" control={control} name={`${data.id}_price`} />
+        <TextInput type="number" size="sm" control={control} name={`${data.id}_c_price`} disabled />
+      ),
+    },
+    {
+      field: 'save',
+      headerName: '',
+      cellRenderer: ({ data }) => (
+        <AgActionButtons
+          data={data}
+          showSave={true}
+          saveAction={() => saveAction(data)}
+          withThirdButton={false}
+        />
+      ),
+    },
+    {
+      field: 'remove',
+      headerName: '',
+      cellRenderer: ({ data }) => (
+        <AgActionButtons
+          data={data}
+          showRemove={true}
+          removeAction={() => removeAction(data)}
+          withThirdButton={false}
+        />
       ),
     },
   ];

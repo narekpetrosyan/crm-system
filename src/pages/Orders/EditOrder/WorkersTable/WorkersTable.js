@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { observer } from 'mobx-react-lite';
 import { AgGridColumn, AgGridReact } from 'ag-grid-react';
 
@@ -10,9 +10,17 @@ import { TableFilter } from './components/TableFilter/TableFilter';
 import WorkersInSmenTable from '../WorkersInSmenTable/WorkersInSmenTable';
 
 import styles from './WorkersTable.module.scss';
+import { useStore } from '../../../../hooks/useStore';
 
 export const WorkersTable = observer(
-  ({ rowData, isLoading, filterHandler, selectButtonHandler, showWorkingTable = false }) => {
+  ({
+    rowData,
+    isLoading,
+    filterHandler,
+    selectButtonHandler,
+    showWorkingTable = false,
+    orderId,
+  }) => {
     const cellDefaultStyles = useMemo(() => ({ fontSize: '12px', fontWeight: '600' }), []);
 
     const columns = useMemo(
@@ -88,7 +96,7 @@ export const WorkersTable = observer(
             </AgGridReact>
           </div>
         )}
-        {showWorkingTable && <WorkersInSmenTable />}
+        {showWorkingTable && <WorkersInSmenTable orderId={orderId} />}
       </>
     );
   },

@@ -17,7 +17,7 @@ import styles from './EditUser.module.scss';
 
 const EditUser = observer(() => {
   const { id } = useParams();
-  const { usersStore } = useStore();
+  const { usersStore, authStore } = useStore();
 
   const form = useForm({
     mode: 'onSubmit',
@@ -38,8 +38,8 @@ const EditUser = observer(() => {
     Promise.all([usersStore.fetchPermissionsAndCities(), usersStore.getUserById(id)]).then(() => {
       setValue('name', usersStore.user.name);
       setValue('email', usersStore.user.email);
-      setValue('is_admin', usersStore.user.is_admin);
-      setValue('city_id', usersStore.user.city_id);
+      setValue('is_admin', usersStore.user?.is_admin);
+      setValue('city_id', usersStore.user?.city_id);
       setValue(`permissions`, [...usersStore.user.permissions]);
     });
   }, [reset]);
@@ -52,9 +52,10 @@ const EditUser = observer(() => {
     const dataToSend = {
       ...data,
       permissions: [...data.permissions.filter(Boolean)],
-      city_id: data.city_id.value,
+      city_id: data?.city_id?.value,
     };
-    usersStore.saveUser(dataToSend, id);
+    usersStore.saveUser(dataToSend, id).then(() => authStore.getMe());
+
     form.reset({}, { keepValues: false });
   };
 

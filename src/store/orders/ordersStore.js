@@ -10,6 +10,8 @@ export default class OrdersStore {
 
   isLoading = false;
 
+  orderWorkers = [];
+
   constructor() {
     makeAutoObservable(this);
     this.ordersService = new OrdersService();
@@ -98,6 +100,27 @@ export default class OrdersStore {
       toast.error(error.response.data.message);
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  async getAttachedWorkers(id) {
+    try {
+      const { data } = await this.ordersService.getAttachedWorkers(id);
+      this.orderWorkers = data.data;
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+
+  filterOrderWorkers(id) {
+    this.orderWorkers = this.orderWorkers.filter((el) => +el.worker_id !== +id);
+  }
+
+  async updateOrderWorkers(dto) {
+    try {
+      const { data } = await this.ordersService.updateOrderWorkers(dto);
+    } catch (e) {
+      toast.error(e.response.data.message);
     }
   }
 }

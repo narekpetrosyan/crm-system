@@ -29,7 +29,9 @@ const Login = observer(() => {
 
   const submitForm = (data) => {
     const { email, password } = data;
-    authStore.login(email, password);
+    authStore.login(email, password).then(() => {
+      authStore.getMe();
+    });
     reset({ email: '', password: '' }, { keepValues: false });
   };
 

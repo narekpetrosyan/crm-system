@@ -40,19 +40,19 @@ const mainRoutes = {
     element: MainUser,
     iconName: 'man-white',
     title: 'Пользователи',
-    permissions: [1],
+    permissions: ['view.users'],
   },
   createUser: {
     exact: false,
     pathName: '/users/create',
     element: CreateUser,
-    permissions: [2],
+    permissions: ['create.users'],
   },
   editUser: {
     exact: false,
     pathName: '/users/edit/:id',
     element: EditUser,
-    permissions: [3],
+    permissions: ['edit.users'],
   },
 
   cities: {
@@ -61,19 +61,19 @@ const mainRoutes = {
     element: MainCities,
     iconName: 'factory-white',
     title: 'Города',
-    permissions: [18],
+    permissions: ['view.cities'],
   },
   createCity: {
     exact: false,
     pathName: '/cities/create',
     element: CreateCity,
-    permissions: [19],
+    permissions: ['create.cities'],
   },
   editCity: {
     exact: false,
     pathName: '/cities/edit/:id',
     element: EditCity,
-    permissions: [20],
+    permissions: ['edit.cities'],
   },
 
   contrAgents: {
@@ -82,19 +82,19 @@ const mainRoutes = {
     element: MainContrAgents,
     iconName: 'man-white',
     title: 'Контрагенты',
-    permissions: [5],
+    permissions: ['view.contragents'],
   },
   createContrAgent: {
     exact: false,
     pathName: '/contr-agents/create',
     element: CreateContrAgent,
-    permissions: [6],
+    permissions: ['create.contragents'],
   },
   editContrAgent: {
     exact: false,
     pathName: '/contr-agents/edit/:id',
     element: EditContrAgent,
-    permissions: [7],
+    permissions: ['edit.contragents'],
   },
 
   calls: {
@@ -130,19 +130,19 @@ const mainRoutes = {
     element: MainWorkers,
     iconName: 'man-white',
     title: 'Работники',
-    permissions: [9],
+    permissions: ['view.workers'],
   },
   createWorker: {
     exact: false,
     pathName: '/workers/create',
     element: CreateWorker,
-    permissions: [10],
+    permissions: ['create.workers'],
   },
   editWorker: {
     exact: false,
     pathName: '/workers/edit/:id',
     element: EditWorker,
-    permissions: [11],
+    permissions: ['edit.workers'],
   },
 
   orders: {
@@ -151,19 +151,19 @@ const mainRoutes = {
     element: MainOrders,
     iconName: 'man-white',
     title: 'Заказы',
-    permissions: [13],
+    permissions: ['view.orders'],
   },
   createOrder: {
     exact: false,
     pathName: '/orders/create',
     element: CreateOrder,
-    permissions: [14],
+    permissions: ['create.orders'],
   },
   editOrder: {
     exact: false,
     pathName: '/orders/edit/:id',
     element: EditOrder,
-    permissions: [15],
+    permissions: ['edit.orders'],
   },
 
   analytics: {

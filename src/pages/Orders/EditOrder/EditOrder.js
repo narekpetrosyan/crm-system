@@ -10,12 +10,12 @@ import { useStore } from '@hooks/useStore';
 import { $authHost } from '../../../http';
 import EditForm from './EditForm';
 import { PickWorker } from './PickWorker/PickWorker';
+import OrdersService from '../../../http/orders-service/orders-service';
 import { WorkersTable } from './WorkersTable/WorkersTable';
 
 import styles from '../CreateOrder/CreateOrder.module.scss';
 
 const EditOrder = observer(() => {
-  const [workers, setWorkers] = useState([]);
   const [filterType, setFilterType] = useState('ALL');
   const { id } = useParams();
   const { ordersStore, workersStore } = useStore();
@@ -32,7 +32,6 @@ const EditOrder = observer(() => {
 
   useEffect(() => {
     return () => {
-      setWorkers([]);
       workersStore.orderWorkersInSmen = [];
     };
   }, []);
@@ -76,13 +75,13 @@ const EditOrder = observer(() => {
     });
   };
 
-  const clickSelectButton = (id) => {
-    setValue('workers', [
-      ...getValues('workers'),
-      workersStore.orderWorkers.find((el) => el.id === id),
-    ]);
-    workersStore.setWorkersInSmen(workersStore.orderWorkers.find((el) => el.id === id));
-    workersStore.orderWorkers = workersStore.orderWorkers.filter((el) => el.id !== id);
+  const clickSelectButton = async (wid) => {
+    await OrdersService.addInSmenTable(wid, id).then(() => workersStore.filterOrderWorkers(wid));
+    // setValue('workers', [
+    //   ...getValues('workers'),
+    //   workersStore.orderWorkers.find((el) => el.id === id),
+    // ]);
+    // workersStore.setWorkersInSmen(workersStore.orderWorkers.find((el) => el.id === id));
   };
 
   if (ordersStore.isLoading) return <Loader />;
@@ -103,6 +102,7 @@ const EditOrder = observer(() => {
             filterHandler={handleFilter}
             selectButtonHandler={clickSelectButton}
             showWorkingTable={filterType === 'WORKING'}
+            orderId={id}
           />
         </div>
 

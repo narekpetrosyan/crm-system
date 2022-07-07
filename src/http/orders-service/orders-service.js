@@ -39,4 +39,19 @@ export default class OrdersService {
   static async getCaOContactList(id) {
     return await $authHost.get(`/contragent-object-contact-list/${id}`);
   }
+
+  static async addInSmenTable(workerId, orderId) {
+    return await $authHost.post(`/add-order-worker`, {
+      workerId,
+      orderId,
+    });
+  }
+
+  async getAttachedWorkers(orderId) {
+    return await $authHost.get(`/get-order-workers/${orderId}`);
+  }
+
+  async updateOrderWorkers(data) {
+    return await $authHost.post(`/update-order-worker`, data);
+  }
 }

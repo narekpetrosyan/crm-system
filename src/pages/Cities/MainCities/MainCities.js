@@ -6,9 +6,11 @@ import PageHeading from '@components/PageHeading/PageHeading';
 import Table from '@components/Table/Table';
 import InnerLayout from '@layouts/InnerLayout/InnerLayout';
 import { getTableColumns } from './helpers/getTableColumns';
+import { useObserve } from '../../../hooks/useObserve';
 
 const MainCities = observer(() => {
   const { citiesStore, authStore } = useStore();
+  useObserve();
 
   useEffect(() => {
     citiesStore.fetchCities();
@@ -20,8 +22,8 @@ const MainCities = observer(() => {
     () => ({
       pushAction: (id) => history.push(`/cities/edit/${id}`),
       removeAction: (id) => citiesStore.removeCity(id),
-      showEdit: authStore.transformedPermissions.includes(20),
-      showRemove: authStore.transformedPermissions.includes(21),
+      showEdit: authStore.transformedPermissions.includes('edit.cities'),
+      showRemove: authStore.transformedPermissions.includes('delete.cities'),
     }),
     [],
   );
@@ -30,7 +32,7 @@ const MainCities = observer(() => {
     <InnerLayout>
       <PageHeading
         title="Города"
-        withButton={authStore.transformedPermissions.includes(19)}
+        withButton={authStore.transformedPermissions.includes('create.cities')}
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
@@ -41,8 +43,8 @@ const MainCities = observer(() => {
         cellRendererProps={cellRendererProps}
         columns={getTableColumns}
         withCellRenderer={
-          authStore.transformedPermissions.includes(20) ||
-          authStore.transformedPermissions.includes(21)
+          authStore.transformedPermissions.includes('edit.cities') ||
+          authStore.transformedPermissions.includes('delete.cities')
         }
         rowData={citiesStore.cities}
       />

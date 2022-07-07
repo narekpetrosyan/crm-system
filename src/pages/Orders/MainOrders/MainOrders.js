@@ -22,9 +22,9 @@ const MainOrders = observer(() => {
       removeAction: (id) => ordersStore.removeOrder(id),
       setOnRemoveAction: (id) => ordersStore.setOnRemove(id),
       recoverAction: (id) => ordersStore.setOnRemove(id, true),
-      showEdit: authStore.transformedPermissions.includes(15),
-      showRemove: authStore.transformedPermissions.includes(16),
-      withThirdButton: authStore.transformedPermissions.includes(24),
+      showEdit: authStore.transformedPermissions.includes('edit.orders'),
+      showRemove: authStore.transformedPermissions.includes('delete.orders'),
+      withThirdButton: authStore.transformedPermissions.includes('softdelete.orders'),
     }),
     [],
   );
@@ -37,7 +37,7 @@ const MainOrders = observer(() => {
     <InnerLayout>
       <PageHeading
         title="Заказы"
-        withButton={authStore.transformedPermissions.includes(14)}
+        withButton={authStore.transformedPermissions.includes('create.orders')}
         buttonTitle="Добавить"
         iconName="edit"
         buttonAction={headingButtonAction}
@@ -50,9 +50,9 @@ const MainOrders = observer(() => {
         getRowStyle={getRowStyle}
         columns={getTableColumns}
         withCellRenderer={
-          authStore.transformedPermissions.includes(15) ||
-          authStore.transformedPermissions.includes(16) ||
-          authStore.transformedPermissions.includes(24)
+          authStore.transformedPermissions.includes('edit.orders') ||
+          authStore.transformedPermissions.includes('delete.orders') ||
+          authStore.transformedPermissions.includes('softdelete.orders')
         }
       />
     </InnerLayout>

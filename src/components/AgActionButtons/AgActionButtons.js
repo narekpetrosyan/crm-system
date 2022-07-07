@@ -8,9 +8,11 @@ const AgActionButtons = ({
   data,
   editAction,
   removeAction,
+  saveAction,
   withThirdButton = false,
   showEdit = false,
   showRemove = false,
+  showSave = false,
   thirdAction,
   thirdIconName = 'delete',
 }) => {
@@ -29,6 +31,11 @@ const AgActionButtons = ({
       {showRemove && (
         <Button clickHandler={() => removeAction(data.id)} size={25}>
           <Icon name="trash" size={0.6} />
+        </Button>
+      )}
+      {showSave && (
+        <Button clickHandler={() => saveAction(data.id)} size={25}>
+          <Icon name="check" size={0.6} />
         </Button>
       )}
     </div>

@@ -13,11 +13,13 @@ import { useAnalyticsOptions } from '@hooks/useAnalyticsOptions';
 import { history } from '@utils/history/history';
 import { getTableColumns } from './helpers/getTableColumns';
 import { convertTableData } from './helpers/convertTableData';
+import { useObserve } from '../../../hooks/useObserve';
 
 import styles from './MainAnalytics.module.scss';
 
 const MainAnalytics = observer(() => {
   const { analyticsStore } = useStore();
+  useObserve();
   const { contrAgents, isLoading } = useAnalyticsOptions();
   const form = useForm({
     mode: 'onSubmit',

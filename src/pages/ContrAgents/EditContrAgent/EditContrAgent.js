@@ -40,10 +40,12 @@ const EditContrAgent = observer(() => {
       if (id) await contrAgentsStore.getContrAgentById(id);
     };
     fetchContrAgentData().then(() => {
-      setValue(
-        'responsible_id',
-        transformForSelectObject(contrAgentsStore.contrAgent?.responsible, 'id', 'name'),
-      );
+      if (contrAgentsStore.contrAgent?.responsible) {
+        setValue(
+          'responsible_id',
+          transformForSelectObject(contrAgentsStore.contrAgent?.responsible, 'id', 'name'),
+        );
+      }
     });
   }, []);
 
@@ -62,9 +64,9 @@ const EditContrAgent = observer(() => {
   const submitForm = (data) => {
     contrAgentsStore.saveContrAgent(id, {
       ...data,
-      city_id: data.city_id?.value,
+      city_id: data.city_id?.value || null,
       status: data.status?.value,
-      responsible_id: data.responsible_id?.value,
+      responsible_id: data.responsible_id?.value || null,
     });
   };
 

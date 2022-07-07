@@ -55,4 +55,8 @@ export default class WorkersService {
   async fetchAreas() {
     return await $authHost.get('/workers/getAreas');
   }
+
+  static async removeOrderWorker(data) {
+    return await $authHost.post('/remove-order-worker', data);
+  }
 }
