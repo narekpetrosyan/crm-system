@@ -51,7 +51,6 @@ export const useCaValues = (control, setValue) => {
   const [caOContactList, setCaOContactList] = useState([]);
   const [notFiltered, setNotFiltered] = useState([]);
   const [wPrice, setWPrice] = useState();
-  const [price, setPrice] = useState();
   const [comment, setComment] = useState();
   const [caOContactListLoading, setCaOContactListLoading] = useState(false);
   const watchCAOId = useWatch({ name: 'object_id', control })?.value;
@@ -63,7 +62,6 @@ export const useCaValues = (control, setValue) => {
         const { data } = await OrdersService.getCaOContactList(watchCAOId);
         setNotFiltered(data.results);
         setWPrice(data.ca.w_price);
-        setPrice(data.ca.price);
         setComment(data.ca.comment);
         setCaOContactList(transformForSelect(data.results, 'id', 'name'));
       } catch (e) {
@@ -83,7 +81,6 @@ export const useCaValues = (control, setValue) => {
     if (watchCAOListId) {
       setValue('phone', notFiltered.find((el) => Number(el.id) === watchCAOListId)?.phone);
       setValue('w_price', wPrice);
-      setValue('price', price);
       setValue('comment', comment);
     }
   }, [watchCAOListId]);

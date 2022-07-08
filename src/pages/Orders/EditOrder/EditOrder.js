@@ -40,6 +40,7 @@ const EditOrder = observer(() => {
     mode: 'onSubmit',
     defaultValues: {
       ...ordersStore.order,
+      price: ordersStore.order?.price,
       is_payment: ordersStore.order?.is_fully_paid,
       workers: [],
     },
@@ -77,11 +78,6 @@ const EditOrder = observer(() => {
 
   const clickSelectButton = async (wid) => {
     await OrdersService.addInSmenTable(wid, id).then(() => workersStore.filterOrderWorkers(wid));
-    // setValue('workers', [
-    //   ...getValues('workers'),
-    //   workersStore.orderWorkers.find((el) => el.id === id),
-    // ]);
-    // workersStore.setWorkersInSmen(workersStore.orderWorkers.find((el) => el.id === id));
   };
 
   if (ordersStore.isLoading) return <Loader />;

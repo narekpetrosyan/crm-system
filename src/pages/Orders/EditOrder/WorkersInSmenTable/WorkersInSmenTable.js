@@ -101,6 +101,12 @@ const WorkersInSmenTable = observer(({ orderId }) => {
             resizable: true,
             autoHeight: true,
           }}
+          getRowStyle={({ data }) => {
+            if (data.is_paid) {
+              return { background: '#85ff63' };
+            }
+            return { background: '' };
+          }}
           rowData={ordersStore.orderWorkers}
         >
           {columns.map((colItem) => (
