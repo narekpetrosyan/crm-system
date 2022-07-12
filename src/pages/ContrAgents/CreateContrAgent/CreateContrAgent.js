@@ -130,14 +130,14 @@ const CreateContrAgent = observer(() => {
                 control={control}
                 type="number"
                 withTopLabel
-                label="Ставка работника (Первый этап) руб./ч"
+                label="Ставка работника (1 этап) руб./ч"
                 name="w_price_step_one"
               />
               <TextInput
                 control={control}
                 type="number"
                 withTopLabel
-                label="Ставка работника (Второй этап) руб./ч"
+                label="Ставка работника (2 этап) руб./ч"
                 name="w_price_step_two"
               />
             </div>

@@ -24,4 +24,8 @@ export default class CallsService {
   async removeCall(id) {
     return await $authHost.delete(`/calls/${id}`);
   }
+
+  async fetchIncomingCalls(id) {
+    return await $authHost.get(`/incoming-calls/${id}`);
+  }
 }

@@ -34,7 +34,7 @@ export default class ContrAgentsStore {
       this.contrAgents = data.data;
       this.statuses = data.statuses;
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       this.isLoading = false;
     }
@@ -50,7 +50,7 @@ export default class ContrAgentsStore {
         history.push('/contr-agents');
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       this.isLoading = false;
     }
@@ -65,7 +65,7 @@ export default class ContrAgentsStore {
         await this.fetchContrAgents();
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
       throw error;
     } finally {
       this.isLoading = false;
@@ -82,7 +82,7 @@ export default class ContrAgentsStore {
         history.push('/contr-agents');
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       this.isLoading = false;
     }
@@ -95,7 +95,7 @@ export default class ContrAgentsStore {
       toast.success(data.message);
       await this.fetchContrAgents();
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       this.isLoading = false;
     }
@@ -110,7 +110,7 @@ export default class ContrAgentsStore {
         this.contrAgents = this.contrAgents.filter((item) => item.id !== id);
       }
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       this.isLoading = false;
     }
@@ -122,7 +122,7 @@ export default class ContrAgentsStore {
       const { data } = await this.contrAgentsService.searchFilter(dto);
       this.contrAgents = data.data;
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       this.isLoading = false;
     }
@@ -136,7 +136,7 @@ export default class ContrAgentsStore {
       this.contactResults = data.results;
       this.isContactResultsLoaded = true;
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error?.response?.data?.message);
     } finally {
       this.isContactsLoading = false;
     }

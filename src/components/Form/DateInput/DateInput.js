@@ -24,7 +24,10 @@ const DateInput = ({ name, className, label, variant = 'date' }) => {
         id={name}
         className={errors[name]?.message && styles.InputDateError}
       />
-      {!!errors[name]?.message && <p className={styles.DateInputError}>{errors[name]?.message}</p>}
+
+      {!!errors?.[name]?.message && (
+        <p className={styles.DateInputError}>{errors[name]?.message}</p>
+      )}
     </div>
   );
 };

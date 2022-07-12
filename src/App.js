@@ -7,9 +7,14 @@ import Authentication from './pages/Auth/Authentication';
 import NotFound from './pages/NotFound/NotFound';
 import { useEffect } from 'react';
 import Loader from './components/Loader/Loader';
+import moment from 'moment';
 
 const App = observer(() => {
   const { authStore } = useStore();
+
+  useEffect(() => {
+    moment.locale('ru');
+  }, []);
 
   useEffect(() => {
     authStore.getMe();

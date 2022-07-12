@@ -8,6 +8,8 @@ export default class CallsStore {
 
   todayCallsCount = 0;
 
+  incomingCallsCount = 0;
+
   calls = [];
 
   call = null;
@@ -98,6 +100,15 @@ export default class CallsStore {
       toast.error(error.response.data.message);
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  async fetchIncomingCalls(id) {
+    try {
+      const { data } = await this.callsService.fetchIncomingCalls(id);
+      this.incomingCallsCount = data.count;
+    } catch (error) {
+      toast.error(error.response.data.message);
     }
   }
 }

@@ -27,3 +27,27 @@
         }
     }
 }
+
+.incomingCalls {
+    padding: 0 20px;
+    animation: blink 2s linear infinite;
+    color: red;
+
+    span {
+        padding: 0 20px;
+        font-size: 25px;
+    }
+}
+
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: .5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

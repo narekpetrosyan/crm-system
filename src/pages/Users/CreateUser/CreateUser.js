@@ -85,17 +85,18 @@ const CreateUser = observer(() => {
             </form>
           </FormProvider>
         )}
-      </div>
 
-      <div className={styles.UsersInnerSave}>
-        <Button
-          clickHandler={form.handleSubmit(submitForm)}
-          size={150}
-          disabled={usersStore.isLoading}
-          loading={usersStore.isLoading}
-        >
-          Сохранить
-        </Button>
+        <div className={styles.UsersInnerSave}>
+          <Button
+            color="primary"
+            clickHandler={form.handleSubmit(submitForm)}
+            size={150}
+            disabled={usersStore.isLoading}
+            loading={usersStore.isLoading}
+          >
+            Сохранить
+          </Button>
+        </div>
       </div>
     </InnerLayout>
   );

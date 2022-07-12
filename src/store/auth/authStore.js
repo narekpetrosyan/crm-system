@@ -12,6 +12,8 @@ export default class AuthStore {
 
   transformedPermissions = [];
 
+  user = {};
+
   constructor() {
     makeAutoObservable(this);
     this.logout = this.logout.bind(this);
@@ -23,6 +25,7 @@ export default class AuthStore {
       const { data } = await AuthService.login(email, password);
       localStorage.setItem('isAuth', JSON.stringify(true));
       localStorage.setItem('token', data.token);
+      this.user = data.user;
       this.isAuth = true;
       this.permissions = data.permissions;
       this.transformPermissions();
@@ -86,6 +89,7 @@ export default class AuthStore {
       this.permissions = data.permissions;
       this.transformPermissions();
       this.isAuth = true;
+      this.user = data.user;
     } catch (error) {
       if (error?.response.status === 401) {
         localStorage.removeItem('isAuth');
