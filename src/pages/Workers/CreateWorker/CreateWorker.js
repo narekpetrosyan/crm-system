@@ -77,7 +77,12 @@ const CreateWorker = observer(() => {
               <TextInput control={control} name="name" label="Имя" withTopLabel />
               <TextInput control={control} name="patronymic" label="Отчество" withTopLabel />
               <DateInput name="dt_birth" label="Дата рождения" />
-              <SelectInput name="gender" label="Пол" withTopLabel options={genderSelectData} />
+              <SelectInput
+                name="gender"
+                label="Пол"
+                withTopLabel
+                options={genderSelectData.slice(0, genderSelectData.length - 1)}
+              />
               <DateInput name="created_at" label="Дата регистрации" />
             </div>
             <div className={styles.CreateWorkerFormBlock}>

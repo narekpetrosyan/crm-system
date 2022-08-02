@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
+import Heading from '../Heading/Heading';
 import { getNavigationRoutesByPermissions } from '../../routes/getRoutesByPermissions';
 import { useStore } from '../../hooks/useStore';
 import { LinkItem } from '../LinkItem/LinkItem';
 
 import styles from './Sidebar.module.scss';
-import Heading from '../Heading/Heading';
 
 export const Sidebar = observer(({ expanded = true, todayCallsCount }) => {
   const { authStore, callsStore } = useStore();

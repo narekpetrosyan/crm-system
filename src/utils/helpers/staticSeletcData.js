@@ -1,6 +1,7 @@
 export const genderSelectData = [
   { value: 0, label: 'Мужской' },
   { value: 1, label: 'Женский' },
+  { value: 2, label: 'М/Ж' },
 ];
 
 export const statusSelectData = [
